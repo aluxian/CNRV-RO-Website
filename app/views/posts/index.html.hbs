@@ -1,0 +1,17 @@
+<div class="hero-unit">
+  <h2>All Posts</h2>
+  <a href="/posts/add" class="btn pull-right">Create a new Post</a>
+</div>
+
+<div id="posts-list">
+{{#each posts }}
+  <div class="row list-item" id="post-{{id}}">
+    <div class="span8">
+      <h3><a href="/posts/{{id}}">{{id}}</a></h3>
+    </div>
+    <div class="span4">
+      <h3><i class="icon-list-alt"></i>{{id}}</h3>
+    </div>
+  </div>
+{{/each}}
+</div>
