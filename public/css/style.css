@@ -43,7 +43,7 @@ article {
 }
 
 article:first-child {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 .wrapper {
@@ -52,4 +52,8 @@ article:first-child {
   height: 100%;
   margin: 0 auto -405px;
   padding-bottom: 405px;
+}
+
+.navbar {
+  margin-top: 25px;
 }
