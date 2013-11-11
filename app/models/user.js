@@ -12,8 +12,8 @@ var User = function () {
   this.validatesConfirmed('password', 'confirmPassword');
 
   this.hasMany('Passports');
+  this.hasMany('Posts');
+  this.hasMany('Comments', {through: 'Posts'});
 };
 
 User = geddy.model.register('User', User);
-
-

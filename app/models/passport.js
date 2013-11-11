@@ -8,4 +8,3 @@ var Passport = function () {
 };
 
 Passport = geddy.model.register('Passport', Passport);
-
