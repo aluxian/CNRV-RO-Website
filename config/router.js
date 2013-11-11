@@ -19,7 +19,7 @@
 var router = new geddy.RegExpRouter();
 
 // Main
-router.get('/').to('Posts.index');
+router.get('/').to('Main.index');
 
 // Auth
 router.get('/login').to('Main.login');

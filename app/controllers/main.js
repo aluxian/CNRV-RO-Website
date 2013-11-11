@@ -16,7 +16,7 @@
  *
 */
 var strategies = require('../helpers/passport/strategies')
-  , authTypes = geddy.mixin(strategies, {local: {name: 'local account'}});;
+  , authTypes = geddy.mixin(strategies, {local: {name: 'local account'}});
 
 var Main = function () {
 
