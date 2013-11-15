@@ -1,3 +1,4 @@
+/* Main styling */
 html, body {
   height: 100%;
 }
@@ -6,15 +7,128 @@ body {
   background-color: #edeff1;
 }
 
+a:hover, a:focus {
+  color: #e74c3c;
+}
+
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -405px;
+  padding-bottom: 405px;
+}
+
+/* Navigation bar */
+.navbar {
+  border-radius: 0;
+  border-bottom: 1px solid #2c3e50;
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+}
+
+.navbar .navbar-header {
+  border-left: 1px solid #2c3e50;
+}
+
+.navbar-inverse .nav > li.active > a, .navbar-inverse .nav > li.active > a:hover, .navbar-inverse .nav > li.active > a:focus {
+  background-color: #e74c3c;
+  border-bottom-color: #c0392b;
+}
+
+.navbar-inverse .nav > li > a {
+  border-left: none !important;
+}
+
+.navbar .nav > li > a:hover, .navbar .nav > li > a:focus {
+  color: #2c3e50;
+  background-color: transparent; 
+}
+
+.navbar .nav li.dropdown > .dropdown-toggle:hover .caret, .navbar .nav li.dropdown > .dropdown-toggle:focus .caret {
+  border-bottom-color: #e74c3c;
+  border-top-color: #e74c3c;
+}
+
+.navbar.navbar-inverse .nav li.dropdown.open > .dropdown-toggle {
+  background-color: #e74c3c;
+  border-bottom-color: #c0392b;
+  color: #ffffff;
+  border-radius: 0;
+}
+
+.navbar .navbar-brand:hover, .navbar .navbar-brand:focus {
+  color: #fff;
+  border-radius: 0;
+}
+
+.navbar .navbar-brand {
+  border: none;
+  border-radius: 0;
+  font-size: 33px;
+  font-weight: 300;
+  line-height: 42px;
+}
+
+.navbar-inverse .nav > li > a {
+  border-bottom: none;
+  font-size: 20px;
+  line-height: 27px;
+}
+
+.navbar, .navbar .navbar-header, .navbar .nav li a {
+  height: 60px;
+  border-radius: 0;
+}
+
+.navbar .navbar-header {
+  background: #e74c3c;
+}
+
+.navbar .nav > li {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 0 0 rgba(255, 255, 255, 0.11);
+  transition: background-color 0.2s linear;
+}
+
+.navbar .nav > li:hover {
+  background: #fff;
+  height: 61px;
+  box-shadow: none;
+  border-right: 1px solid #2c3e50;
+}
+
+.navbar .nav > li:first-child, .navbar .nav > li:last-child {
+  border-radius: 0;
+}
+
+.navbar-inverse .navbar-toggle {
+  border-color: #fff;
+}
+
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+  background-color: #354b60;
+}
+.navbar-inverse .navbar-toggle:hover {
+  border-color: #354b60;
+}
+
+.navbar-toggle {
+  margin-top: 13px;
+  margin-bottom: 13px;
+}
+
+/* Footer */
 footer {
   height: 405px;
-  background-color: #34495e;
   border-top: 5px solid #e74c3c;
   color: #dfdfdf;
 }
 
 footer .widgets {
   height: 320px;
+  background-color: #34495e;
   padding-top: 8px;
 }
 
@@ -28,32 +142,82 @@ footer .nav a {
   font-weight: normal;
 }
 
+/* Text */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .navbar .nav > li > a {
+  font-weight: 400;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 3px;
+  font-size: 40px;
+  color: #363A41;
+}
+
 h4 {
   font-size: 21px;
   font-weight: normal;
 }
 
-article {
-  height: 700px;
+h5 {
+  font-size: 33px;
+  text-shadow: 1px 1px #FFFFFF;
+}
+
+/* Posts area */
+section.container {
   background: white;
-  margin-bottom: 70px;
+  margin-top: 100px;
+  margin-bottom: 50px;
   border: 1px solid #d7e0e9;
   border-radius: 4px;
-  padding: 10px;
+  padding: 30px;
 }
 
-article:first-child {
-  margin-top: 20px;
+article.col-md-8 {
+  height: 700px;
+  padding: 0;
 }
 
-.wrapper {
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  margin: 0 auto -405px;
-  padding-bottom: 405px;
+aside.col-md-4 {
+  padding-left: 30px;
+  padding-right: 0;
 }
 
-.navbar {
-  margin-top: 25px;
+/* Widgets */
+.widget {
+  border-bottom: 1px dotted rgba(52, 73, 94, 0.20);
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+}
+
+.widget:last-child {
+  border-bottom: none;
+}
+
+.widget h3 {
+  font-size: 22px;
+  margin: 0;
+  padding-bottom: 5px;
+  color: rgba(136, 136, 136, 0.46);
+}
+
+.widget ul {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 20px;
+}
+
+.widget ul li {
+  font-size: 18px;
+  line-height: 25px;
+  margin-bottom: 5px;
+}
+
+.widget ul li a {
+  color: #34495E;
+}
+
+.widget ul li a:hover {
+  color: #e74c3c;
 }
