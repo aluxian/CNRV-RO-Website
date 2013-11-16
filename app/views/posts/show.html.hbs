@@ -1,16 +1,33 @@
-<div class="hero-unit">
-  <h2 class="title">{{ post.title }}</h2>
-  <a href="/posts/{{params.id}}/edit" class="btn pull-right">Edit this post</a>
-</div>
+{{{partial 'app/views/layouts/layout_nav' user=user}}}
 
-<h2>Post Properties</h2>
-{{#each post }}
-<div class="row list-item">
-  <div class="span4">
-    <h3>{{@key}}</h3>
-  </div>
-  <div class="span8">
-    <h3><i class="icon-list-alt"></i><span class="{{ @key }}">{{ this }}</span></h3>
-  </div>
+<div class="container">
+  <section class="container">
+    <div class="articlesWrapper col-md-8">
+      <div class="articles">
+        {{#with post}}
+        <article>
+          <h2><a href="/posts/{{id}}">{{title}}</a></h2>
+          
+          <ul class="post-info">
+            <li><a href="/users/{{user.id}}/posts">{{user.givenName}} {{user.familyName}}</a></li>
+            <li>&bull;</li>
+            <li><a href="/categories/{{category.id}}">{{category.name}}</a></li>
+            <li>&bull;</li>
+            <li><a href="/?date={{timeToTimestamp createdAt}}">{{timeToPostFormat createdAt}}</a></li>
+            <li>&bull;</li>
+            <li><a href="/posts/{{id}}#comments">{{singOrPlural comments.length 'Comentariu' 'Comentarii'}}</a></li>
+            <li>&bull;</li>
+            <li><a href="#">Share</a></li>
+          </ul>
+
+          <div class="post-body">
+            {{{content}}}
+          </div>
+        </article>
+        {{/with}}
+      </div>
+    </div>
+
+    {{{partial 'app/views/layouts/layout_widgets'}}}
+  </section>
 </div>
-{{/each}}

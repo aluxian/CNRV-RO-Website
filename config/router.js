@@ -19,7 +19,8 @@
 var router = new geddy.RegExpRouter();
 
 // Main
-router.get('/').to('Main.index');
+router.get('/').to('Posts.index');
+router.match('/users/:id/posts', 'GET').to({controller: 'Users', action: 'getPosts'});
 
 // Auth
 router.get('/login').to('Main.login');
@@ -31,5 +32,11 @@ router.get('/auth/facebook').to('Auth.facebook');
 router.get('/auth/facebook/callback').to('Auth.facebookCallback');
 router.get('/auth/yammer').to('Auth.yammer');
 router.get('/auth/yammer/callback').to('Auth.yammerCallback');
+
+// Models
+router.resource('users');
+router.resource('posts');
+router.resource('comments');
+router.resource('categories');
 
 exports.router = router;

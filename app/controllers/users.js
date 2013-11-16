@@ -1,4 +1,6 @@
-var passport = require('../helpers/passport')
+var async = require('async')
+  , utils = require('../helpers/utils')
+  , passport = require('../helpers/passport')
   , cryptPass = passport.cryptPass
   , requireAuth = passport.requireAuth;
 
@@ -15,6 +17,10 @@ var Users = function () {
     geddy.model.User.all(function(err, users) {
       self.respond({params: params, users: users});
     });
+  };
+
+  this.getPosts = function(res, resp, params) {
+    new geddy.controller.Posts().index.bind(this)(res, resp, params, {userId: params.id});
   };
 
   this.add = function (req, resp, params) {

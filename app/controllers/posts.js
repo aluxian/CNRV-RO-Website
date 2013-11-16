@@ -1,11 +1,44 @@
+var async = require('async')
+  , utils = require('../helpers/utils')
+  , moment = require('moment');
+
 var Posts = function () {
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
 
-  this.index = function (req, resp, params) {
-    var self = this;
+  this.index = function (req, resp, params, q) {
+    var self = this
+      , options = {sort: {createdAt: 'desc'}, limit: 10};
 
-    geddy.model.Post.all(function(err, posts) {
-      self.respondWith(posts, {type:'Post'});
+    // Parse 'date' parameter
+    /*if (params.date) {
+      q = q || {};
+      q.createdAt = {gt: '1384465150000'};//moment(params.date*1000).format().substring(0, 10)
+    }*/
+
+    // Parse 'skip' parameter
+    if (params.skip) {
+      options.skip = parseInt(params.skip);
+    }
+
+    async.waterfall([
+      // Load data
+      async.apply(async.parallel, {
+        posts: async.apply(geddy.model.Post.all, q, options)
+      , user: async.apply(geddy.model.User.first, {id: self.session.get('userId')})
+      })
+      // Parse data
+    , utils.fetchAssociations(['User', 'Category', 'Comments'], 'posts')
+    ], function(err, data) {
+      if (err) {
+        throw err;
+      } else if (!data.posts) {
+        throw new geddy.errors.NotFoundError();
+      } else {
+        self.respond(data, {
+          format: 'html'
+        , template: 'app/views/posts/index'
+        });
+      }
     });
   };
 
@@ -19,8 +52,7 @@ var Posts = function () {
 
     if (!post.isValid()) {
       this.respondWith(post);
-    }
-    else {
+    } else {
       post.save(function(err, data) {
         if (err) {
           throw err;
@@ -33,15 +65,24 @@ var Posts = function () {
   this.show = function (req, resp, params) {
     var self = this;
 
-    geddy.model.Post.first(params.id, function(err, post) {
+    async.waterfall([
+      // Load data
+      async.apply(async.parallel, {
+        post: async.apply(geddy.model.Post.first, params.id)
+      , user: async.apply(geddy.model.User.first, {id: self.session.get('userId')})
+      })
+      // Parse data
+    , utils.fetchAssociations(['User', 'Category', 'Comments'], 'post')
+    ], function(err, data) {
       if (err) {
         throw err;
-      }
-      if (!post) {
+      } else if (!data.post) {
         throw new geddy.errors.NotFoundError();
-      }
-      else {
-        self.respondWith(post);
+      } else {
+        self.respond(data, {
+          format: 'html'
+        , template: 'app/views/posts/show'
+        });
       }
     });
   };
@@ -52,11 +93,9 @@ var Posts = function () {
     geddy.model.Post.first(params.id, function(err, post) {
       if (err) {
         throw err;
-      }
-      if (!post) {
+      } if (!post) {
         throw new geddy.errors.BadRequestError();
-      }
-      else {
+      } else {
         self.respondWith(post);
       }
     });
@@ -73,8 +112,7 @@ var Posts = function () {
 
       if (!post.isValid()) {
         self.respondWith(post);
-      }
-      else {
+      } else {
         post.save(function(err, data) {
           if (err) {
             throw err;
@@ -91,11 +129,9 @@ var Posts = function () {
     geddy.model.Post.first(params.id, function(err, post) {
       if (err) {
         throw err;
-      }
-      if (!post) {
+      } if (!post) {
         throw new geddy.errors.BadRequestError();
-      }
-      else {
+      } else {
         geddy.model.Post.remove(params.id, function(err) {
           if (err) {
             throw err;

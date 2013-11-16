@@ -15,8 +15,32 @@
  * limitations under the License.
  *
 */
+var Handlebars = require('handlebars')
+  , moment = require('moment');
+
+// Set MomentJS language
+moment.lang('ro');
 
 var Application = function () {
+  /* Return the singular for no == 1 and plural otherwise */
+  Handlebars.registerHelper('singOrPlural', function(no, singular, plural, options) {
+    return no + ' ' + (no == 1 ? singular : plural);
+  });
+
+  /* Format time to be shown in posts */
+  Handlebars.registerHelper('timeToPostFormat', function(time, options) {
+    return moment(time).format('LL');
+  });
+
+  /* Convert time to timestamp */
+  Handlebars.registerHelper('timeToTimestamp', function(time, options) {
+    return moment(time).format('X');
+  });
+
+  /* Used for logging */
+  Handlebars.registerHelper('log', function(data, options) {
+    console.log("HB LOG: ", data);
+  });
 };
 
 exports.Application = Application;

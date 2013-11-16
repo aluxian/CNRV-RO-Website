@@ -22,7 +22,17 @@ var config = {
 , hostname: null
 , port: 4000
 , model: {
-    defaultAdapter: 'filesystem'
+    defaultAdapter: 'mongo'
+  }
+, db: {
+    mongo: {
+      username: null
+    , dbname: 'dev'
+    , prefix: null
+    , password: null
+    , host: 'localhost'
+    , port: 27017
+    }
   }
 , sessions: {
     store: 'memory'

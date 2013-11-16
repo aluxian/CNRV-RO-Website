@@ -10,6 +10,7 @@ var Post = function () {
   });
 
   this.hasMany('Comments');
+  this.belongsTo('Category');
   this.belongsTo('User');
 };
 

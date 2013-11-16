@@ -1,17 +1,38 @@
-<div class="hero-unit">
-  <h2>All Posts</h2>
-  <a href="/posts/add" class="btn pull-right">Create a new Post</a>
-</div>
+{{{partial 'app/views/layouts/layout_nav' user=user}}}
 
-<div id="posts-list">
-{{#each posts }}
-  <div class="row list-item" id="post-{{id}}">
-    <div class="span8">
-      <h3><a href="/posts/{{id}}">{{id}}</a></h3>
+<div class="container">
+  <section class="container">
+    <div class="articlesWrapper col-md-8">
+      <div class="articles">
+        {{#each posts}}
+        <article>
+          <h2><a href="/posts/{{id}}">{{title}}</a></h2>
+          
+          <ul class="post-info">
+            <li><a href="/users/{{user.id}}/posts">{{user.givenName}} {{user.familyName}}</a></li>
+            <li>&bull;</li>
+            <li><a href="/categories/{{category.id}}">{{category.name}}</a></li>
+            <li>&bull;</li>
+            <li><a href="/?date={{timeToTimestamp createdAt}}">{{timeToPostFormat createdAt}}</a></li>
+            <li>&bull;</li>
+            <li><a href="/posts/{{id}}#comments">{{singOrPlural comments.length 'Comentariu' 'Comentarii'}}</a></li>
+            <li>&bull;</li>
+            <li><a href="#">Share</a></li>
+          </ul>
+
+          <div class="post-body">
+            {{{content}}}
+          </div>
+        </article>
+        {{/each}}
+      </div>
+
+      <ul class="pager">
+        <li class="previous"><a href="#">&larr; Older</a></li>
+        <li class="next disabled"><a href="#">Newer &rarr;</a></li>
+      </ul>
     </div>
-    <div class="span4">
-      <h3><i class="icon-list-alt"></i>{{id}}</h3>
-    </div>
-  </div>
-{{/each}}
+
+    {{{partial 'app/views/layouts/layout_widgets'}}}
+  </section>
 </div>

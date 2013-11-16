@@ -1,10 +1,14 @@
-/* Main styling */
+/* General styling */
 html, body {
   height: 100%;
 }
 
 body {
   background-color: #edeff1;
+}
+
+a {
+  color: #34495e;
 }
 
 a:hover, a:focus {
@@ -94,7 +98,7 @@ a:hover, a:focus {
 
 .navbar .nav > li:hover {
   background: #fff;
-  height: 61px;
+  height: 60px;
   box-shadow: none;
   border-right: 1px solid #2c3e50;
 }
@@ -117,6 +121,26 @@ a:hover, a:focus {
 .navbar-toggle {
   margin-top: 13px;
   margin-bottom: 13px;
+}
+
+@media (min-width: 768px) {
+  .navbar-collapse .navbar-nav.navbar-right:last-child {
+    margin-right: -44px;
+  }
+}
+
+.nav.navbar-nav.navbar-right li.placeholder {
+  height: 60px;
+  width: 0;
+}
+
+/* Header */
+header {
+  padding-top: 50px;
+}
+
+header .col-md-6 {
+  padding: 0;
 }
 
 /* Footer */
@@ -147,6 +171,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .navbar .nav > li > a {
   font-weight: 400;
 }
 
+h1 {
+  font-size: 38px;
+  font-weight: 300;
+  margin-top: 50px;
+  margin-bottom: 8px;
+}
+
 h2 {
   margin-top: 0;
   margin-bottom: 3px;
@@ -167,16 +198,25 @@ h5 {
 /* Posts area */
 section.container {
   background: white;
-  margin-top: 100px;
+  margin-top: 50px;
   margin-bottom: 50px;
   border: 1px solid #d7e0e9;
   border-radius: 4px;
   padding: 30px;
 }
 
-article.col-md-8 {
-  height: 700px;
+.articlesWrapper.col-md-8 {
   padding: 0;
+}
+
+article {
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px dotted rgba(52, 73, 94, 0.1);
+}
+
+article:last-child {
+  border-bottom: none;
 }
 
 aside.col-md-4 {
@@ -184,9 +224,30 @@ aside.col-md-4 {
   padding-right: 0;
 }
 
+ul.post-info {
+  padding-left: 0;
+}
+
+ul.post-info li {
+  display: inline;
+  margin-right: 7px;
+}
+
+.pager {
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: table;
+}
+
+.pager .disabled > a, .pager .disabled > a:hover, .pager .disabled > a:focus, .pager .disabled > span {
+  color: #B9B9B9;
+  background-color: #E0E0E0;
+}
+
 /* Widgets */
 .widget {
-  border-bottom: 1px dotted rgba(52, 73, 94, 0.20);
+  border-bottom: 1px dotted rgba(52, 73, 94, 0.1);
   padding-bottom: 15px;
   margin-bottom: 25px;
 }

@@ -30,8 +30,6 @@ var Passports = function () {
   this.destroy = function (req, resp, params) {
     this.respond({params: params});
   };
-
 };
 
 exports.Passports = Passports;
-
