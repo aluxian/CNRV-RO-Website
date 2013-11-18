@@ -1,0 +1,21 @@
+        {{#with post}}
+        <article>
+          <h2><a href="/posts/{{id}}">{{title}}</a></h2>
+          
+          <ul class="post-info">
+            <li><a href="/users/{{user.id}}/posts">{{user.givenName}} {{user.familyName}}</a></li>
+            <li>&bull;</li>
+            <li><a href="/categories/{{category.id}}">{{category.name}}</a></li>
+            <li>&bull;</li>
+            <li><a href="/?date={{timeToTimestamp createdAt}}">{{timeToPostFormat createdAt}}</a></li>
+            <li>&bull;</li>
+            <li><a href="/posts/{{id}}#comments">{{comments.length}} {{singOrPlural comments.length 'Comentariu' 'Comentarii'}}</a></li>
+            <li>&bull;</li>
+            <li><a href="#">Share</a></li>
+          </ul>
+
+          <div class="post-body">
+            {{{content}}}
+          </div>
+        </article>
+        {{/with}}

@@ -1,5 +1,6 @@
 var utils = {}
-  , async = require('async');
+  , async = require('async')
+  , _ = require('underscore');
 
 /**
  * Fetch the provided models' associated data. Used in async.waterfall
@@ -35,6 +36,27 @@ utils.fetchAssociations = function(models, field) {
       callback(err, data);
     });
   };
+};
+
+/**
+ * Fetches data required on every page (user, widgets etc.)
+ * @param  session   Session object
+ * @param  callback  Callback
+ */
+utils.loadPageData = function(pageData, session, callback) {
+  // Defined tasks
+  var tasks = {
+    user: async.apply(geddy.model.User.first, {id: session.get('userId')})
+  , recentPosts: async.apply(geddy.model.Post.all, null, {sort: {createdAt: 'desc'}, limit: 5})
+  };
+
+  // Only run tasks defined in the 'pageData' param
+  _.each(tasks, function(val, key) {
+    if (!_.contains(pageData, key))
+      delete tasks[key];
+  });
+  
+  async.parallel(tasks, callback);
 };
 
 module.exports = utils;

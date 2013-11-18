@@ -1,6 +1,7 @@
 var async = require('async')
   , utils = require('../helpers/utils')
-  , moment = require('moment');
+  , moment = require('moment')
+  , _ = require('underscore');
 
 var Posts = function () {
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
@@ -12,7 +13,7 @@ var Posts = function () {
     // Parse 'date' parameter
     /*if (params.date) {
       q = q || {};
-      q.createdAt = {gt: '1384465150000'};//moment(params.date*1000).format().substring(0, 10)
+      q.createdAt = {'like': '2013-11-16'}; // moment(params.date*1000).format().substring(0, 10)
     }*/
 
     // Parse 'skip' parameter
@@ -24,11 +25,14 @@ var Posts = function () {
       // Load data
       async.apply(async.parallel, {
         posts: async.apply(geddy.model.Post.all, q, options)
-      , user: async.apply(geddy.model.User.first, {id: self.session.get('userId')})
+      , pageData: async.apply(utils.loadPageData, ['user', 'recentPosts'], self.session)
       })
       // Parse data
     , utils.fetchAssociations(['User', 'Category', 'Comments'], 'posts')
     ], function(err, data) {
+      data = _.extend(data, data.pageData);
+      delete data.pageData;
+
       if (err) {
         throw err;
       } else if (!data.posts) {
@@ -69,11 +73,20 @@ var Posts = function () {
       // Load data
       async.apply(async.parallel, {
         post: async.apply(geddy.model.Post.first, params.id)
-      , user: async.apply(geddy.model.User.first, {id: self.session.get('userId')})
+      , pageData: async.apply(utils.loadPageData, ['user', 'recentPosts'], self.session)
       })
       // Parse data
     , utils.fetchAssociations(['User', 'Category', 'Comments'], 'post')
+    , function(data, callback) {
+        utils.fetchAssociations(['User'], 'comments')(data.post, function(err, pData) {
+          data.post = pData;
+          callback(err, data);
+        });
+      }
     ], function(err, data) {
+      data = _.extend(data, data.pageData);
+      delete data.pageData;
+
       if (err) {
         throw err;
       } else if (!data.post) {

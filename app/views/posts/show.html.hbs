@@ -4,30 +4,12 @@
   <section class="container">
     <div class="articlesWrapper col-md-8">
       <div class="articles">
-        {{#with post}}
-        <article>
-          <h2><a href="/posts/{{id}}">{{title}}</a></h2>
-          
-          <ul class="post-info">
-            <li><a href="/users/{{user.id}}/posts">{{user.givenName}} {{user.familyName}}</a></li>
-            <li>&bull;</li>
-            <li><a href="/categories/{{category.id}}">{{category.name}}</a></li>
-            <li>&bull;</li>
-            <li><a href="/?date={{timeToTimestamp createdAt}}">{{timeToPostFormat createdAt}}</a></li>
-            <li>&bull;</li>
-            <li><a href="/posts/{{id}}#comments">{{singOrPlural comments.length 'Comentariu' 'Comentarii'}}</a></li>
-            <li>&bull;</li>
-            <li><a href="#">Share</a></li>
-          </ul>
-
-          <div class="post-body">
-            {{{content}}}
-          </div>
-        </article>
-        {{/with}}
+        {{{partial 'app/views/layouts/layout_post' post=post}}}
       </div>
+
+      {{{partial 'app/views/layouts/layout_comments' comments=post.comments}}}
     </div>
 
-    {{{partial 'app/views/layouts/layout_widgets'}}}
+    {{{partial 'app/views/layouts/layout_widgets' recentPosts=recentPosts}}}
   </section>
 </div>

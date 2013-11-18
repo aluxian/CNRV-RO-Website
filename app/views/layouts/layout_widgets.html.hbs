@@ -2,11 +2,9 @@
       <div class="widget">
         <h3>Postari Recente</h3>
         <ul>
-          <li><a href="#">Elevii din CNRV nu vor uniforma</a></li>
-          <li><a href="#">10B cea mai cuminte clasa</a></li>
-          <li><a href="#">Blah blah we're the best</a></li>
-          <li><a href="#">Abracadabra, indistinctibilii, si alte cuvinte lungi</a></li>
-          <li><a href="#">Horray!</a></li>
+          {{#each recentPosts}}
+          <li><a href="/posts/{{id}}">{{title}}</a></li>
+          {{/each}}
         </ul>
       </div>
 

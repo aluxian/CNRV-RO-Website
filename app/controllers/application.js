@@ -22,14 +22,19 @@ var Handlebars = require('handlebars')
 moment.lang('ro');
 
 var Application = function () {
-  /* Return the singular for no == 1 and plural otherwise */
+  /* Return the singular form if no equals 1 or plural otherwise */
   Handlebars.registerHelper('singOrPlural', function(no, singular, plural, options) {
-    return no + ' ' + (no == 1 ? singular : plural);
+    return no == 1 ? singular : plural;
   });
 
   /* Format time to be shown in posts */
   Handlebars.registerHelper('timeToPostFormat', function(time, options) {
     return moment(time).format('LL');
+  });
+
+  /* Format time to be shown in comments */
+  Handlebars.registerHelper('timeToCommentFormat', function(time, options) {
+    return moment(time).format('lll');
   });
 
   /* Convert time to timestamp */

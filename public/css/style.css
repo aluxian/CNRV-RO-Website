@@ -185,9 +185,16 @@ h2 {
   color: #363A41;
 }
 
-h4 {
+h3.bottom-widget {
   font-size: 21px;
   font-weight: normal;
+}
+
+h4 {
+  font-size: 25px;
+  border-bottom: 3px solid #34495e;
+  padding-bottom: 15px;
+  margin-bottom: 0;
 }
 
 h5 {
@@ -210,8 +217,8 @@ section.container {
 }
 
 article {
-  margin-bottom: 40px;
-  padding-bottom: 20px;
+  margin-bottom: 45px;
+  padding-bottom: 35px;
   border-bottom: 1px dotted rgba(52, 73, 94, 0.1);
 }
 
@@ -266,13 +273,14 @@ ul.post-info li {
 .widget ul {
   margin-top: 10px;
   margin-bottom: 10px;
-  padding-left: 20px;
+  padding-left: 0;
+  list-style-type: none;
 }
 
 .widget ul li {
   font-size: 18px;
   line-height: 25px;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
 }
 
 .widget ul li a {
@@ -281,4 +289,89 @@ ul.post-info li {
 
 .widget ul li a:hover {
   color: #e74c3c;
+}
+
+/* Comments */
+.comments .comment {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px dotted rgba(52, 78, 104, 0.23);
+  display: inline-block;
+  width: 100%;
+}
+
+.comments .comment:last-child {
+  border-bottom: none;
+}
+
+.comments .comment > .col-md-2 {
+  padding-left: 0;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.comments .comment > .col-md-10 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.comments .comment .comment-header {
+  padding-bottom: 40px;
+}
+
+.comments .comment .comment-header > .col-md-8 {
+  padding: 0;
+  font-size: 22px;
+  color: #2c3e50;
+}
+
+.comments .comment .comment-header > .col-md-4 {
+  padding: 0;
+  text-align: right;
+  font-size: 15px;
+  line-height: 37px;
+  color: rgba(136, 136, 136, 0.46);
+}
+
+.comments .comment .comment-avatar {
+  width: 75px;
+  height: 75px;
+}
+
+.comment-reply-form {
+  margin-top: 30px;
+}
+
+.form-group.focus .form-control, .form-control:focus {
+  border-color: #e74c3c;
+}
+
+/* Login page */
+.signin-form {
+  float: inherit;
+  margin: 30px auto;
+}
+
+.signin-form input {
+  margin-bottom: 20px;
+}
+
+.signin-form button {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  float: right;
+}
+
+@media (min-width: 768px) {
+  .comment-reply-form .col-sm-2 {
+    width: 20%;
+  }
+
+  .comment-reply-form .col-sm-10 {
+    width: 80%;
+  }
+
+  .comment-reply-form .col-sm-offset-2 {
+    margin-left: 20%;
+  }
 }
