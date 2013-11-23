@@ -13,14 +13,14 @@
         <ul class="widget-comments">
           {{#each widgets.recentComments}}
           <li>
-            <a class="widget-comment" href="{{postPath postId}}">
+            <div class="widget-comment">
               <div class="col-md-4">
                 <img class="comment-avatar" src="//www.gravatar.com/avatar/{{avatarHash}}?s=40&d=mm" alt="Avatar">
               </div>
               <div class="col-md-8">
-                <p>{{truncate content 130}}</p>
+                <a href="{{postPath postId}}"><p>{{truncate content 130}}</p></a>
               </div>
-            </a>
+            </div>
           </li>
           {{/each}}
         </ul>

@@ -46,7 +46,7 @@ var Posts = function () {
       post: async.apply(async.waterfall, [
         async.apply(geddy.model.Post.first, params.id)
       , utils.fetchAssociations({fetch: ['User', 'Category', 'Comments', {for: 'comments', fetch: ['User']}]})
-      , utils.generateAvatars
+      , utils.generateAvatarsForPost
       ])
     });
   };
