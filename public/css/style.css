@@ -16,10 +16,14 @@ a:hover, a:focus {
 }
 
 span#comments {
-  margin-top: -70px;
-  padding-bottom: 70px;
+  margin-top: -60px;
+  padding-bottom: 60px;
   display: block;
   height: 0;
+}
+
+.fb-like {
+  margin-top: 25px;
 }
 
 .wrapper {
@@ -319,7 +323,7 @@ section.container {
 
 article {
   margin-bottom: 45px;
-  padding-bottom: 35px;
+  padding-bottom: 5px;
   border-bottom: 1px dotted rgba(52, 73, 94, 0.1);
 }
 
