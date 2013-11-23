@@ -15,6 +15,13 @@ a:hover, a:focus {
   color: #e74c3c;
 }
 
+span#comments {
+  margin-top: -70px;
+  padding-bottom: 70px;
+  display: block;
+  height: 0;
+}
+
 .wrapper {
   min-height: 100%;
   height: auto !important;
@@ -260,7 +267,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .navbar .nav > li > a {
 h1 {
   font-size: 38px;
   font-weight: 300;
-  margin-top: 50px;
+  margin-top: 55px;
   margin-bottom: 8px;
 }
 
@@ -384,6 +391,40 @@ ul.post-info li {
 
 .widget ul li a:hover {
   color: #e74c3c;
+}
+
+.widget .widget-comment {
+  display: inline-block;
+  border-bottom: 1px dotted rgba(52, 73, 94, 0.1);
+}
+
+.widget li:last-child .widget-comment {
+  border-bottom: none;
+}
+
+.widget .widget-comment .col-md-4 {
+  padding: 0 0 12px 0;
+  width: 47px;
+}
+
+.widget .widget-comment .col-md-8 {
+  padding: 0 0 0 6px;
+  width: calc(100% - 47px);
+}
+
+.widget .widget-comment .comment-avatar {
+  width: 40px;
+  height: 40px;
+}
+
+.widget .widget-comment p {
+  font-size: 18px;
+  line-height: 18px;
+}
+
+.widget .widget-comments {
+  margin-top: 15px;
+  margin-bottom: -10px;
 }
 
 /* Comments */

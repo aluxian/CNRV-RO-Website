@@ -1,4 +1,4 @@
-      <h1 id="comments" class="hidden">Comments Hash Link</h1>
+      <span id="comments"> &nbsp; </span>
 
       {{#if comments.length}}
       <h4>{{comments.length}} {{singOrPlural comments.length 'Comentariu' 'Comentarii'}}</h4>
@@ -13,7 +13,7 @@
             <div class="comment-header">
               <span class="col-md-8">
                 {{#if user}}
-                <a href="/users/{{user.id}}">{{user.givenName}} {{user.familyName}}</a>
+                <a href="{{userPath user.id}}">{{user.givenName}} {{user.familyName}}</a>
                 {{else}}
                 {{#if name}}
                 <span>{{name}}</span>
@@ -62,7 +62,7 @@
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
             <input type="hidden" name="postId" value="{{post.id}}">
-            <button type="submit" class="btn btn-inverse">Submit</button>
+            <button type="submit" class="btn btn-inverse">Trimite</button>
           </div>
         </div>
       </form>

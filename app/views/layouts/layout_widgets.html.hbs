@@ -2,18 +2,27 @@
       <div class="widget">
         <h3>Postari Recente</h3>
         <ul>
-          {{#each recentPosts}}
-          <li><a href="/posts/{{id}}">{{title}}</a></li>
+          {{#each widgets.recentPosts}}
+          <li><a href="{{postPath id}}">{{title}}</a></li>
           {{/each}}
         </ul>
       </div>
 
       <div class="widget">
         <h3>Comentarii Recente</h3>
-        <ul>
-          <li><div class="widget-comment">
-            Comment A
-          </div></li>
+        <ul class="widget-comments">
+          {{#each widgets.recentComments}}
+          <li>
+            <a class="widget-comment" href="{{postPath postId}}">
+              <div class="col-md-4">
+                <img class="comment-avatar" src="//www.gravatar.com/avatar/{{avatarHash}}?s=40&d=mm" alt="Avatar">
+              </div>
+              <div class="col-md-8">
+                <p>{{truncate content 130}}</p>
+              </div>
+            </a>
+          </li>
+          {{/each}}
         </ul>
       </div>
 

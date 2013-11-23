@@ -18,7 +18,6 @@ var User = function () {
 
   this.hasMany('Passports');
   this.hasMany('Posts');
-  this.hasMany('Pages');
   this.hasMany('Comments', {through: 'Posts'});
 };
 

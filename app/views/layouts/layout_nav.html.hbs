@@ -16,12 +16,12 @@
             <li class="dropdown">
               <a class="dropdown-toggle">Blog</b></a>
               <ul class="dropdown-menu">
-                {{#each categories}}
+                {{#each nav.categories}}
                 <li><a href="{{categoryPath id}}">{{name}}</a></li>
                 {{/each}}
               </ul>
             </li>
-            {{#each menus}}
+            {{#each nav.menus}}
             <li class="dropdown">
               <a class="dropdown-toggle">{{name}}</b></a>
               <ul class="dropdown-menu">
@@ -34,7 +34,7 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li class="placeholder"/>
+            <li class="placeholder"></li>
             {{#if user.givenName}}
             <li class="dropdown">
               <a href="{{userPath user.id}}" class="dropdown-toggle">{{user.givenName}} {{user.familyName}}</b></a>

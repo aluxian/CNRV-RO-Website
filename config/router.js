@@ -36,6 +36,7 @@ router.get('/auth/facebook/callback').to('Auth.facebookCallback');
 
 // Custom routes
 router.match('/users/:id/posts', 'GET').to({controller: 'Users', action: 'getPosts'});
+router.match('/users/:id/pages', 'GET').to({controller: 'Users', action: 'getPages'});
 router.get('/register').to({controller: 'Users', action: 'add'});
 
 router.resource('pages');

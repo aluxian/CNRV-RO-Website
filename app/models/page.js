@@ -11,7 +11,6 @@ var Page = function () {
   });
 
   this.belongsTo('Menu');
-  this.belongsTo('User');
 };
 
 Page = geddy.model.register('Page', Page);

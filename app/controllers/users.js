@@ -6,7 +6,7 @@ var async = require('async')
 
 var Users = function () {
   this.before(requireAuth, {
-    except: ['add', 'create', 'getPosts']
+    except: ['add', 'create', 'getPosts', 'getPages']
   });
 
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
@@ -21,6 +21,10 @@ var Users = function () {
 
   this.getPosts = function(res, resp, params) {
     new geddy.controller.Posts().index.bind(this)(res, resp, params, {userId: params.id});
+  };
+
+  this.getPages = function(res, resp, params) {
+    new geddy.controller.Pages().index.bind(this)(res, resp, params, {userId: params.id});
   };
 
   this.add = function (req, resp, params) {

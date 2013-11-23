@@ -1,3 +1,6 @@
+var async = require('async')
+  , utils = require('../helpers/utils/utils');
+
 var Pages = function () {
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
 
@@ -30,17 +33,10 @@ var Pages = function () {
   };
 
   this.show = function (req, resp, params) {
-    var self = this;
-
-    geddy.model.Page.first(params.id, function(err, page) {
-      if (err) {
-        throw err;
-      }
-      if (!page) {
-        throw new geddy.errors.NotFoundError();
-      } else {
-        self.respondWith(page);
-      }
+    utils.defaultRespond.bind(this)({
+      page: async.apply(async.waterfall, [
+        async.apply(geddy.model.Page.first, params.id)
+      ])
     });
   };
 
