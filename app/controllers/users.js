@@ -6,7 +6,7 @@ var async = require('async')
 
 var Users = function () {
   this.before(requireAuth, {
-    except: ['add', 'create']
+    except: ['add', 'create', 'getPosts']
   });
 
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
@@ -39,8 +39,7 @@ var Users = function () {
           username: 'This username is already in use.'
         };
         self.transfer('add');
-      }
-      else {
+      } else {
         if (user.isValid()) {
           user.password = cryptPass(user.password);
         }
@@ -48,14 +47,12 @@ var Users = function () {
           if (err) {
             params.errors = err;
             self.transfer('add');
-          }
-          else {
+          } else {
             self.redirect({controller: self.name});
           }
         });
       }
     });
-
   };
 
   this.show = function (req, resp, params) {
@@ -93,7 +90,6 @@ var Users = function () {
     geddy.model.User.first(params.id, function(err, user) {
       // Only update password if it's changed
       var skip = params.password ? [] : ['password'];
-
       user.updateAttributes(params, {skip: skip});
 
       if (params.password && user.isValid()) {

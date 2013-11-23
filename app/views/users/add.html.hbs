@@ -1,4 +1,4 @@
-{{{partial 'app/views/layouts/layout_nav' user=user categories=pageData.navCategories menus=pageData.menus}}}
+{{{partial 'app/views/layouts/layout_nav' user=user categories=pageData.navCategories menus=pageData.navMenus}}}
 
 <div class="container">
   <section class="signin container">
@@ -19,8 +19,10 @@
           <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Password">
         </div>
         <input type="hidden" name="role" value="user">
-        <p>{{log flash}}</p>
-        <button type="submit" class="btn btn-inverse">Create Account</button>
+        <div class="signin-buttons">
+          <button type="submit" class="btn btn-inverse">Create Account</button>
+          <a class="btn btn-info" href="{{facebookPath}}">Use Facebook</a>
+        </div>
       </form>
     </div>
   </section>

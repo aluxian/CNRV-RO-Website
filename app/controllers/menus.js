@@ -19,8 +19,7 @@ var Menus = function () {
 
     if (!menu.isValid()) {
       this.respondWith(menu);
-    }
-    else {
+    } else {
       menu.save(function(err, data) {
         if (err) {
           throw err;
@@ -39,8 +38,7 @@ var Menus = function () {
       }
       if (!menu) {
         throw new geddy.errors.NotFoundError();
-      }
-      else {
+      } else {
         self.respondWith(menu);
       }
     });
@@ -55,8 +53,7 @@ var Menus = function () {
       }
       if (!menu) {
         throw new geddy.errors.BadRequestError();
-      }
-      else {
+      } else {
         self.respondWith(menu);
       }
     });
@@ -73,8 +70,7 @@ var Menus = function () {
 
       if (!menu.isValid()) {
         self.respondWith(menu);
-      }
-      else {
+      } else {
         menu.save(function(err, data) {
           if (err) {
             throw err;
@@ -94,8 +90,7 @@ var Menus = function () {
       }
       if (!menu) {
         throw new geddy.errors.BadRequestError();
-      }
-      else {
+      } else {
         geddy.model.Menu.remove(params.id, function(err) {
           if (err) {
             throw err;

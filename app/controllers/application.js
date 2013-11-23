@@ -16,13 +16,14 @@
  *
 */
 var Handlebars = require('handlebars')
-  , moment = require('moment');
+  , moment = require('moment')
+  , utils = require('../helpers/utils/utils');
 
 // Set MomentJS language
 moment.lang('ro');
 
 var Application = function () {
-  /* Return the singular form if no equals 1 or plural otherwise */
+  /* Return the singular form if no equals 1, plural otherwise */
   Handlebars.registerHelper('singOrPlural', function(no, singular, plural, options) {
     return no == 1 ? singular : plural;
   });
@@ -35,11 +36,6 @@ var Application = function () {
   /* Format time to be shown in comments */
   Handlebars.registerHelper('timeToCommentFormat', function(time, options) {
     return moment(time).format('lll');
-  });
-
-  /* Convert time to timestamp */
-  Handlebars.registerHelper('timeToTimestamp', function(time, options) {
-    return moment(time).format('X');
   });
 
   /* Used for logging */

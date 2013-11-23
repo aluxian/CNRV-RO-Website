@@ -14,7 +14,7 @@
         <div class="collapse navbar-collapse" id="bs-nav">
           <ul class="nav navbar-nav">
             <li class="dropdown">
-              <a href="{{postsPath}}" class="dropdown-toggle">Blog</b></a>
+              <a class="dropdown-toggle">Blog</b></a>
               <ul class="dropdown-menu">
                 {{#each categories}}
                 <li><a href="{{categoryPath id}}">{{name}}</a></li>
@@ -23,7 +23,7 @@
             </li>
             {{#each menus}}
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle">{{name}}</b></a>
+              <a class="dropdown-toggle">{{name}}</b></a>
               <ul class="dropdown-menu">
                 {{#each pages}}
                 <li><a href="{{pagePath id}}">{{title}}</a></li>
@@ -38,7 +38,7 @@
             {{#if user.givenName}}
             <li class="dropdown">
               <a href="{{userPath user.id}}" class="dropdown-toggle">{{user.givenName}} {{user.familyName}}</b></a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu user-logged-in">
                 <li><a href="{{userPath user.id}}">My Account</a></li>
                 <li><a href="/admin">Dashboard</a></li>
                 <li><a href="{{logoutPath}}">Logout</a></li>
@@ -46,9 +46,23 @@
             </li>
             {{else}}
             {{#if user.username}}
-            <li><a href="/users/{{user.id}}">{{user.username}}</a></li>
+            <li class="dropdown">
+              <a href="{{userPath user.id}}" class="dropdown-toggle">{{user.username}}</a>
+              <ul class="dropdown-menu user-logged-in">
+                <li><a href="{{userPath user.id}}">My Account</a></li>
+                <li><a href="/admin">Dashboard</a></li>
+                <li><a href="{{logoutPath}}">Logout</a></li>
+              </ul>
+            </li>
             {{else}}
-            <li><a href="/login">Sign In</a></li>
+            <li class="dropdown">
+              <a href="{{loginPath}}" class="dropdown-toggle">Sign In</a>
+              <ul class="dropdown-menu user-logged-out">
+                <li><a href="{{userPath user.id}}">Sign in with Email</a></li>
+                <li><a href="{{facebookPath}}">Sign in with Facebook</a></li>
+                <li><a href="/register">Create an Account</a></li>
+              </ul>
+            </li>
             {{/if}}
             {{/if}}
           </ul>

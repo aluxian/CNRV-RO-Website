@@ -22,8 +22,7 @@ var Categories = function () {
 
     if (!category.isValid()) {
       this.respondWith(category);
-    }
-    else {
+    } else {
       category.save(function(err, data) {
         if (err) {
           throw err;
@@ -46,8 +45,7 @@ var Categories = function () {
       }
       if (!category) {
         throw new geddy.errors.BadRequestError();
-      }
-      else {
+      } else {
         self.respondWith(category);
       }
     });
@@ -64,8 +62,7 @@ var Categories = function () {
 
       if (!category.isValid()) {
         self.respondWith(category);
-      }
-      else {
+      } else {
         category.save(function(err, data) {
           if (err) {
             throw err;
@@ -85,8 +82,7 @@ var Categories = function () {
       }
       if (!category) {
         throw new geddy.errors.BadRequestError();
-      }
-      else {
+      } else {
         geddy.model.Category.remove(params.id, function(err) {
           if (err) {
             throw err;

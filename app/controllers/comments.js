@@ -19,8 +19,7 @@ var Comments = function () {
 
     if (!comment.isValid()) {
       this.respondWith(comment);
-    }
-    else {
+    } else {
       comment.save(function(err, data) {
         if (err) {
           throw err;
@@ -39,8 +38,7 @@ var Comments = function () {
       }
       if (!comment) {
         throw new geddy.errors.NotFoundError();
-      }
-      else {
+      } else {
         self.respondWith(comment);
       }
     });
@@ -55,8 +53,7 @@ var Comments = function () {
       }
       if (!comment) {
         throw new geddy.errors.BadRequestError();
-      }
-      else {
+      } else {
         self.respondWith(comment);
       }
     });
@@ -73,8 +70,7 @@ var Comments = function () {
 
       if (!comment.isValid()) {
         self.respondWith(comment);
-      }
-      else {
+      } else {
         comment.save(function(err, data) {
           if (err) {
             throw err;
@@ -94,8 +90,7 @@ var Comments = function () {
       }
       if (!comment) {
         throw new geddy.errors.BadRequestError();
-      }
-      else {
+      } else {
         geddy.model.Comment.remove(params.id, function(err) {
           if (err) {
             throw err;

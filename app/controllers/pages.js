@@ -19,8 +19,7 @@ var Pages = function () {
 
     if (!page.isValid()) {
       this.respondWith(page);
-    }
-    else {
+    } else {
       page.save(function(err, data) {
         if (err) {
           throw err;
@@ -39,8 +38,7 @@ var Pages = function () {
       }
       if (!page) {
         throw new geddy.errors.NotFoundError();
-      }
-      else {
+      } else {
         self.respondWith(page);
       }
     });
@@ -55,8 +53,7 @@ var Pages = function () {
       }
       if (!page) {
         throw new geddy.errors.BadRequestError();
-      }
-      else {
+      } else {
         self.respondWith(page);
       }
     });
@@ -73,8 +70,7 @@ var Pages = function () {
 
       if (!page.isValid()) {
         self.respondWith(page);
-      }
-      else {
+      } else {
         page.save(function(err, data) {
           if (err) {
             throw err;
@@ -94,8 +90,7 @@ var Pages = function () {
       }
       if (!page) {
         throw new geddy.errors.BadRequestError();
-      }
-      else {
+      } else {
         geddy.model.Page.remove(params.id, function(err) {
           if (err) {
             throw err;

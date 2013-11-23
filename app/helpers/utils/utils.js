@@ -4,40 +4,48 @@ var utils = {}
 
 /**
  * Fetch the provided models' associated data. Used in async.waterfall
- * @param   models  Array of models to fetch
- * @param   field   Field of the data object to fetch for
- * @return          A function to be called by async
+ * @param  assoc  Object to tell what to fetch
+ *
+ * assoc = {
+ *   for: ''    // field of the data object to fetch in
+ *   fetch: []  // array of strings or other assoc objects to fetch
+ * }
  */
-utils.fetchAssociations = function(models, field) {
+utils.fetchAssociations = function(assoc) {
   return function(data, callback) {
-    // Make sure 'data' is formatted to work with the fetcher
-    var arrayed, items = data[field] || data;
-    if (!(items instanceof Array)) {
-      items = [items];
-      arrayed = true;
-    }
+    (function parseAssoc(assoc, mData, callback) {
+      var arrayed = false
+        , items = mData[assoc.for] || mData;
 
-    // Model fetcher
-    async.each(items, function(item, callback) {
-      async.each(models, function(model, callback) {
-        item['get' + model](function(err, modelData) {
-          item[model.toLowerCase()] = modelData;
-          callback(err);
-        });
-      }, callback);
-    }, function(err) {
-      if (arrayed) {
-        items = items[0];
+      if (!_.isArray(items)) {
+        items = [items];
+        arrayed = true;
       }
-      
-      if (field) {
-        data[field] = items;
-      } else {
-        data = items;
-      }
-      
-      callback(err, data);
-    });
+
+      async.each(assoc.fetch, function(assoc, callback) {
+        if (_.isString(assoc)) {
+          async.each(items, function(item, callback) {
+            item['get' + assoc](function(err, data) {
+              item[assoc.toLowerCase()] = data;
+              callback(err);
+            });
+          }, callback);
+        } else {
+          parseAssoc(assoc, items, function(err, data) {
+            items = data;
+            callback(err);
+          });
+        }
+      }, function(err) {
+        if (arrayed) {
+          items = items[0];
+        }
+        if (assoc.for) {
+          mData[assoc.for] = items;
+        }
+        callback(err, mData);
+      });
+    })(assoc, data, callback);
   };
 };
 
@@ -53,9 +61,9 @@ utils.loadPageData = function(pageData, session, callback) {
   , recentPosts: async.apply(geddy.model.Post.all, null, {sort: {createdAt: 'desc'}, limit: 5})
   , recentComments: async.apply(geddy.model.Comment.all, null, {sort: {createdAt: 'desc'}, limit: 5})
   , navCategories: async.apply(geddy.model.Category.all, null, {sort: {name: 'asc'}})
-  , menus: async.apply(async.waterfall, [
+  , navMenus: async.apply(async.waterfall, [
       async.apply(geddy.model.Menu.all, null, {sort: {name: 'asc'}})
-    , utils.fetchAssociations(['Pages'])
+    , utils.fetchAssociations({fetch: ['Pages']})
     ])
   };
 
@@ -71,18 +79,39 @@ utils.loadPageData = function(pageData, session, callback) {
 };
 
 /**
- * Generate gravatar.com url using author's email address for comments
- * @param  data      Data object which contains a post with comments
+ * Generate a gravatar.com url using author's email address
+ * @param  post      Post object which contains the comments
  * @param  callback  Callback method
  */
-utils.generateAvatars = function(data, callback) {
-  _.each(data.post.comments, function(comment) {
+utils.generateAvatars = function(post, callback) {
+  _.each(post.comments, function(comment) {
     var email = (comment.user && comment.user.email) || comment.email;
     if (email) {
       comment.avatarHash = require('crypto').createHash('md5').update(email).digest('hex');
     }
   });
-  callback(null, data);
+  callback(null, post);
+};
+
+/**
+ * Fetches page data, does other tasks and respond with it
+ * @param  newTasks  New tasks to be done additionally to pageData
+ */
+utils.defaultRespond = function(newTasks, options) {
+  var self = this
+    , tasks = {
+    pageData: async.apply(utils.loadPageData, null, self.session)
+  };
+
+  async.parallel(_.extend(tasks, newTasks), function(err, data) {
+    if (err) {
+      throw err;
+    } else if (!data.posts) {
+      throw new geddy.errors.NotFoundError();
+    } else {
+      self.respond(data, options);
+    }
+  });
 };
 
 module.exports = utils;

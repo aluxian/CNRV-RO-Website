@@ -7,7 +7,7 @@
             <li>&bull;</li>
             <li><a href="{{categoryPath category.id}}">{{category.name}}</a></li>
             <li>&bull;</li>
-            <li><a href="{{postsPath}}?date={{timeToTimestamp createdAt}}">{{timeToPostFormat createdAt}}</a></li>
+            <li>{{timeToPostFormat createdAt}}</li>
             <li>&bull;</li>
             <li><a href="{{postPath id}}#comments">{{comments.length}} {{singOrPlural comments.length 'Comentariu' 'Comentarii'}}</a></li>
             <li>&bull;</li>

@@ -135,6 +135,10 @@ ul.nav li.dropdown:hover > ul.dropdown-menu {
   opacity: 1;
 }
 
+ul.nav li.dropdown:hover > ul.dropdown-menu.user-logged-out {
+  min-width: 210px;
+}
+
 ul.nav li.dropdown > ul.dropdown-menu {
   transition: opacity 0.1s linear;
   border-bottom-left-radius: 1px;
@@ -158,6 +162,14 @@ ul.nav li.dropdown > ul.dropdown-menu {
 .navbar .nav li.dropdown .dropdown-menu > li {
   background: #fff;
   padding: 0;
+}
+
+ul.nav li.dropdown:hover > a.dropdown-toggle {
+  cursor: default;
+}
+
+ul.nav li.dropdown:hover > a.dropdown-toggle[href] {
+  cursor: auto;
 }
 
 ul.nav li.dropdown:hover > a.dropdown-toggle, .navbar .nav > li > a:hover, .navbar .nav > li > a:focus {
@@ -331,7 +343,7 @@ ul.post-info li {
 }
 
 .pager .disabled > a, .pager .disabled > a:hover, .pager .disabled > a:focus, .pager .disabled > span {
-  color: #B9B9B9;
+  color: #9AA0A7;
   background-color: #E0E0E0;
 }
 
