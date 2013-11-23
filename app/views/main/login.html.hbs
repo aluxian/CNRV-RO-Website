@@ -1,21 +1,27 @@
-{{{partial 'app/views/layouts/layout_nav' user=user}}}
+{{{partial 'app/views/layouts/layout_nav' user=user categories=pageData.navCategories menus=pageData.menus}}}
 
 <div class="container">
-  <section class="container">
-    <div class="signin-form col-md-6">
+  <section class="signin container">
+    <h3>Sign In</h3>
+
+    <div class="signin-form col-md-5">
       <form role="form" action="{{localPath}}" method="POST">
-        <div class="form-group">{{{displayFlash flash}}}{{log flash}}
-          <label for="exampleInputLogin1">Login</label>
-          <input type="text" class="form-control" name="username" id="exampleInputLogin1" placeholder="Username or email">
+        <div class="form-group">
+          <label for="inputLogin">Login</label>
+          <input type="text" class="form-control" name="username" id="inputLogin" placeholder="Username or email">
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password">
+          <div>
+            <label for="inputPassword" class="pull-left">Password</label>
+            <a class="pull-right signin-recover" tabindex="-1" href="/recovery">Forgot Password?</a>
+          </div>
+          <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Password">
         </div>
-        <button type="submit" class="btn btn-inverse">Login</button>
+        <div class="signin-buttons">
+          <button type="submit" class="btn btn-inverse">Login</button>
+          <a class="btn btn-info" href="{{facebookPath}}">Use Facebook</a>
+        </div>
       </form>
     </div>
   </section>
 </div>
-
-<!-- {{ geddy.config.fullHostname }}{{ twitterPath }} -->

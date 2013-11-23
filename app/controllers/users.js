@@ -1,5 +1,5 @@
 var async = require('async')
-  , utils = require('../helpers/utils')
+  , utils = require('../helpers/utils/utils')
   , passport = require('../helpers/passport')
   , cryptPass = passport.cryptPass
   , requireAuth = passport.requireAuth;

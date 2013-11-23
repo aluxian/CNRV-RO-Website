@@ -6,11 +6,7 @@ var passport = require('passport')
   , bcrypt = require('bcrypt')
   , cryptPass;
 
-var SUPPORTED_SERVICES = [
-      'twitter'
-    , 'facebook'
-    , 'yammer'
-    ];
+var SUPPORTED_SERVICES = ['facebook'];
 
 SUPPORTED_SERVICES.forEach(function (item) {
   var hostname = geddy.config.fullHostname || ''
@@ -43,7 +39,7 @@ var actions = new (function () {
         return function (req, resp, params) {
           var self = this;
           req.session = this.session.data;
-          passport.authenticate(authType)(req, resp);
+          passport.authenticate(authType, {scope:'email'})(req, resp);
         };
       }
 

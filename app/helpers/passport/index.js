@@ -21,9 +21,5 @@ exports.cryptPass = function (cleartextPass) {
   if (!geddy.config.secret) {
     throw new Error('Need application secret');
   }
-
   return bcrypt.hashSync(cleartextPass, 10);
 };
-
-
-

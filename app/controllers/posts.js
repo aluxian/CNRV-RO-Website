@@ -1,5 +1,5 @@
 var async = require('async')
-  , utils = require('../helpers/utils')
+  , utils = require('../helpers/utils/utils')
   , moment = require('moment')
   , _ = require('underscore');
 
@@ -25,14 +25,11 @@ var Posts = function () {
       // Load data
       async.apply(async.parallel, {
         posts: async.apply(geddy.model.Post.all, q, options)
-      , pageData: async.apply(utils.loadPageData, ['user', 'recentPosts'], self.session)
+      , pageData: async.apply(utils.loadPageData, null, self.session)
       })
       // Parse data
     , utils.fetchAssociations(['User', 'Category', 'Comments'], 'posts')
     ], function(err, data) {
-      data = _.extend(data, data.pageData);
-      delete data.pageData;
-
       if (err) {
         throw err;
       } else if (!data.posts) {
@@ -73,7 +70,7 @@ var Posts = function () {
       // Load data
       async.apply(async.parallel, {
         post: async.apply(geddy.model.Post.first, params.id)
-      , pageData: async.apply(utils.loadPageData, ['user', 'recentPosts'], self.session)
+      , pageData: async.apply(utils.loadPageData, null, self.session)
       })
       // Parse data
     , utils.fetchAssociations(['User', 'Category', 'Comments'], 'post')
@@ -83,10 +80,8 @@ var Posts = function () {
           callback(err, data);
         });
       }
+    , utils.generateAvatars
     ], function(err, data) {
-      data = _.extend(data, data.pageData);
-      delete data.pageData;
-
       if (err) {
         throw err;
       } else if (!data.post) {

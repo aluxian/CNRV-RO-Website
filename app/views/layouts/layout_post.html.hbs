@@ -1,15 +1,15 @@
         {{#with post}}
         <article>
-          <h2><a href="/posts/{{id}}">{{title}}</a></h2>
+          <h2><a href="{{postPath id}}">{{title}}</a></h2>
           
           <ul class="post-info">
-            <li><a href="/users/{{user.id}}/posts">{{user.givenName}} {{user.familyName}}</a></li>
+            <li><a href="{{userPath user.id}}/posts">{{user.givenName}} {{user.familyName}}</a></li>
             <li>&bull;</li>
-            <li><a href="/categories/{{category.id}}">{{category.name}}</a></li>
+            <li><a href="{{categoryPath category.id}}">{{category.name}}</a></li>
             <li>&bull;</li>
-            <li><a href="/?date={{timeToTimestamp createdAt}}">{{timeToPostFormat createdAt}}</a></li>
+            <li><a href="{{postsPath}}?date={{timeToTimestamp createdAt}}">{{timeToPostFormat createdAt}}</a></li>
             <li>&bull;</li>
-            <li><a href="/posts/{{id}}#comments">{{comments.length}} {{singOrPlural comments.length 'Comentariu' 'Comentarii'}}</a></li>
+            <li><a href="{{postPath id}}#comments">{{comments.length}} {{singOrPlural comments.length 'Comentariu' 'Comentarii'}}</a></li>
             <li>&bull;</li>
             <li><a href="#">Share</a></li>
           </ul>

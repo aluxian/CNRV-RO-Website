@@ -20,18 +20,6 @@ var router = new geddy.RegExpRouter();
 
 // Main
 router.get('/').to('Posts.index');
-router.match('/users/:id/posts', 'GET').to({controller: 'Users', action: 'getPosts'});
-
-// Auth
-router.get('/login').to('Main.login');
-router.get('/logout').to('Main.logout');
-router.post('/auth/local').to('Auth.local');
-router.get('/auth/twitter').to('Auth.twitter');
-router.get('/auth/twitter/callback').to('Auth.twitterCallback');
-router.get('/auth/facebook').to('Auth.facebook');
-router.get('/auth/facebook/callback').to('Auth.facebookCallback');
-router.get('/auth/yammer').to('Auth.yammer');
-router.get('/auth/yammer/callback').to('Auth.yammerCallback');
 
 // Models
 router.resource('users');
@@ -39,4 +27,17 @@ router.resource('posts');
 router.resource('comments');
 router.resource('categories');
 
+// Auth
+router.get('/login').to('Main.login');
+router.get('/logout').to('Main.logout');
+router.post('/auth/local').to('Auth.local');
+router.get('/auth/facebook').to('Auth.facebook');
+router.get('/auth/facebook/callback').to('Auth.facebookCallback');
+
+// Custom routes
+router.match('/users/:id/posts', 'GET').to({controller: 'Users', action: 'getPosts'});
+router.get('/register').to({controller: 'Users', action: 'add'});
+
+router.resource('pages');
+router.resource('menus');
 exports.router = router;

@@ -28,10 +28,7 @@ var Main = function () {
   this.logout = function (req, resp, params) {
     this.session.unset('userId');
     this.session.unset('authType');
-    this.respond(params, {
-      format: 'html'
-    , template: 'app/views/main/logout'
-    });
+    this.redirect('/');
   };
 
 };

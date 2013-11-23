@@ -1,4 +1,4 @@
-var Post = function () {
+var Page = function () {
   this.defineProperties({
     title: {type: 'string', required: true},
     content: {type: 'text', required: true},
@@ -10,9 +10,8 @@ var Post = function () {
     return ['draft', 'published'].indexOf(s) > -1;
   });
 
-  this.hasMany('Comments');
-  this.belongsTo('Category');
+  this.belongsTo('Menu');
   this.belongsTo('User');
 };
 
-Post = geddy.model.register('Post', Post);
+Page = geddy.model.register('Page', Page);

@@ -1,6 +1,8 @@
 var Comment = function () {
   this.defineProperties({
-    content: {type: 'text'}
+    name: {type: 'string'},
+    content: {type: 'text', required: true},
+    email: {type: 'string'}
   });
 
   this.belongsTo('Post');

@@ -2,17 +2,23 @@ var User = function () {
   this.defineProperties({
     username: {type: 'string', required: true},
     password: {type: 'string', required: true},
-    familyName: {type: 'string', required: true},
-    givenName: {type: 'string', required: true},
-    email: {type: 'string', required: true}
+    familyName: {type: 'string'},
+    givenName: {type: 'string'},
+    email: {type: 'string', required: true},
+    role: {type: 'string', required: true}
+  });
+
+  // Check that 'role' is valid
+  this.validatesWithFunction('role', function (s) {
+    return ['admin', 'author', 'user'].indexOf(s) > -1;
   });
 
   this.validatesLength('username', {min: 3});
-  this.validatesLength('password', {min: 8});
-  this.validatesConfirmed('password', 'confirmPassword');
+  this.validatesLength('password', {min: 6});
 
   this.hasMany('Passports');
   this.hasMany('Posts');
+  this.hasMany('Pages');
   this.hasMany('Comments', {through: 'Posts'});
 };
 

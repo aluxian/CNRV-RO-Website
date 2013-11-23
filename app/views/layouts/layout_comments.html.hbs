@@ -1,3 +1,5 @@
+      <h1 id="comments" class="hidden">Comments Hash Link</h1>
+
       {{#if comments.length}}
       <h4>{{comments.length}} {{singOrPlural comments.length 'Comentariu' 'Comentarii'}}</h4>
 
@@ -5,7 +7,7 @@
         {{#each comments}}
         <div class="comment">
           <div class="col-md-2">
-            <img class="comment-avatar" src="http://designmodo.com/wp-content/glc_cache/f58875f894bb40f82b72b89cf9b4e85c-75.jpg" alt="Avatar">
+            <img class="comment-avatar" src="//www.gravatar.com/avatar/{{avatarHash}}?s=75&d=mm" alt="Avatar">
           </div>
           <div class="col-md-10">
             <div class="comment-header">
@@ -13,7 +15,11 @@
                 {{#if user}}
                 <a href="/users/{{user.id}}">{{user.givenName}} {{user.familyName}}</a>
                 {{else}}
-                Anonymous User
+                {{#if name}}
+                <span>{{name}}</span>
+                {{else}}
+                <span>Anonymous User</span>
+                {{/if}}
                 {{/if}}
               </span>
               <span class="col-md-4">{{timeToCommentFormat createdAt}}</span>
@@ -27,28 +33,36 @@
       
       <h4>Adauga un comentariu</h4>
 
-      <form class="comment-reply-form form-horizontal" role="form">
+      <form class="comment-reply-form form-horizontal" role="form" action="{{commentsPath}}" method="POST">
         <div class="form-group">
-          <label for="inputName3" class="col-sm-2 control-label">Nume</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputName3" placeholder="John Doe">
+          <label for="inputName" class="col-sm-2 control-label">Nume</label>
+          <div class="col-sm-10{{#if user}} comment-signedin-name{{/if}}">
+            {{#if user}}
+            <span id="inputName">{{user.givenName}} {{user.familyName}}</span>
+            <input type="hidden" name="userId" value="{{user.id}}">
+            {{else}}
+            <input type="text" class="form-control" id="inputName" name="name" placeholder="John Doe">
+            {{/if}}
           </div>
         </div>
+        {{#unless user}}
         <div class="form-group">
-          <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+          <label for="inputEmail" class="col-sm-2 control-label">Email</label>
           <div class="col-sm-10">
-            <input type="email" class="form-control" id="inputEmail3" placeholder="john@example.com">
+            <input type="email" class="form-control" id="inputEmail" name="email" placeholder="john@example.com">
           </div>
         </div>
+        {{/unless}}
         <div class="form-group">
-          <label for="inputComment3" class="col-sm-2 control-label">Comentariu</label>
+          <label for="inputComment" class="col-sm-2 control-label">Comentariu</label>
           <div class="col-sm-10">
-            <textarea class="form-control" id="inputComment3" placeholder="Scrie un comentariu..." rows="4"></textarea>
+            <textarea class="form-control" id="inputComment" name="content" placeholder="Scrie un comentariu..." rows="4"></textarea>
           </div>
         </div>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-inverse">Trimite</button>
+            <input type="hidden" name="postId" value="{{post.id}}">
+            <button type="submit" class="btn btn-inverse">Submit</button>
           </div>
         </div>
       </form>

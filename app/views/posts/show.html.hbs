@@ -1,4 +1,4 @@
-{{{partial 'app/views/layouts/layout_nav' user=user}}}
+{{{partial 'app/views/layouts/layout_nav' user=pageData.user categories=pageData.navCategories menus=pageData.menus}}}
 
 <div class="container">
   <section class="container">
@@ -7,9 +7,9 @@
         {{{partial 'app/views/layouts/layout_post' post=post}}}
       </div>
 
-      {{{partial 'app/views/layouts/layout_comments' comments=post.comments}}}
+      {{{partial 'app/views/layouts/layout_comments' comments=post.comments user=pageData.user post=post}}}
     </div>
 
-    {{{partial 'app/views/layouts/layout_widgets' recentPosts=recentPosts}}}
+    {{{partial 'app/views/layouts/layout_widgets' recentPosts=pageData.recentPosts}}}
   </section>
 </div>
