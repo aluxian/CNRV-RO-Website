@@ -1,22 +1,36 @@
-<div class="hero-unit">
-  <form id="post-form" class="form-horizontal" action="/posts" method="POST">
-    <fieldset>
-      <legend>Create a new Post</legend>
-      {{#if params.errors }}
-      <div class="control-group">
-        <ul>
-        {{#each params.errors}}
-          <li>{{this}}</li>
-        {{/each}}
-        </ul>
-      </div>
-      {{/if}}
-      
-      {{{partial "form" this}}}
+{{{partial 'app/views/layouts/layout_nav' root=this user=pageData.user nav=pageData.nav}}}
 
-      <div class="form-actions">
-        <input type="submit" class="btn btn-primary" value="Add" />
+<div class="container">
+  <section class="container add-post">
+    <h4>Add post</h4>
+
+    <form action="{{postsPath}}" method="POST">
+      <div class="input-group title-input">
+        <span class="input-group-addon">Post title</span>
+        <input type="text" class="form-control" name="title" placeholder="Lorem ipsum">
       </div>
-    </fieldset>
-  </form>
+
+      {{{partial 'app/views/layouts/layout_editor_toolbar'}}}
+
+      <div id="editor"></div>
+
+      <div class="row post-options">
+        <div class="col-md-3">
+          <div class="input-group">
+            <span class="input-group-addon">Categorie</span>
+            <select class="form-control" name="categoryName">
+              {{#each categories}}
+              <option>{{name}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3 col-md-offset-6 post-buttons">
+          <input type="hidden" name="content" value="" id="postValue">
+          <!-- <button type="submit" class="btn btn-inverse" name="status" value="draft">Save as draft</button> -->
+          <button type="submit" class="btn btn-inverse" name="status" value="published">Post</button>
+        </div>
+      </div>
+    </form>
+  </section>
 </div>

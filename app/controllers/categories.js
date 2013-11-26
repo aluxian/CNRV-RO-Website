@@ -33,7 +33,7 @@ var Categories = function () {
   };
 
   this.show = function (req, resp, params) {
-    new geddy.controller.Posts().index.bind(this)(req, resp, params, {categoryId: params.id});
+    new geddy.controller.Posts().index.bind(this)(req, resp, params, {categoryId: params.id}, {template: 'app/views/categories/show'});
   };
 
   this.edit = function (req, resp, params) {

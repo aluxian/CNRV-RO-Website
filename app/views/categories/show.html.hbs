@@ -3,6 +3,8 @@
 <div class="container">
   <section class="container">
     <div class="articlesWrapper col-md-8">
+      <h3>Postari in categoria {{posts.0.category.name}}</h3>
+
       <div class="articles">
         {{#each posts}}
         {{{partial 'app/views/layouts/layout_post_excerpt' post=this}}}

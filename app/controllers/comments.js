@@ -18,13 +18,18 @@ var Comments = function () {
       , comment = geddy.model.Comment.create(params);
 
     if (!comment.isValid()) {
-      this.respondWith(comment);
+      self.flash.set('form-error', 'Invalid comment, please try again.');
+      self.flash.keep();
+      self.redirect('/posts/' + params.postId);
     } else {
       comment.save(function(err, data) {
         if (err) {
           throw err;
         }
-        self.respondWith(comment, {status: err});
+
+        self.flash.set('form-success', 'Comment posted!');
+        self.flash.keep();
+        self.redirect('/posts/' + params.postId);
       });
     }
   };

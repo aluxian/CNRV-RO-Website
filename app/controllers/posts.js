@@ -4,12 +4,12 @@ var async = require('async')
 var Posts = function () {
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
 
-  this.index = function (req, resp, params, q) {
+  this.index = function (req, resp, params, q, viewOptions) {
     var options = {sort: {createdAt: 'desc'}, limit: 10};
 
-    // Parse 'skip' parameter
-    if (params.skip) {
-      options.skip = parseInt(params.skip);
+    // Parse 'page' parameter
+    if (params.page) {
+      options.skip = parseInt(params.page*10);
     }
 
     // Respond with posts
@@ -18,27 +18,45 @@ var Posts = function () {
         async.apply(geddy.model.Post.all, q, options)
       , utils.fetchAssociations({fetch: ['User', 'Category', 'Comments']})
       ])
-    }, {template: 'app/views/posts/index'});
+    , totalPosts: function(callback) {
+        geddy.model.Post.all(q, null, function(err, posts) {
+          callback(err, posts.length);
+        });
+      }
+    }, viewOptions || {template: 'app/views/posts/index'});
   };
 
   this.add = function (req, resp, params) {
-    utils.defaultRespond.bind(this)();
+    utils.defaultRespond.bind(this)({
+      categories: async.apply(geddy.model.Category.all, null, {sort: {name: 'asc'}})
+    });
   };
 
   this.create = function (req, resp, params) {
     var self = this
-      , post = geddy.model.Post.create(params);
+      , categoryName = params.categoryName;
+    delete params.categoryName;
 
-    if (!post.isValid()) {
-      this.respondWith(post);
-    } else {
-      post.save(function(err, data) {
-        if (err) {
-          throw err;
-        }
-        self.respondWith(post, {status: err});
-      });
-    }
+    geddy.model.Category.first({name: categoryName}, function(err, category) {
+      if (err) {
+        throw err;
+      }
+
+      params.categoryId = category.id;
+      params.userId = self.session.get('userId');
+      var post = geddy.model.Post.create(params);
+
+      if (!post.isValid()) {
+        self.respondWith(post);
+      } else {
+        post.save(function(err, data) {
+          if (err) {
+            throw err;
+          }
+          self.respondWith(post, {status: err});
+        });
+      }
+    });
   };
 
   this.show = function (req, resp, params) {

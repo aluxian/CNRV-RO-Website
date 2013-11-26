@@ -30,9 +30,9 @@
         {{/each}}
       </div>
       {{/if}}
-      
-      <h4>Adauga un comentariu</h4>
 
+      <h4>Adauga un comentariu</h4>
+      {{{displayFlash root.flash}}}
       <form class="comment-reply-form form-horizontal" role="form" action="{{commentsPath}}" method="POST">
         <div class="form-group">
           <label for="inputName" class="col-sm-2 control-label">Nume</label>

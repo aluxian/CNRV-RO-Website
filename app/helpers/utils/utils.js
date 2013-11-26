@@ -65,6 +65,7 @@ utils.loadPageData = function(dataToLoad, session, callback) {
         async.apply(geddy.model.Comment.all, null, {sort: {createdAt: 'desc'}, limit: 5})
       , utils.generateAvatarsForComments
       ])
+    , links: async.apply(geddy.model.Link.all, null, {sort: {name: 'asc', createdAt: 'asc'}})
     })
 
   , nav: async.apply(async.parallel, {

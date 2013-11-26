@@ -14,10 +14,10 @@
           {{#each widgets.recentComments}}
           <li>
             <div class="widget-comment">
-              <div class="col-md-4">
+              <div class="col-xs-4">
                 <img class="comment-avatar" src="//www.gravatar.com/avatar/{{avatarHash}}?s=40&d=mm" alt="Avatar">
               </div>
-              <div class="col-md-8">
+              <div class="col-xs-8">
                 <a href="{{postPath postId}}"><p>{{truncate content 130}}</p></a>
               </div>
             </div>
@@ -27,13 +27,17 @@
       </div>
 
       <div class="widget">
-        <h3>Postari Recente</h3>
+        <h3>Linkuri</h3>
         <ul>
-          <li><a href="#">Elevii din CNRV nu vor uniforma</a></li>
-          <li><a href="#">10B cea mai cuminte clasa</a></li>
-          <li><a href="#">Blah blah we're the best</a></li>
-          <li><a href="#">Abracadabra, indistinctibilii, si alte cuvinte lungi</a></li>
-          <li><a href="#">Horray!</a></li>
+          {{#each widgets.links}}
+          <li>
+            {{#ifEqual linkType 'url'}}
+            <a href="{{../url}}" target="_blank">{{../name}}</a>
+            {{else}}
+            <img src="{{../url}}">
+            {{/ifEqual}}
+          </li>
+          {{/each}}
         </ul>
       </div>
     </aside>
