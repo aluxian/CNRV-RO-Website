@@ -1,5 +1,5 @@
 var async = require('async')
-  , utils = require('../helpers/utils/utils');
+  , utils = require('../modules/utils');
 
 var Categories = function () {
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];

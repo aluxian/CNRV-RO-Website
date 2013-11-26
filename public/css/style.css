@@ -625,6 +625,7 @@ section.signin {
   margin-top: 0;
   padding-bottom: 10px;
   margin-bottom: 20px;
+  border-bottom-width: 2px;
 }
 
 .add-post .toolbar .btn {

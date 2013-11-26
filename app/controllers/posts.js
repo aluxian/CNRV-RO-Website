@@ -1,7 +1,18 @@
 var async = require('async')
-  , utils = require('../helpers/utils/utils');
+  , utils = require('../modules/utils')
+  , requireAuth = require('../helpers/passport').requireAuth
+  , security = require('../modules/security');
 
 var Posts = function () {
+  this.before(requireAuth, {
+    only: ['add', 'create', 'edit', 'update',  'remove']
+  });
+
+  this.before(security.userHasAccess, {
+    only: ['edit', 'update'],
+    async: true
+  });
+
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
 
   this.index = function (req, resp, params, q, viewOptions) {

@@ -1,6 +1,6 @@
 var Handlebars = require('handlebars')
   , moment = require('moment')
-  , utils = require('../helpers/utils/utils');
+  , utils = require('../modules/utils');
 
 // Set MomentJS language
 moment.lang('ro');
