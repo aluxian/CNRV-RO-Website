@@ -30,6 +30,7 @@
         <div class="col-md-3 col-md-offset-6 post-buttons">
           <input type="hidden" name="content" value="" id="postValue">
           <!-- <button type="submit" class="btn btn-inverse" name="status" value="draft">Save as draft</button> -->
+          <button type="submit" class="btn btn-danger" formaction="{{postPath post.id}}?_method=DELETE">Delete</button>
           <button type="submit" class="btn btn-inverse" id="transferContent">Save</button>
         </div>
       </div>
