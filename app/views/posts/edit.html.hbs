@@ -1,23 +1,38 @@
-<div class="hero-unit">
-  <form id="post-form" class="form-horizontal" action="/posts/{{params.id}}?_method=PUT" method="POST">
-    <fieldset>
-      <legend>Update this Post</legend>
-      {{#if params.errors}}
-      <div class="control-group">
-        <ul>
-        {{#each params.errors }}
-          <li>{{this}}</li>
-        {{/each}}
-        </ul>
-      </div>
-      {{/if}}
-      
-      {{{partial "form" this}}}
+{{{partial 'app/views/layouts/layout_nav' root=this user=pageData.user nav=pageData.nav}}}
 
-      <div class="form-actions">
-        <input type="submit" class="btn btn-primary" value="Save" />
-        <input type="submit" class="btn btn-danger" value="Delete" formaction="/posts/{{params.id}}?_method=DELETE" />
+<div class="container">
+  <section class="container add-post">
+    <h4>Edit post</h4>
+
+    <form action="{{postPath post.id}}?_method=PUT" method="POST">
+      <div class="input-group title-input">
+        <span class="input-group-addon">Post title</span>
+        <input type="text" class="form-control" name="title" placeholder="Lorem ipsum" value="{{post.title}}">
       </div>
-    </fieldset>
-  </form>
+
+      {{{partial 'app/views/layouts/layout_editor_toolbar'}}}
+
+      <div id="editor">
+        {{post.content}}
+      </div>
+
+      <div class="row post-options">
+        <div class="col-md-3">
+          <div class="input-group">
+            <span class="input-group-addon">Categorie</span>
+            <select class="form-control" name="categoryId">
+              {{#each categories}}
+              <option value="{{id}}"{{#ifEqual name post.category.name}} selected{{/ifEqual}}>{{name}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3 col-md-offset-6 post-buttons">
+          <input type="hidden" name="content" value="" id="postValue">
+          <!-- <button type="submit" class="btn btn-inverse" name="status" value="draft">Save as draft</button> -->
+          <button type="submit" class="btn btn-inverse" id="transferContent">Save</button>
+        </div>
+      </div>
+    </form>
+  </section>
 </div>

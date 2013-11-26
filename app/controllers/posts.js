@@ -45,29 +45,18 @@ var Posts = function () {
 
   this.create = function (req, resp, params) {
     var self = this
-      , categoryName = params.categoryName;
-    delete params.categoryName;
+      , post = geddy.model.Post.create(params);
 
-    geddy.model.Category.first({name: categoryName}, function(err, category) {
-      if (err) {
-        throw err;
-      }
-
-      params.categoryId = category.id;
-      params.userId = self.session.get('userId');
-      var post = geddy.model.Post.create(params);
-
-      if (!post.isValid()) {
-        self.respondWith(post);
-      } else {
-        post.save(function(err, data) {
-          if (err) {
-            throw err;
-          }
-          self.respondWith(post, {status: err});
-        });
-      }
-    });
+    if (!post.isValid()) {
+      self.respondWith(post);
+    } else {
+      post.save(function(err, data) {
+        if (err) {
+          throw err;
+        }
+        self.respondWith(post, {status: err});
+      });
+    }
   };
 
   this.show = function (req, resp, params) {
@@ -81,16 +70,12 @@ var Posts = function () {
   };
 
   this.edit = function (req, resp, params) {
-    var self = this;
-
-    geddy.model.Post.first(params.id, function(err, post) {
-      if (err) {
-        throw err;
-      } if (!post) {
-        throw new geddy.errors.BadRequestError();
-      } else {
-        self.respondWith(post);
-      }
+    utils.defaultRespond.bind(this)({
+      post: async.apply(async.waterfall, [
+        async.apply(geddy.model.Post.first, params.id)
+      , utils.fetchAssociations({fetch: ['Category']})
+      ])
+    , categories: async.apply(geddy.model.Category.all, null, {sort: {name: 'asc'}})
     });
   };
 

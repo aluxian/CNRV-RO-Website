@@ -18,17 +18,18 @@
         <div class="col-md-3">
           <div class="input-group">
             <span class="input-group-addon">Categorie</span>
-            <select class="form-control" name="categoryName">
+            <select class="form-control" name="categoryId">
               {{#each categories}}
-              <option>{{name}}</option>
+              <option value="{{id}}">{{name}}</option>
               {{/each}}
             </select>
           </div>
         </div>
         <div class="col-md-3 col-md-offset-6 post-buttons">
           <input type="hidden" name="content" value="" id="postValue">
+          <input type="hidden" name="userId" value="{{pageData.user.id}}">
           <!-- <button type="submit" class="btn btn-inverse" name="status" value="draft">Save as draft</button> -->
-          <button type="submit" class="btn btn-inverse" name="status" value="published">Post</button>
+          <button type="submit" class="btn btn-inverse" name="status" value="published" id="transferContent">Post</button>
         </div>
       </div>
     </form>

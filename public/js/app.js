@@ -11,7 +11,7 @@ $(function() {
 
   // Copy content from the editor box to a hidden input to be sent as a POST param
   // TODO only run on edit page
-  $('[name="status"]').click(function(event) {
+  $('#transferContent').click(function(event) {
     $('#postValue').val($('#editor').html());
   });
 });
