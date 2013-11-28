@@ -775,3 +775,13 @@ section.signin {
 form.res-actions {
   display: inline-block;
 }
+
+/* Error page */
+.wrapper.error-page {
+  margin: 0 auto -105px;
+  padding-bottom: 105px;
+}
+
+footer.error-page {
+  height: 80px;
+}
