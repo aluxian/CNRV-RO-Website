@@ -46,6 +46,21 @@ var Application = function () {
 
     return html;
   });
+
+  /* Render resource actions widget */
+  Handlebars.registerHelper('renderResActions', function(user, params, options) {
+    if (params.action != 'show' || !user) {
+      return '';
+    }
+
+    var resName = params.controller.toLowerCase();
+    var resSing = geddy.inflection.singularize(params.controller);
+    return '<div class="widget res-actions"><h3>' + resSing + ' actions</h3>'
+      + '<ul><form action="/' + resName + '/' + params.id + '?_method=DELETE" method="POST">'
+      + '<button type="submit" class="btn btn-danger">Delete</button></form>'
+      + '<a href="/' + resName + '/' + params.id + '/edit" class="btn btn-inverse">Edit</a>'
+      + '<a href="/' + resName + '/add" class="btn btn-inverse">Write new ' + resSing.toLowerCase() + '</a></ul></div>';
+  });
 };
 
 exports.Application = Application;

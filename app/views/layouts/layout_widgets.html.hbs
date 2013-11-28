@@ -1,18 +1,5 @@
-    <aside class="col-md-4">{{log root}}
-      {{#if root.pageData.user}}
-      {{#if root.params.id}}
-      <div class="widget">
-        <h3>Post actions</h3>
-        <ul>
-          <form class="res-actions" action="{{postPath root.post.id}}?_method=DELETE" method="POST">
-            <button type="submit" class="btn btn-danger">Delete</button>
-          </form>
-          <a href="{{editPostPath root.post.id}}" class="btn btn-inverse">Edit</a>
-          <a href="{{addPostPath}}" class="btn btn-inverse">Write post</a>
-        </ul>
-      </div>
-      {{/if}}
-      {{/if}}
+    <aside class="col-md-4">
+      {{{renderResActions root.pageData.user root.params}}}
 
       <div class="widget">
         <h3>Postari Recente</h3>
