@@ -20,7 +20,7 @@ var Comments = function () {
     if (!comment.isValid()) {
       self.flash.set('form-error', 'Invalid comment, please try again.');
       self.flash.keep();
-      self.redirect({controller: 'Posts', action: 'show', id: params.postId});
+      self.redirect({controller: 'Posts', id: params.postId});
     } else {
       comment.save(function(err, data) {
         if (err) {
@@ -29,7 +29,7 @@ var Comments = function () {
 
         self.flash.set('form-success', 'Comment posted!');
         self.flash.keep();
-        self.redirect({controller: 'Posts', action: 'show', id: params.postId});
+        self.redirect({controller: 'Posts', id: params.postId});
       });
     }
   };

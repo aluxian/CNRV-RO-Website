@@ -1,16 +1,20 @@
+var async = require('async')
+  , utils = require('../modules/utils')
+  , requireAuth = require('../helpers/passport').requireAuth
+  , security = require('../modules/security');
+
 var Menus = function () {
+  this.before(requireAuth);
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
 
   this.index = function (req, resp, params) {
-    var self = this;
-
-    geddy.model.Menu.all(function(err, menus) {
-      self.respondWith(menus, {type:'Menu'});
-    });
-  };
+    this.transfer('add');
+  }
 
   this.add = function (req, resp, params) {
-    this.respond({params: params});
+    utils.defaultRespond.bind(this)({
+      menus: async.apply(geddy.model.Menu.all, null, {sort: {name: 'asc'}})
+    });
   };
 
   this.create = function (req, resp, params) {
@@ -30,19 +34,8 @@ var Menus = function () {
   };
 
   this.show = function (req, resp, params) {
-    var self = this;
-
-    geddy.model.Menu.first(params.id, function(err, menu) {
-      if (err) {
-        throw err;
-      }
-      if (!menu) {
-        throw new geddy.errors.NotFoundError();
-      } else {
-        self.respondWith(menu);
-      }
-    });
-  };
+    this.transfer('add');
+  }
 
   this.edit = function (req, resp, params) {
     var self = this;

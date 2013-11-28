@@ -1,0 +1,36 @@
+{{{partial 'app/views/layouts/layout_nav' root=this user=pageData.user nav=pageData.nav}}}
+
+<div class="container">
+  <section class="container add-post">
+    <h4>Add page</h4>
+
+    <form action="{{pagesPath}}" method="POST">
+      <div class="input-group title-input">
+        <span class="input-group-addon">Page title</span>
+        <input type="text" class="form-control" name="title" placeholder="Lorem ipsum">
+      </div>
+
+      {{{partial 'app/views/layouts/layout_editor_toolbar'}}}
+
+      <div id="editor"></div>
+
+      <div class="row post-options">
+        <div class="col-md-3">
+          <div class="input-group">
+            <span class="input-group-addon">Meniu</span>
+            <select class="form-control" name="menuId">
+              {{#each menus}}
+              <option value="{{id}}">{{name}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3 col-md-offset-6 post-buttons">
+          <input type="hidden" name="content" value="" id="postValue">
+          <!-- <button type="submit" class="btn btn-inverse" name="status" value="draft">Save as draft</button> -->
+          <button type="submit" class="btn btn-inverse" name="status" value="published" id="transferContent">Create</button>
+        </div>
+      </div>
+    </form>
+  </section>
+</div>

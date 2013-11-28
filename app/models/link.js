@@ -2,6 +2,7 @@ var Link = function () {
   this.defineProperties({
     linkType: {type: 'string', required: true},
     url: {type: 'string', required: true},
+    src: {type: 'string'},
     name: {type: 'string'}
   });
 

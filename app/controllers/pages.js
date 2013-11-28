@@ -1,7 +1,18 @@
 var async = require('async')
-  , utils = require('../modules/utils');
+  , utils = require('../modules/utils')
+  , requireAuth = require('../helpers/passport').requireAuth
+  , security = require('../modules/security');
 
 var Pages = function () {
+  this.before(requireAuth, {
+    only: ['add', 'create', 'edit', 'update',  'remove']
+  });
+
+  this.before(security.userHasAccess, {
+    only: ['edit', 'update'],
+    async: true
+  });
+
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
 
   this.index = function (req, resp, params) {
@@ -13,7 +24,9 @@ var Pages = function () {
   };
 
   this.add = function (req, resp, params) {
-    this.respond({params: params});
+    utils.defaultRespond.bind(this)({
+      menus: async.apply(geddy.model.Menu.all, null, {sort: {name: 'asc'}})
+    });
   };
 
   this.create = function (req, resp, params) {
@@ -41,17 +54,12 @@ var Pages = function () {
   };
 
   this.edit = function (req, resp, params) {
-    var self = this;
-
-    geddy.model.Page.first(params.id, function(err, page) {
-      if (err) {
-        throw err;
-      }
-      if (!page) {
-        throw new geddy.errors.BadRequestError();
-      } else {
-        self.respondWith(page);
-      }
+    utils.defaultRespond.bind(this)({
+      page: async.apply(async.waterfall, [
+        async.apply(geddy.model.Page.first, params.id)
+      , utils.fetchAssociations({fetch: ['Menu']})
+      ])
+    , menus: async.apply(geddy.model.Menu.all, null, {sort: {name: 'asc'}})
     });
   };
 

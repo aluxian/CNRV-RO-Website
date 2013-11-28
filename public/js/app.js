@@ -5,7 +5,7 @@ $(function() {
 
   // Prevent the input from closing the dropdown
   // TODO: same as above
-  $('#add-link-input').click(function(event) {
+  $('#add-link-input, #add-pic-input').click(function(event) {
     event.stopPropagation();
   });
 
@@ -13,5 +13,15 @@ $(function() {
   // TODO only run on edit page
   $('#transferContent').click(function(event) {
     $('#postValue').val($('#editor').html());
+  });
+
+  // Focus on the input when the Add hyperlink button is clicked
+  $('.add-link-icon').click(function() {
+    $('#add-link-input').focus();
+  });
+
+  // Focus on the input when the Add pic button is clicked
+  $('.add-pic-icon').click(function() {
+    $('#add-pic-input').focus();
   });
 });

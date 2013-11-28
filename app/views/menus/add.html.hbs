@@ -1,0 +1,24 @@
+{{{partial 'app/views/layouts/layout_nav' root=this user=pageData.user nav=pageData.nav}}}
+
+<div class="container">
+  <section class="container add-post add-menu">
+    <h4>Menu items</h4>
+
+    <div class="col-lg-5 add-menu-container">
+      <ul class="list-group add-menu-items">
+        {{#each menus}}
+        <li class="list-group-item">{{name}}</li>
+        {{/each}}
+      </ul>
+
+      <form action="{{menusPath}}" method="POST" class="form-inline add-menu-form" role="form">
+        <div class="input-group">
+          <input type="text" class="form-control" name="name" placeholder="Enter menu name...">
+          <span class="input-group-btn">
+            <button class="btn btn-inverse add-button" type="submit">Add</button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

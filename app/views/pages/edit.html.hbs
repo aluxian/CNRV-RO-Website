@@ -2,27 +2,27 @@
 
 <div class="container">
   <section class="container add-post">
-    <h4>Edit post</h4>
+    <h4>Edit page</h4>
 
-    <form action="{{postPath post.id}}?_method=PUT" method="POST">
+    <form action="{{pagePath page.id}}?_method=PUT" method="POST">
       <div class="input-group title-input">
-        <span class="input-group-addon">Post title</span>
-        <input type="text" class="form-control" name="title" placeholder="Lorem ipsum" value="{{post.title}}">
+        <span class="input-group-addon">Page title</span>
+        <input type="text" class="form-control" name="title" placeholder="Lorem ipsum" value="{{page.title}}">
       </div>
 
       {{{partial 'app/views/layouts/layout_editor_toolbar'}}}
 
       <div id="editor">
-        {{{post.content}}}
+        {{{page.content}}}
       </div>
 
       <div class="row post-options">
         <div class="col-md-3">
           <div class="input-group">
-            <span class="input-group-addon">Categorie</span>
-            <select class="form-control" name="categoryId">
-              {{#each categories}}
-              <option value="{{id}}"{{#ifEqual name ../post.category.name}} selected{{/ifEqual}}>{{name}}</option>
+            <span class="input-group-addon">Meniu</span>
+            <select class="form-control" name="menuId">
+              {{#each menus}}
+              <option value="{{id}}"{{#ifEqual name ../page.menu.name}} selected{{/ifEqual}}>{{name}}</option>
               {{/each}}
             </select>
           </div>
@@ -30,8 +30,8 @@
         <div class="col-md-3 col-md-offset-6 post-buttons">
           <input type="hidden" name="content" value="" id="postValue">
           <!-- <button type="submit" class="btn btn-inverse" name="status" value="draft">Save as draft</button> -->
-          <button type="submit" class="btn btn-danger" formaction="{{postPath post.id}}?_method=DELETE">Delete</button>
-          <a href="{{postPath post.id}}" class="btn btn-inverse">Discard</a>
+          <button type="submit" class="btn btn-danger" formaction="{{pagePath page.id}}?_method=DELETE">Delete</button>
+          <a href="{{pagePath page.id}}" class="btn btn-inverse">Discard</a>
           <button type="submit" class="btn btn-inverse" id="transferContent">Save</button>
         </div>
       </div>

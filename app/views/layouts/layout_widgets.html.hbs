@@ -34,7 +34,7 @@
             {{#ifEqual linkType 'url'}}
             <a href="{{../url}}" target="_blank">{{../name}}</a>
             {{else}}
-            <img src="{{../url}}">
+            <a href="{{../url}}" target="_blank"><img src="{{../src}}"></a>
             {{/ifEqual}}
           </li>
           {{/each}}
