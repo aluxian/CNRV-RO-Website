@@ -12,11 +12,10 @@
       </div>
 
       <ul class="pager">
-        <li class="previous{{pagePrevDisabled params.page totalPosts}}"><a{{{pagePrev params.page totalPosts}}}>&larr; Older</a></li>
-        <li class="next{{pageNextDisabled params.page}}"><a{{{pageNext params.page}}}>Newer &rarr;</a></li>
+        {{{renderPager params.page totalPosts}}}
       </ul>
     </div>
 
-    {{{partial 'app/views/layouts/layout_widgets' widgets=pageData.widgets}}}
+    {{{partial 'app/views/layouts/layout_widgets' root=this widgets=pageData.widgets}}}
   </section>
 </div>
