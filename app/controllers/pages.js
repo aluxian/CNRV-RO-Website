@@ -5,7 +5,7 @@ var async = require('async')
 
 var Pages = function () {
   this.before(requireAuth, {
-    only: ['add', 'create', 'edit', 'update',  'remove']
+    except: ['show']
   });
 
   this.before(security.userHasAccess, {
@@ -14,14 +14,6 @@ var Pages = function () {
   });
 
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
-
-  this.index = function (req, resp, params) {
-    var self = this;
-
-    geddy.model.Page.all(function(err, pages) {
-      self.respondWith(pages, {type:'Page'});
-    });
-  };
 
   this.add = function (req, resp, params) {
     utils.defaultRespond.bind(this)({

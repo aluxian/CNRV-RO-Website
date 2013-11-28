@@ -5,7 +5,7 @@ var async = require('async')
 
 var Posts = function () {
   this.before(requireAuth, {
-    only: ['add', 'create', 'edit', 'update',  'remove']
+    except: ['index', 'show']
   });
 
   this.before(security.userHasAccess, {

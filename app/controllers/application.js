@@ -1,6 +1,7 @@
 var Handlebars = require('handlebars')
   , moment = require('moment')
-  , utils = require('../modules/utils');
+  , utils = require('../modules/utils')
+  , _ = require('underscore');
 
 // Set MomentJS language
 moment.lang('ro');
@@ -60,6 +61,17 @@ var Application = function () {
       + '<button type="submit" class="btn btn-danger">Delete</button></form>'
       + '<a href="/' + resName + '/' + params.id + '/edit" class="btn btn-inverse">Edit</a>'
       + '<a href="/' + resName + '/add" class="btn btn-inverse">Write new ' + resSing.toLowerCase() + '</a></ul></div>';
+  });
+
+  /* Render flash messages */
+  Handlebars.registerHelper('renderFlash', function(flash, options) {
+    var html = '<script>setTimeout(function(){$(function(){';
+    
+    _.each(flash.messages, function(message, type) {
+      html += '$.bootstrapGrowl("' + message + '", {offset: {from: "top", amount: 75}, type: "' + type + '"});';
+    });
+
+    return html + '});}, 2000);</script>';
   });
 };
 

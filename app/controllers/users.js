@@ -1,12 +1,18 @@
 var async = require('async')
   , utils = require('../modules/utils')
   , passport = require('../helpers/passport')
+  , security = require('../modules/security')
   , cryptPass = passport.cryptPass
   , requireAuth = passport.requireAuth;
 
 var Users = function () {
   this.before(requireAuth, {
     except: ['add', 'create', 'getPosts']
+  });
+
+  this.before(security.userHasAccess, {
+    only: ['edit', 'update'],
+    async: true
   });
 
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];

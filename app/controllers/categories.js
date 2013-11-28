@@ -1,19 +1,15 @@
 var async = require('async')
-  , utils = require('../modules/utils');
+  , utils = require('../modules/utils')
+  , requireAuth = require('../helpers/passport').requireAuth;
 
 var Categories = function () {
+  this.before(requireAuth);
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
 
-  this.index = function (req, resp, params) {
-    var self = this;
-
-    geddy.model.Category.all(function(err, categories) {
-      self.respondWith(categories, {type:'Category'});
-    });
-  };
-
   this.add = function (req, resp, params) {
-    this.respond({params: params});
+    utils.defaultRespond.bind(this)({
+      menus: async.apply(geddy.model.Category.all, null, {sort: {name: 'asc'}})
+    });
   };
 
   this.create = function (req, resp, params) {
@@ -32,11 +28,8 @@ var Categories = function () {
     }
   };
 
-  this.show = function (req, resp, params) {
-    new geddy.controller.Posts().index.bind(this)(req, resp, params, {categoryId: params.id}, {template: 'app/views/categories/show'});
-  };
-
   this.edit = function (req, resp, params) {
+    /* To be implemented */
     var self = this;
 
     geddy.model.Category.first(params.id, function(err, category) {
@@ -52,6 +45,7 @@ var Categories = function () {
   };
 
   this.update = function (req, resp, params) {
+    /* To be implemented */
     var self = this;
 
     geddy.model.Category.first(params.id, function(err, category) {
@@ -74,6 +68,7 @@ var Categories = function () {
   };
 
   this.remove = function (req, resp, params) {
+    /* To be implemented */
     var self = this;
 
     geddy.model.Category.first(params.id, function(err, category) {

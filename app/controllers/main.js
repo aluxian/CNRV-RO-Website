@@ -4,10 +4,6 @@ var async = require('async')
 var Main = function () {
   this.respondsWith = ['html'];
 
-  this.admin = function(req, resp, params) {
-    
-  };
-
   this.login = function (req, resp, params) {
     var self = this;
     

@@ -1,16 +1,15 @@
+var async = require('async')
+  , utils = require('../modules/utils')
+  , requireAuth = require('../helpers/passport').requireAuth;
+
 var Links = function () {
+  this.before(requireAuth);
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
 
-  this.index = function (req, resp, params) {
-    var self = this;
-
-    geddy.model.Link.all(function(err, links) {
-      self.respondWith(links, {type:'Link'});
-    });
-  };
-
   this.add = function (req, resp, params) {
-    this.respond({params: params});
+    utils.defaultRespond.bind(this)({
+      menus: async.apply(geddy.model.Link.all, null, {sort: {name: 'asc'}})
+    });
   };
 
   this.create = function (req, resp, params) {
@@ -29,22 +28,8 @@ var Links = function () {
     }
   };
 
-  this.show = function (req, resp, params) {
-    var self = this;
-
-    geddy.model.Link.first(params.id, function(err, link) {
-      if (err) {
-        throw err;
-      }
-      if (!link) {
-        throw new geddy.errors.NotFoundError();
-      } else {
-        self.respondWith(link);
-      }
-    });
-  };
-
   this.edit = function (req, resp, params) {
+    /* To be implemented */
     var self = this;
 
     geddy.model.Link.first(params.id, function(err, link) {
@@ -60,6 +45,7 @@ var Links = function () {
   };
 
   this.update = function (req, resp, params) {
+    /* To be implemented */
     var self = this;
 
     geddy.model.Link.first(params.id, function(err, link) {
@@ -82,6 +68,7 @@ var Links = function () {
   };
 
   this.remove = function (req, resp, params) {
+    /* To be implemented */
     var self = this;
 
     geddy.model.Link.first(params.id, function(err, link) {

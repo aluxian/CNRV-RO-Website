@@ -1,15 +1,10 @@
 var async = require('async')
   , utils = require('../modules/utils')
-  , requireAuth = require('../helpers/passport').requireAuth
-  , security = require('../modules/security');
+  , requireAuth = require('../helpers/passport').requireAuth;
 
 var Menus = function () {
   this.before(requireAuth);
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
-
-  this.index = function (req, resp, params) {
-    this.transfer('add');
-  }
 
   this.add = function (req, resp, params) {
     utils.defaultRespond.bind(this)({
@@ -33,11 +28,8 @@ var Menus = function () {
     }
   };
 
-  this.show = function (req, resp, params) {
-    this.transfer('add');
-  }
-
   this.edit = function (req, resp, params) {
+    /* To be implemented */
     var self = this;
 
     geddy.model.Menu.first(params.id, function(err, menu) {
@@ -53,6 +45,7 @@ var Menus = function () {
   };
 
   this.update = function (req, resp, params) {
+    /* To be implemented */
     var self = this;
 
     geddy.model.Menu.first(params.id, function(err, menu) {
@@ -75,6 +68,7 @@ var Menus = function () {
   };
 
   this.remove = function (req, resp, params) {
+    /* To be implemented */
     var self = this;
 
     geddy.model.Menu.first(params.id, function(err, menu) {
