@@ -18,9 +18,14 @@ $(function() {
 
 // Google Map initializer
 google.maps.event.addDomListener(window, 'load', function() {
+  var myLatlng = new google.maps.LatLng(46.925460, 26.931390);
   var mapOptions = {
-    center: new google.maps.LatLng(-34.397, 150.644),
-    zoom: 8
-  };  
+    center: myLatlng,
+    zoom: 16
+  };
   var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+  var marker = new google.maps.Marker({
+    position: myLatlng,
+    map: map
+  });
 });

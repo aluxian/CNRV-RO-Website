@@ -7,7 +7,7 @@ var async = require('async')
 
 var Users = function () {
   this.before(requireAuth, {
-    except: ['add', 'create', 'getPosts']
+    except: ['add', 'create', 'posts']
   });
 
   this.before(security.userHasAccess, {
@@ -25,8 +25,27 @@ var Users = function () {
     });
   };
 
-  this.getPosts = function(res, resp, params) {
-    new geddy.controller.Posts().index.bind(this)(res, resp, params, {userId: params.id}, {template: 'app/views/users/posts'});
+  this.posts = function(res, resp, params) {
+    var options = {sort: {createdAt: 'desc'}, limit: 10}
+      , q = {userId: params.id};
+
+    // Parse 'page' parameter
+    if (params.page) {
+      options.skip = parseInt(params.page*10);
+    }
+
+    // Respond with posts
+    utils.defaultRespond.bind(this)({
+      posts: async.apply(async.waterfall, [
+        async.apply(geddy.model.Post.all, q, options)
+      , utils.fetchAssociations({fetch: ['User', 'Category', 'Comments']})
+      ])
+    , totalPosts: function(callback) {
+        geddy.model.Post.all(q, null, function(err, posts) {
+          callback(err, posts.length);
+        });
+      }
+    }, { requiredRes: ['posts'] });
   };
 
   this.add = function (req, resp, params) {

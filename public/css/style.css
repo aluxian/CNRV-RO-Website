@@ -38,6 +38,10 @@ span#comments {
   margin-top: 25px;
 }
 
+.fb-like-box {
+  background: #fff;
+}
+
 .wrapper {
   min-height: 100%;
   height: auto !important;
@@ -169,7 +173,8 @@ ul.nav li.dropdown > ul.dropdown-menu {
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
   background-clip: padding-box;
   margin-left: -1px;
-  width: 218px;
+  min-width: 203px;
+  width: auto;
 }
 
 .navbar .nav li.dropdown .dropdown-menu, .navbar .nav ul a:hover {
@@ -270,9 +275,9 @@ footer {
 }
 
 footer .widgets {
-  height: 320px;
   background-color: #34495e;
   padding-top: 8px;
+  padding-bottom: 30px;
 }
 
 footer .nav {
@@ -788,4 +793,16 @@ section.signin {
 
 footer.error-page {
   height: 80px;
+}
+
+/* Bootstrap Growl Notifications */
+.bootstrap-growl {
+  width: auto !important;
+  min-width: 250px !important;
+  max-width: 500px !important;
+}
+
+.bootstrap-growl .close {
+  margin-left: 8px;
+  margin-top: 4px;
 }

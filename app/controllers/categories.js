@@ -3,7 +3,7 @@ var async = require('async')
   , requireAuth = require('../helpers/passport').requireAuth;
 
 var Categories = function () {
-  this.before(requireAuth);
+  this.before(requireAuth, {except: ['show']});
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
 
   this.add = function (req, resp, params) {
@@ -26,6 +26,29 @@ var Categories = function () {
         self.respondWith(category, {status: err});
       });
     }
+  };
+
+  this.show = function(res, resp, params) {
+    var options = {sort: {createdAt: 'desc'}, limit: 10}
+      , q = {categoryId: params.id};
+
+    // Parse 'page' parameter
+    if (params.page) {
+      options.skip = parseInt(params.page*10);
+    }
+
+    // Respond with posts
+    utils.defaultRespond.bind(this)({
+      posts: async.apply(async.waterfall, [
+        async.apply(geddy.model.Post.all, q, options)
+      , utils.fetchAssociations({fetch: ['User', 'Category', 'Comments']})
+      ])
+    , totalPosts: function(callback) {
+        geddy.model.Post.all(q, null, function(err, posts) {
+          callback(err, posts.length);
+        });
+      }
+    }, { requiredRes: ['posts'] });
   };
 
   this.edit = function (req, resp, params) {

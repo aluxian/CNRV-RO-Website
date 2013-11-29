@@ -7,8 +7,12 @@ var Handlebars = require('handlebars')
 moment.lang('ro');
 
 var Application = function () {
-  geddy.config.flash.inlineClasses['form-success'] = 'alert alert-success';
-  geddy.config.flash.inlineClasses['form-error'] = 'alert alert-error';
+  /* Set the previous visited page for redirect after login */
+  this.before(function() {
+    if (['Auth', 'Main'].indexOf(this.session.controller.name) == -1) {
+      this.session.set('lastVisitUrl', this.session.controller.url);
+    }
+  });
 
   /* Return the singular form if no equals 1, plural otherwise */
   Handlebars.registerHelper('singOrPlural', function(no, singular, plural, options) {
@@ -42,15 +46,15 @@ var Application = function () {
 
     var html = '<li class="previous' + (page >= max ? ' disabled' : '') + '"><a'
       + (page < max ? ' href="?page=' + ((page || 0) + 1) + '"' : '') + '>&larr; Postari anterioare</a></li>'
-      + '<li class="next' + (page ? '' : ' disabled') + '"><a' + (page ? ' href="?page=' + (page - 1) + '"' : '')
-      + '>Postari noi &rarr;</a></li>';
+      + '<li class="next' + (page ? '' : ' disabled') + '"><a' + (page ? (page > 1 ? ' href="?page=' + (page - 1)
+      + '"' : ' href="/"') : '') + '>Postari noi &rarr;</a></li>';
 
     return html;
   });
 
   /* Render resource actions widget */
   Handlebars.registerHelper('renderResActions', function(user, params, options) {
-    if (params.action != 'show' || !user) {
+    if (!user || params.action != 'show' || !(params.controller == 'Posts' || params.controller == 'Pages')) {
       return '';
     }
 
@@ -68,6 +72,9 @@ var Application = function () {
     var html = '<script>setTimeout(function(){$(function(){';
     
     _.each(flash.messages, function(message, type) {
+      if (type == 'error') {
+        type = 'danger';
+      }
       html += '$.bootstrapGrowl("' + message + '", {offset: {from: "top", amount: 75}, type: "' + type + '"});';
     });
 

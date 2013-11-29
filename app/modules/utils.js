@@ -13,37 +13,40 @@ var utils = {}
  */
 utils.fetchAssociations = function(assoc) {
   return function(data, callback) {
-    (function parseAssoc(assoc, mData, callback) {
-      var arrayed = false
-        , items = mData[assoc.for] || mData;
-
+    (function parseAssoc(assoc, items, callback) {
+      var arrayed = false;
       if (!_.isArray(items)) {
         items = [items];
         arrayed = true;
       }
 
-      async.each(assoc.fetch, function(assoc, callback) {
-        if (_.isString(assoc)) {
-          async.each(items, function(item, callback) {
-            item['get' + assoc](function(err, data) {
-              item[assoc.toLowerCase()] = data;
-              callback(err);
-            });
-          }, callback);
-        } else {
-          parseAssoc(assoc, items, function(err, data) {
-            items = data;
-            callback(err);
-          });
-        }
-      }, function(err) {
+      async.series([
+        async.apply(async.each, assoc.fetch, function(assoc, callback) {
+          if (_.isString(assoc)) {
+            async.each(items, function(item, callback) {
+              item['get' + assoc](function(err, data) {
+                item[assoc.toLowerCase()] = data;
+                callback(err);
+              });
+            }, callback);
+          } else {
+            callback(null);
+          }
+        })
+      , async.apply(async.each, assoc.fetch, function(assoc, callback) {
+          if (!_.isString(assoc)) {
+            async.each(items, function(item, callback) {
+              parseAssoc(assoc, item[assoc.for], callback);
+            }, callback);
+          } else {
+            callback(null);
+          }
+        })
+      ], function(err) {
         if (arrayed) {
           items = items[0];
         }
-        if (assoc.for) {
-          mData[assoc.for] = items;
-        }
-        callback(err, mData);
+        callback(err, items);
       });
     })(assoc, data, callback);
   };
@@ -133,8 +136,10 @@ utils.defaultRespond = function(newTasks, options) {
   async.parallel(_.extend(tasks, newTasks), function(err, data) {
     if (err) {
       throw err;
+    } else if (options && options.requiredRes && !options.requiredRes.every(function(obj) { return data[obj]; })) {
+      throw new geddy.errors.BadRequestError();
     } else {
-      self.respond(data, options);
+      self.respond(data, options && options.respond);
     }
   });
 };

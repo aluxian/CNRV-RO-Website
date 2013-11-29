@@ -42,7 +42,7 @@ var Pages = function () {
       page: async.apply(async.waterfall, [
         async.apply(geddy.model.Page.first, params.id)
       ])
-    });
+    }, { requiredRes: ['page'] });
   };
 
   this.edit = function (req, resp, params) {
@@ -52,7 +52,7 @@ var Pages = function () {
       , utils.fetchAssociations({fetch: ['Menu']})
       ])
     , menus: async.apply(geddy.model.Menu.all, null, {sort: {name: 'asc'}})
-    });
+    }, { requiredRes: ['page'] });
   };
 
   this.update = function (req, resp, params) {

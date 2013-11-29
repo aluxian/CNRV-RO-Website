@@ -9,7 +9,7 @@ var Main = function () {
     
     utils.defaultRespond.bind(self)({
       pageData: async.apply(utils.loadPageData, ['user', 'nav'], self.session)
-    }, {template: 'app/views/main/login'});
+    }, {respond: { template: 'app/views/main/login' }});
   };
 
   this.logout = function (req, resp, params) {

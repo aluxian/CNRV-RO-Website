@@ -34,7 +34,7 @@ var Posts = function () {
           callback(err, posts.length);
         });
       }
-    }, viewOptions || {template: 'app/views/posts/index'});
+    }, { respond: viewOptions || {template: 'app/views/posts/index'}, requiredRes: ['posts'] });
   };
 
   this.add = function (req, resp, params) {
@@ -66,7 +66,7 @@ var Posts = function () {
       , utils.fetchAssociations({fetch: ['User', 'Category', 'Comments', {for: 'comments', fetch: ['User']}]})
       , utils.generateAvatarsForPost
       ])
-    });
+    }, { requiredRes: ['post'] });
   };
 
   this.edit = function (req, resp, params) {
@@ -76,7 +76,7 @@ var Posts = function () {
       , utils.fetchAssociations({fetch: ['Category']})
       ])
     , categories: async.apply(geddy.model.Category.all, null, {sort: {name: 'asc'}})
-    });
+    }, { requiredRes: ['post'] });
   };
 
   this.update = function (req, resp, params) {

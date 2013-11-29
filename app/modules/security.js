@@ -21,7 +21,7 @@ security.userHasAccess = function(next) {
     }
 
     // User is admin or he owns the resource
-    if (data.user && data.user.role === 'admin' || data.res.userId === userId) {
+    if (data.user && data.user.role === 'admin' || !data.res.userId && data.user.role === 'admin' || data.res.userId === userId) {
       next();
     }
     // Redirect and set flash message

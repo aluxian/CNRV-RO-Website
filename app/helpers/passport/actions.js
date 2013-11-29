@@ -54,6 +54,7 @@ var actions = new (function () {
                   try {
                     user.lookupByPassport(authType, profile, function (err, user) {
                       var redirect = self.session.get('successRedirect');
+                      var lastVisitUrl = self.session.get('lastVisitUrl');
                       if (err) {
                         self.error(err);
                       }
@@ -76,7 +77,7 @@ var actions = new (function () {
                         // Third-party auth tokens, may include 'token', 'tokenSecret'
                         self.session.set('authData', profile.authData);
 
-                        self.redirect(redirect);
+                        self.redirect(lastVisitUrl || redirect);
                       }
                     });
                   }
@@ -103,7 +104,8 @@ var actions = new (function () {
     geddy.model.User.first({username: username}, {nocase: ['username']},
         function (err, user) {
       var crypted
-        , redirect;
+        , redirect
+        , lastVisitUrl;
       if (err) {
         self.redirect(failureRedirect);
       }
@@ -114,6 +116,7 @@ var actions = new (function () {
 
         if (bcrypt.compareSync(password, user.password)) {
           redirect = self.session.get('successRedirect');
+          lastVisitUrl = self.session.get('lastVisitUrl');
 
           // If there was a session var for an previous attempt
           // to hit an auth-protected page, redirect there, and
@@ -132,7 +135,7 @@ var actions = new (function () {
           // No third-party auth tokens
           self.session.set('authData', {});
 
-          self.redirect(redirect);
+          self.redirect(lastVisitUrl || redirect);
         }
         else {
           self.redirect(failureRedirect);
