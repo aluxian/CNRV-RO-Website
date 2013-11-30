@@ -3,7 +3,7 @@ var MONGO_PARSED = require('./utils').parse_url(process.env.MONGOHQ_URL);
 var config = {
   detailedErrors: false
 , debug: false
-, hostname: "0.0.0.0"
+, hostname: process.env.HOSTNAME
 , port: process.env.PORT || 4000
 , model: {
     defaultAdapter: 'mongo'
