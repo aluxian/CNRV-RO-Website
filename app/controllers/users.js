@@ -72,7 +72,8 @@ var Users = function () {
             self.transfer('add');
           } else {
             self.flash.success('Account created!');
-            self.redirect({controller: self.name});
+            self.session.set('lastVisitUrl', self.session.get('successRedirect'));
+            self.redirect('/login');
           }
         });
       }
