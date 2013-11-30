@@ -11,6 +11,7 @@
 - Import sample db `mongorestore --db <database> <app_folder>/_dump/`
 - Run `geddy` in the app's folder
 - Open the app on `localhost:4000`
+- You can login as admin with username `admin` and password `adminadmin`
 
 ## Features
 - Authentication system using passport (registration, login, facebook integration)
