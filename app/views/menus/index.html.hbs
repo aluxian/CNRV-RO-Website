@@ -5,11 +5,15 @@
     <h4>Menu items</h4>
 
     <div class="col-lg-5 add-menu-container">
-      <ul class="list-group add-menu-items">
-        {{#each menus}}
-        <li class="list-group-item">{{name}}</li>
-        {{/each}}
-      </ul>
+      <form method="POST" role="form">
+        <ul class="list-group add-menu-items">
+          {{#each menus}}
+          <li class="list-group-item">
+            <span>{{name}}</span>
+            <button type="submit" formaction="{{menuPath id}}?_method=DELETE" class="close">&times;</button></li>
+          {{/each}}
+        </ul>
+      </form>
 
       <form action="{{menusPath}}" method="POST" class="form-inline add-menu-form" role="form">
         <div class="input-group">

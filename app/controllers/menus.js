@@ -1,12 +1,18 @@
 var async = require('async')
   , utils = require('../modules/utils')
-  , requireAuth = require('../helpers/passport').requireAuth;
+  , requireAuth = require('../helpers/passport').requireAuth
+  , security = require('../modules/security');
 
 var Menus = function () {
   this.before(requireAuth);
+  
+  this.before(security.userHasAccess, {
+    async: true
+  });
+
   this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
 
-  this.add = function (req, resp, params) {
+  this.index = function (req, resp, params) {
     utils.defaultRespond.bind(this)({
       menus: async.apply(geddy.model.Menu.all, null, {sort: {name: 'asc'}})
     });
@@ -23,7 +29,7 @@ var Menus = function () {
         if (err) {
           throw err;
         }
-        self.respondWith(menu, {status: err});
+        self.redirect({controller: self.name});
       });
     }
   };

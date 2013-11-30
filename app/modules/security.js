@@ -21,13 +21,17 @@ security.userHasAccess = function(next) {
     }
 
     // User is admin or he owns the resource
-    if (data.user && data.user.role === 'admin' || !data.res.userId && data.user.role === 'admin' || data.res.userId === userId) {
+    if (data.user && data.user.role === 'admin' || data.res && (!data.res.userId && data.user.role === 'admin' || data.res.userId === userId)) {
       next();
     }
     // Redirect and set flash message
     else {
-      self.flash.error('You don\'t have access to this ' + resName.toLowerCase() + '.');
-      self.redirect({controller: self.name, id: resId});
+      self.flash.error('You don\'t have access to this page.');
+      if (resId) {
+        self.redirect({controller: self.name, id: resId});
+      } else {
+        self.redirect('/');
+      }
     }
   });
 };

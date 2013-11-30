@@ -891,3 +891,8 @@ footer.error-page {
   max-height: 271px;
   overflow: hidden;
 }
+
+/* List close button */
+.list-group-item .close {
+  margin-top: 5px;
+}
