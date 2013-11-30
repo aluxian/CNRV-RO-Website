@@ -9,7 +9,7 @@ var passport = require('passport')
 var SUPPORTED_SERVICES = ['facebook'];
 
 SUPPORTED_SERVICES.forEach(function (item) {
-  var hostname = geddy.config.fullHostname || ''
+  var hostname = process.env.APP_URL || geddy.config.fullHostname || ''
     , config = {
         callbackURL: hostname + '/auth/' +
             item + '/callback'
