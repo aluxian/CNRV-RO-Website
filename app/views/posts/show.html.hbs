@@ -4,7 +4,7 @@
   <section class="container">
     <div class="articlesWrapper col-md-8">
       <div class="articles">
-        {{{partial 'app/views/layouts/layout_post' post=post}}}
+        {{{partial 'app/views/layouts/layout_post' root=this post=post}}}
       </div>
 
       {{{partial 'app/views/layouts/layout_comments' root=this comments=post.comments user=pageData.user post=post}}}

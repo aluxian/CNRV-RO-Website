@@ -34,14 +34,6 @@ span#comments {
   margin-top: 15px;
 }
 
-.fb-like {
-  margin-top: 25px;
-}
-
-.fb-like-box {
-  background: #fff;
-}
-
 .wrapper {
   min-height: 100%;
   height: auto !important;
@@ -886,4 +878,16 @@ footer.error-page {
   li.dropdown {
     width: calc(100% - 1px) !important;
   }
+}
+
+/* Facebook plugins */
+.fb-like {
+  margin-top: 25px;
+}
+
+.fb-like-box {
+  background: #fff;
+  max-width: 300px;
+  max-height: 271px;
+  overflow: hidden;
 }
