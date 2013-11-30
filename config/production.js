@@ -1,57 +1,27 @@
+var MONGO_PARSED = require('./utils').parse_url(process.env.MONGOHQ_URL);
+
 var config = {
   detailedErrors: false
-, hostname: null
-, port: 4000
+, debug: false
+, hostname: "0.0.0.0"
+, port: process.env.PORT || 4000
 , model: {
     defaultAdapter: 'mongo'
   }
 , db: {
     mongo: {
-      username: null
-    , dbname: 'production'
-    , prefix: null
-    , password: null
-    , host: 'localhost'
-    , port: 27017
+      username: MONGO_PARSED.user
+    , dbname: MONGO_PARSED.path.substring(1)    // Get rid of the leading `/`
+    , password: MONGO_PARSED.pass
+    , host: MONGO_PARSED.host
+    , port: parseInt(MONGO_PARSED.port)
     }
   }
-
-/* // Using Postgres as the default, with only a Postgres DB
-, model: {
-    defaultAdapter: 'postgres'
+, sessions: {
+    store: 'cookie'
+  , key: 'did'
+  , expiry: 14 * 24 * 60 * 60
   }
-, db: {
-    postgres: {
-      user: process.env.USER
-    , database: process.env.USER
-    , password: null
-    , host: null
-    , port: 5432
-    }
-  }
-*/
-
-/* // Using Postgres as the default, with both Postgres and Riak
-, model: {
-    defaultAdapter: 'postgres'
-  }
-, db: {
-    postgres: {
-      user: process.env.USER
-    , database: process.env.USER
-    , password: null
-    , host: null
-    , port: 5432
-    }
-  , riak: {
-      protocol: 'http'
-    , host: 'localhost'
-    , port: 8098
-  }
-  }
-*/
 };
 
 module.exports = config;
-
-
