@@ -110,7 +110,11 @@ var Posts = function () {
       } if (!post) {
         throw new geddy.errors.BadRequestError();
       } else {
-        geddy.model.Post.remove(params.id, function(err) {
+        // Remove post and its comments
+        async.parallel([
+          async.apply(geddy.model.Comment.remove, {postId: params.id})
+        , async.apply(geddy.model.Post.remove, params.id)
+        ], function(err) {
           if (err) {
             throw err;
           }

@@ -59,6 +59,12 @@ span#comments {
   z-index: 99;
 }
 
+@media (max-width: 768px) {
+  .navbar-inverse .navbar-brand {
+    padding-left: 13px;
+  }
+}
+
 .navbar .navbar-header {
   border-left: 1px solid #2c3e50;
 }
@@ -497,7 +503,7 @@ ul.post-info li {
 .widget ul li {
   font-size: 18px;
   line-height: 25px;
-  margin-bottom: 7px;
+  margin-bottom: 8px;
 }
 
 .widget ul li a {
@@ -558,7 +564,7 @@ ul.post-info li {
 
 .comments .comment > .col-md-2 {
   padding-left: 0;
-  padding-top: 10px;
+  padding-top: 5px;
   text-align: center;
 }
 

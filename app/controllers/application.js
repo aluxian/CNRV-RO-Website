@@ -78,7 +78,7 @@ var Application = function () {
       html += '$.bootstrapGrowl("' + message + '", {offset: {from: "top", amount: 75}, type: "' + type + '"});';
     });
 
-    return html + '});}, 2000);</script>';
+    return html + '});}, 500);</script>';
   });
 };
 

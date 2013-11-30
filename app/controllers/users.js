@@ -60,9 +60,7 @@ var Users = function () {
     // Non-blocking uniqueness checks are hard
     geddy.model.User.first({username: user.username}, function(err, data) {
       if (data) {
-        params.errors = {
-          username: 'This username is already in use.'
-        };
+        self.flash.error('This username is already in use.');
         self.transfer('add');
       } else {
         if (user.isValid()) {
@@ -70,9 +68,10 @@ var Users = function () {
         }
         user.save(function(err, data) {
           if (err) {
-            params.errors = err;
+            self.flash.error(err);
             self.transfer('add');
           } else {
+            self.flash.success('Account created!');
             self.redirect({controller: self.name});
           }
         });

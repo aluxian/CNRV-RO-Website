@@ -8,7 +8,7 @@ var Links = function () {
 
   this.add = function (req, resp, params) {
     utils.defaultRespond.bind(this)({
-      menus: async.apply(geddy.model.Link.all, null, {sort: {name: 'asc'}})
+      links: async.apply(geddy.model.Link.all, null, {sort: {name: 'asc'}})
     });
   };
 
