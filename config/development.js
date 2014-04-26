@@ -9,7 +9,7 @@ var config = {
 , db: {
     mongo: {
       username: null
-    , dbname: 'dev'
+    , dbname: 'cnrv'
     , prefix: null
     , password: null
     , host: 'localhost'

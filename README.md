@@ -1,16 +1,15 @@
 # CNRV.ro Website
 
 ## About
-- App built on Node.js, uses the [GeddyJS](http://geddyjs.org/) framework. On frontend I used Twitter Bootstrap and Flat UI.
-- High School's old website: [http://www.cnrv.ro](http://www.cnrv.ro)
-- New website: [http://alux-cnrv.herokuapp.com](http://alux-cnrv.herokuapp.com)
+- Built on Node.js
+- Server-side: uses the [GeddyJS](http://geddyjs.org/) framework
+- Client-side: uses Twitter Bootstrap and Flat UI
 
 ## How to deploy on localhost
 - Clone the repo
 - Install node dependencies `npm install`
-- Import sample db `mongorestore --db <database> <app_folder>/_dump/`
 - Run `geddy` in the app's folder
-- Open the app on `localhost:4000`
+- Open the app on `localhost:4000/`
 - You can login as admin with username `admin` and password `adminadmin`
 
 ## Features
