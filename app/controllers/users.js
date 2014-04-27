@@ -52,34 +52,6 @@ var Users = function () {
     this.respond({params: params});
   };
 
-  this.create = function (req, resp, params) {
-    var self = this
-      , user = geddy.model.User.create(params)
-      , sha;
-
-    // Non-blocking uniqueness checks are hard
-    geddy.model.User.first({username: user.username}, function(err, data) {
-      if (data) {
-        self.flash.error('This username is already in use.');
-        self.transfer('add');
-      } else {
-        if (user.isValid()) {
-          user.password = cryptPass(user.password);
-        }
-        user.save(function(err, data) {
-          if (err) {
-            self.flash.error(err);
-            self.transfer('add');
-          } else {
-            self.flash.success('Account created!');
-            self.session.set('lastVisitUrl', self.session.get('successRedirect'));
-            self.redirect('/login');
-          }
-        });
-      }
-    });
-  };
-
   this.show = function (req, resp, params) {
     var self = this;
 
