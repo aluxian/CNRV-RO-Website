@@ -10,6 +10,7 @@ router.resource('menus');
 router.resource('links');
 
 // Auth
+router.get('/logout').to('Main.logout');
 router.get('/auth/facebook').to('Auth.facebook');
 router.get('/auth/facebook/callback').to('Auth.facebookCallback');
 
