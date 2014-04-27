@@ -894,12 +894,30 @@ footer.error-page {
 
 .fb-like-box {
   background: #fff;
-  max-width: 300px;
-  max-height: 271px;
-  overflow: hidden;
+  margin-top: 15px;
 }
 
 /* List close button */
 .list-group-item .close {
   margin-top: 5px;
+}
+
+/*
+Make the Facebook Like box responsive (fluid width)
+https://developers.facebook.com/docs/reference/plugins/like-box/
+*/
+
+/*
+This element holds injected scripts inside iframes that in
+some cases may stretch layouts. So, we're just hiding it.
+*/
+
+#fb-root {
+    display: none;
+}
+
+/* To fill the container and nothing else */
+
+.fb_iframe_widget, .fb_iframe_widget span, .fb_iframe_widget span iframe[style] {
+    width: 100% !important;
 }
