@@ -2,11 +2,11 @@
 
 <div class="container">
   <section class="container add-post">
-    <h4>Add post</h4>
+    <h4>Adaugă postare</h4>
 
     <form action="{{postsPath}}" method="POST">
       <div class="input-group title-input">
-        <span class="input-group-addon">Post title</span>
+        <span class="input-group-addon">Nume</span>
         <input type="text" class="form-control" name="title" placeholder="Lorem ipsum">
       </div>
 
@@ -29,7 +29,7 @@
           <input type="hidden" name="content" value="" id="postValue">
           <input type="hidden" name="userId" value="{{pageData.user.id}}">
           <!-- <button type="submit" class="btn btn-inverse" name="status" value="draft">Save as draft</button> -->
-          <button type="submit" class="btn btn-inverse" name="status" value="published" id="transferContent">Post</button>
+          <button type="submit" class="btn btn-inverse" name="status" value="published" id="transferContent">Adaugă</button>
         </div>
       </div>
     </form>

@@ -1,7 +1,6 @@
 var User = function () {
   this.defineProperties({
     username: {type: 'string', required: true},
-    password: {type: 'string', required: true},
     familyName: {type: 'string'},
     givenName: {type: 'string'},
     email: {type: 'string', required: true},
@@ -14,7 +13,6 @@ var User = function () {
   });
 
   this.validatesLength('username', {min: 3});
-  this.validatesLength('password', {min: 6});
 
   this.hasMany('Passports');
   this.hasMany('Posts');

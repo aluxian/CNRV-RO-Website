@@ -1,7 +1,7 @@
 <div class="hero-unit">
   <form id="category-form" class="form-horizontal" action="/categories" method="POST">
     <fieldset>
-      <legend>Create a new Category</legend>
+      <legend>Adaugă o categorie</legend>
       {{#if params.errors }}
       <div class="control-group">
         <ul>
@@ -11,11 +11,11 @@
         </ul>
       </div>
       {{/if}}
-      
+
       {{{partial "form" this}}}
 
       <div class="form-actions">
-        <input type="submit" class="btn btn-primary" value="Add" />
+        <input type="submit" class="btn btn-primary" value="Adaugă" />
       </div>
     </fieldset>
   </form>

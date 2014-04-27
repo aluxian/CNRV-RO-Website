@@ -10,9 +10,6 @@ router.resource('menus');
 router.resource('links');
 
 // Auth
-router.get('/login').to('Main.login');
-router.get('/logout').to('Main.logout');
-router.post('/auth/local').to('Auth.local');
 router.get('/auth/facebook').to('Auth.facebook');
 router.get('/auth/facebook/callback').to('Auth.facebookCallback');
 
@@ -20,6 +17,5 @@ router.get('/auth/facebook/callback').to('Auth.facebookCallback');
 router.get('/').to('Posts.index');
 router.get('/users/:id/posts').to('Users.posts');
 router.get('/users').to('Posts.index');
-router.get('/register').to('Users.add');
 
 exports.router = router;

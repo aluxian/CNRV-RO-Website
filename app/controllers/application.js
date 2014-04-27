@@ -45,9 +45,9 @@ var Application = function () {
     max = (parseInt(max) || 0) / 10 - 1;
 
     var html = '<li class="previous' + (page >= max ? ' disabled' : '') + '"><a'
-      + (page < max ? ' href="?page=' + ((page || 0) + 1) + '"' : '') + '>&larr; Postari anterioare</a></li>'
+      + (page < max ? ' href="?page=' + ((page || 0) + 1) + '"' : '') + '>&larr; Postări anterioare</a></li>'
       + '<li class="next' + (page ? '' : ' disabled') + '"><a' + (page ? (page > 1 ? ' href="?page=' + (page - 1)
-      + '"' : ' href="/"') : '') + '>Postari noi &rarr;</a></li>';
+      + '"' : ' href="/"') : '') + '>Postări noi &rarr;</a></li>';
 
     return html;
   });
@@ -59,18 +59,16 @@ var Application = function () {
     }
 
     var resName = params.controller.toLowerCase();
-    var resSing = geddy.inflection.singularize(params.controller);
-    return '<div class="widget res-actions"><h3>' + resSing + ' actions</h3>'
+    return '<div class="widget res-actions">'
       + '<ul><form action="/' + resName + '/' + params.id + '?_method=DELETE" method="POST">'
-      + '<button type="submit" class="btn btn-danger">Delete</button></form>'
-      + '<a href="/' + resName + '/' + params.id + '/edit" class="btn btn-inverse">Edit</a>'
-      + '<a href="/' + resName + '/add" class="btn btn-inverse">Write new ' + resSing.toLowerCase() + '</a></ul></div>';
+      + '<button type="submit" class="btn btn-danger">Șterge</button></form>'
+      + '<a href="/' + resName + '/' + params.id + '/edit" class="btn btn-inverse">Editează</a></ul></div>';
   });
 
   /* Render flash messages */
   Handlebars.registerHelper('renderFlash', function(flash, options) {
     var html = '<script>setTimeout(function(){$(function(){';
-    
+
     _.each(flash.messages, function(message, type) {
       if (type == 'error') {
         type = 'danger';

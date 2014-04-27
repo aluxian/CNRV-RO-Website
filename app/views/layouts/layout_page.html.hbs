@@ -1,13 +1,13 @@
-        {{#with page}}
-        <article>
-          <h2><a href="{{pagePath id}}">{{title}}</a></h2>
-          
-          <ul class="post-info">
-            <li>{{timeToPostFormat createdAt}}</li>
-          </ul>
+{{#with page}}
+<article>
+  <h2><a href="{{pagePath id}}">{{title}}</a></h2>
 
-          <div class="post-body">
-            {{{content}}}
-          </div>
-        </article>
-        {{/with}}
+  <ul class="post-info">
+    <li>{{timeToPostFormat createdAt}}</li>
+  </ul>
+
+  <div class="post-body">
+    {{{content}}}
+  </div>
+</article>
+{{/with}}

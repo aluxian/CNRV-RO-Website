@@ -26,7 +26,7 @@ security.userHasAccess = function(next) {
     }
     // Redirect and set flash message
     else {
-      self.flash.error('You don\'t have access to this page.');
+      self.flash.error('Nu ai acces la această pagină.');
       if (resId) {
         self.redirect({controller: self.name, id: resId});
       } else {

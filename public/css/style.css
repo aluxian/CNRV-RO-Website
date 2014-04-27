@@ -721,6 +721,10 @@ section.signin {
   min-width: 230px;
 }
 
+.add-post .dropdown-menu.add-link-dropdown .input-group-btn {
+  display: inline-block;
+}
+
 .add-post .dropdown-menu.add-link-dropdown .btn, .add-post .dropdown-menu.add-pic-dropdown .btn {
   height: 40px;
   padding-right: 12px;
@@ -733,6 +737,8 @@ section.signin {
 
 #add-link-input, #add-pic-input {
   border-radius: 4px;
+  width: 125px;
+  display: inline-block;
 }
 /*
 #add-pic-input {

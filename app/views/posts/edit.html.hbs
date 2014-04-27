@@ -2,11 +2,11 @@
 
 <div class="container">
   <section class="container add-post">
-    <h4>Edit post</h4>
+    <h4>Editează postare</h4>
 
     <form action="{{postPath post.id}}?_method=PUT" method="POST">
       <div class="input-group title-input">
-        <span class="input-group-addon">Post title</span>
+        <span class="input-group-addon">Nume</span>
         <input type="text" class="form-control" name="title" placeholder="Lorem ipsum" value="{{post.title}}">
       </div>
 
@@ -30,9 +30,9 @@
         <div class="col-md-3 col-md-offset-6 post-buttons">
           <input type="hidden" name="content" value="" id="postValue">
           <!-- <button type="submit" class="btn btn-inverse" name="status" value="draft">Save as draft</button> -->
-          <button type="submit" class="btn btn-danger" formaction="{{postPath post.id}}?_method=DELETE">Delete</button>
-          <a href="{{postPath post.id}}" class="btn btn-inverse">Discard</a>
-          <button type="submit" class="btn btn-inverse" id="transferContent">Save</button>
+          <button type="submit" class="btn btn-danger" formaction="{{postPath post.id}}?_method=DELETE">Șterge</button>
+          <a href="{{postPath post.id}}" class="btn btn-inverse">Renunță</a>
+          <button type="submit" class="btn btn-inverse" id="transferContent">Salvează</button>
         </div>
       </div>
     </form>

@@ -1,19 +1,19 @@
-        {{#with post}}
-        <article>
-          <h2><a href="{{postPath id}}">{{title}}</a></h2>
-          
-          <ul class="post-info">
-            <li><a href="{{userPath user.id}}/posts">{{user.givenName}} {{user.familyName}}</a></li>
-            <li>&bull;</li>
-            <li><a href="{{categoryPath category.id}}">{{category.name}}</a></li>
-            <li>&bull;</li>
-            <li>{{timeToPostFormat createdAt}}</li>
-            <li>&bull;</li>
-            <li><a href="{{postPath id}}#comments">{{comments.length}}&nbsp;{{singOrPlural comments.length 'Comentariu' 'Comentarii'}}</a></li>
-          </ul>
+{{#with post}}
+<article>
+  <h2><a href="{{postPath id}}">{{title}}</a></h2>
 
-          <div class="post-body">
-            {{{content}}}
-          </div>
-        </article>
-        {{/with}}
+  <ul class="post-info">
+    <li><a href="{{userPath user.id}}/posts">{{user.givenName}} {{user.familyName}}</a></li>
+    <li>&bull;</li>
+    <li><a href="{{categoryPath category.id}}">{{category.name}}</a></li>
+    <li>&bull;</li>
+    <li>{{timeToPostFormat createdAt}}</li>
+    <li>&bull;</li>
+    <li><a href="{{postPath id}}#comments">{{comments.length}}&nbsp;{{singOrPlural comments.length 'Comentariu' 'Comentarii'}}</a></li>
+  </ul>
+
+  <div class="post-body">
+    {{{content}}}
+  </div>
+</article>
+{{/with}}
