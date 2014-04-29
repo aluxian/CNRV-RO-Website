@@ -5,7 +5,7 @@ var async = require('async')
 
 var Menus = function () {
   this.before(requireAuth);
-  
+
   this.before(security.userHasAccess, {
     async: true
   });
@@ -34,47 +34,7 @@ var Menus = function () {
     }
   };
 
-  this.edit = function (req, resp, params) {
-    /* To be implemented */
-    var self = this;
-
-    geddy.model.Menu.first(params.id, function(err, menu) {
-      if (err) {
-        throw err;
-      }
-      if (!menu) {
-        throw new geddy.errors.BadRequestError();
-      } else {
-        self.respondWith(menu);
-      }
-    });
-  };
-
-  this.update = function (req, resp, params) {
-    /* To be implemented */
-    var self = this;
-
-    geddy.model.Menu.first(params.id, function(err, menu) {
-      if (err) {
-        throw err;
-      }
-      menu.updateProperties(params);
-
-      if (!menu.isValid()) {
-        self.respondWith(menu);
-      } else {
-        menu.save(function(err, data) {
-          if (err) {
-            throw err;
-          }
-          self.respondWith(menu, {status: err});
-        });
-      }
-    });
-  };
-
   this.remove = function (req, resp, params) {
-    /* To be implemented */
     var self = this;
 
     geddy.model.Menu.first(params.id, function(err, menu) {

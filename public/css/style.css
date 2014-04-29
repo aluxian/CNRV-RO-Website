@@ -921,3 +921,7 @@ some cases may stretch layouts. So, we're just hiding it.
 .fb_iframe_widget, .fb_iframe_widget span, .fb_iframe_widget span iframe[style] {
     width: 100% !important;
 }
+
+.qf_linkUrl {
+  margin-bottom: 5px;
+}

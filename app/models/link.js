@@ -3,7 +3,7 @@ var Link = function () {
     linkType: {type: 'string', required: true},
     url: {type: 'string', required: true},
     src: {type: 'string'},
-    name: {type: 'string'}
+    name: {type: 'string', required: true}
   });
 
   // Check that 'linkType' is valid

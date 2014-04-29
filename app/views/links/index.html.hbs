@@ -5,15 +5,23 @@
     <h4>Linkuri</h4>
 
     <div class="col-lg-5 add-menu-container">
-      <ul class="list-group add-menu-items">
-        {{#each links}}
-        <li class="list-group-item">{{name}}</li>
-        {{/each}}
-      </ul>
+      <form method="POST" role="form">
+        <ul class="list-group add-menu-items">
+          {{#each links}}
+          <li class="list-group-item">
+            <a href="{{url}}">{{name}}</a>
+            <button type="submit" formaction="{{linkPath id}}?_method=DELETE" class="close">&times;</button>
+          </li>
+          {{/each}}
+        </ul>
+        </ul>
+      </form>
 
       <form action="{{linksPath}}" method="POST" class="form-inline add-menu-form" role="form">
+        <input type="text" class="form-control qf_linkUrl" name="url" placeholder="http://" required>
         <div class="input-group">
-          <input type="text" class="form-control" name="name" placeholder="Nume link">
+          <input type="text" class="form-control" name="name" placeholder="Nume link..." required>
+          <input type="hidden" name="linkType" value="url">
           <span class="input-group-btn">
             <button class="btn btn-inverse add-button" type="submit">Adaugă</button>
           </span>

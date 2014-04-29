@@ -34,47 +34,7 @@ var Links = function () {
     }
   };
 
-  this.edit = function (req, resp, params) {
-    /* To be implemented */
-    var self = this;
-
-    geddy.model.Link.first(params.id, function(err, link) {
-      if (err) {
-        throw err;
-      }
-      if (!link) {
-        throw new geddy.errors.BadRequestError();
-      } else {
-        self.respondWith(link);
-      }
-    });
-  };
-
-  this.update = function (req, resp, params) {
-    /* To be implemented */
-    var self = this;
-
-    geddy.model.Link.first(params.id, function(err, link) {
-      if (err) {
-        throw err;
-      }
-      link.updateProperties(params);
-
-      if (!link.isValid()) {
-        self.respondWith(link);
-      } else {
-        link.save(function(err, data) {
-          if (err) {
-            throw err;
-          }
-          self.respondWith(link, {status: err});
-        });
-      }
-    });
-  };
-
   this.remove = function (req, resp, params) {
-    /* To be implemented */
     var self = this;
 
     geddy.model.Link.first(params.id, function(err, link) {

@@ -10,14 +10,15 @@
           {{#each menus}}
           <li class="list-group-item">
             <span>{{name}}</span>
-            <button type="submit" formaction="{{menuPath id}}?_method=DELETE" class="close">&times;</button></li>
+            <button type="submit" formaction="{{menuPath id}}?_method=DELETE" class="close">&times;</button>
+          </li>
           {{/each}}
         </ul>
       </form>
 
       <form action="{{menusPath}}" method="POST" class="form-inline add-menu-form" role="form">
         <div class="input-group">
-          <input type="text" class="form-control" name="name" placeholder="Enter menu name...">
+          <input type="text" class="form-control" name="name" placeholder="Nume meniu..." required>
           <span class="input-group-btn">
             <button class="btn btn-inverse add-button" type="submit">Adaugă</button>
           </span>
