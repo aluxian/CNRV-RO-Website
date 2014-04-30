@@ -7,7 +7,7 @@
     <form action="{{postPath post.id}}?_method=PUT" method="POST">
       <div class="input-group title-input">
         <span class="input-group-addon">Nume</span>
-        <input type="text" class="form-control" name="title" placeholder="Lorem ipsum" value="{{post.title}}">
+        <input type="text" class="form-control" name="title" value="{{post.title}}">
       </div>
 
       {{{partial 'app/views/layouts/layout_editor_toolbar'}}}

@@ -6,14 +6,14 @@ var Comments = function () {
       , comment = geddy.model.Comment.create(params);
 
     if (!comment.isValid()) {
-      self.flash.error('Invalid comment, please try again.');
+      self.flash.error('Comentariu invalid.');
       self.redirect({controller: 'Posts', id: params.postId});
     } else {
       comment.save(function(err, data) {
         if (err) {
           throw err;
         }
-        self.flash.success('Comment posted!');
+        self.flash.success('Comentariul a fost adăugat.');
         self.redirect({controller: 'Posts', id: params.postId});
       });
     }
