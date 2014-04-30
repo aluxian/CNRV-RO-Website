@@ -7,7 +7,11 @@
   {{#each comments}}
   <div class="comment">
     <div class="col-md-2">
-      <img class="comment-avatar" src="//www.gravatar.com/avatar/{{avatarHash}}?s=75&d=mm" alt="Avatar">
+      {{#if user}}
+      <img class="comment-avatar" src="{{user.avatar}}" alt="Avatar">
+      {{else}}
+      <img class="comment-avatar" src="//www.gravatar.com/avatar/?s=100&d=mm" alt="Avatar">
+      {{/if}}
     </div>
     <div class="col-md-10">
       <div class="comment-header">

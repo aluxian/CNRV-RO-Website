@@ -17,7 +17,11 @@
       <li>
         <div class="widget-comment">
           <div class="col-xs-4">
-            <img class="comment-avatar" src="//www.gravatar.com/avatar/{{avatarHash}}?s=40&d=mm" alt="Avatar">
+            {{#if user}}
+            <img class="comment-avatar" src="{{user.avatar}}" alt="Avatar">
+            {{else}}
+            <img class="comment-avatar" src="//www.gravatar.com/avatar/?s=100&d=mm" alt="Avatar">
+            {{/if}}
           </div>
           <div class="col-xs-8">
             <a href="{{postPath postId}}"><p>{{truncate content 130}}</p></a>

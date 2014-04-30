@@ -4,7 +4,8 @@ var User = function () {
     familyName: {type: 'string'},
     givenName: {type: 'string'},
     email: {type: 'string', required: true},
-    role: {type: 'string', required: true}
+    role: {type: 'string', required: true},
+    avatar: {type: 'string'}
   });
 
   // Check that 'role' is valid

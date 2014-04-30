@@ -19,31 +19,7 @@ var Comments = function () {
     }
   };
 
-  this.update = function (req, resp, params) {
-    /* To be implemented */
-    var self = this;
-
-    geddy.model.Comment.first(params.id, function(err, comment) {
-      if (err) {
-        throw err;
-      }
-      comment.updateProperties(params);
-
-      if (!comment.isValid()) {
-        self.respondWith(comment);
-      } else {
-        comment.save(function(err, data) {
-          if (err) {
-            throw err;
-          }
-          self.respondWith(comment, {status: err});
-        });
-      }
-    });
-  };
-
   this.remove = function (req, resp, params) {
-    /* To be implemented */
     var self = this;
 
     geddy.model.Comment.first(params.id, function(err, comment) {

@@ -66,7 +66,7 @@ utils.loadPageData = function(dataToLoad, session, callback) {
       recentPosts: async.apply(geddy.model.Post.all, null, {sort: {createdAt: 'desc'}, limit: 5})
     , recentComments: async.apply(async.waterfall, [
         async.apply(geddy.model.Comment.all, null, {sort: {createdAt: 'desc'}, limit: 5})
-      , utils.generateAvatarsForComments
+      , utils.fetchAssociations({fetch: ['User']})
       ])
     , links: async.apply(geddy.model.Link.all, null, {sort: {name: 'asc', createdAt: 'asc'}})
     })
@@ -87,40 +87,8 @@ utils.loadPageData = function(dataToLoad, session, callback) {
         delete tasks[key];
     });
   }
-  
+
   async.parallel(tasks, callback);
-};
-
-/**
- * Generate a gravatar.com image hash using author's email address
- * @param  comment   Comment object
- * @param  callback  Callback method
- */
-utils.generateAvatar = function(comment) {
-  var email = (comment.user && comment.user.email) || comment.email;
-  if (email) {
-    comment.avatarHash = require('crypto').createHash('md5').update(email).digest('hex');
-  }
-};
-
-/**
- * Generate avatar hashes for the post's comments
- * @param  post      Post object which contains the comments
- * @param  callback  Callback method
- */
-utils.generateAvatarsForPost = function(post, callback) {
-  _.each(post.comments, utils.generateAvatar);
-  callback(null, post);
-};
-
-/**
- * Generate avatar hashes for the comments array
- * @param  post      Comments array
- * @param  callback  Callback method
- */
-utils.generateAvatarsForComments = function(comments, callback) {
-  _.each(comments, utils.generateAvatar);
-  callback(null, comments);
 };
 
 /**
