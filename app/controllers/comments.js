@@ -1,5 +1,5 @@
 var Comments = function () {
-  this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
+  this.respondsWith = ['html', 'json'];
 
   this.create = function (req, resp, params) {
     var self = this

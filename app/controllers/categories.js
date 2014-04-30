@@ -4,7 +4,7 @@ var async = require('async')
 
 var Categories = function () {
   this.before(requireAuth, {except: ['show']});
-  this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
+  this.respondsWith = ['html', 'json'];
 
   this.add = function (req, resp, params) {
     utils.defaultRespond.bind(this)({

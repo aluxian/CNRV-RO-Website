@@ -4,16 +4,9 @@ var async = require('async')
   , security = require('../modules/security');
 
 var Posts = function () {
-  this.before(requireAuth, {
-    except: ['index', 'show']
-  });
-
-  this.before(security.userHasAccess, {
-    only: ['edit', 'update'],
-    async: true
-  });
-
-  this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
+  this.before(requireAuth, { except: ['index', 'show'] });
+  this.before(security.userHasAccess, { only: ['edit', 'update'], async: true });
+  this.respondsWith = ['html', 'json'];
 
   this.index = function (req, resp, params, q, viewOptions) {
     var options = {sort: {createdAt: 'desc'}, limit: 10};

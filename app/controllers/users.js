@@ -6,16 +6,9 @@ var async = require('async')
   , requireAuth = passport.requireAuth;
 
 var Users = function () {
-  this.before(requireAuth, {
-    except: ['add', 'create', 'posts']
-  });
-
-  this.before(security.userHasAccess, {
-    only: ['edit', 'update'],
-    async: true
-  });
-
-  this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
+  this.before(requireAuth, { except: ['add', 'create', 'posts'] });
+  this.before(security.userHasAccess, { only: ['edit', 'update'], async: true });
+  this.respondsWith = ['html', 'json'];
 
   this.index = function (req, resp, params) {
     var self = this;

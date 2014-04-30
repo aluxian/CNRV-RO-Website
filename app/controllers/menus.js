@@ -5,12 +5,8 @@ var async = require('async')
 
 var Menus = function () {
   this.before(requireAuth);
-
-  this.before(security.userHasAccess, {
-    async: true
-  });
-
-  this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
+  this.before(security.userHasAccess, { async: true });
+  this.respondsWith = ['html', 'json'];
 
   this.index = function (req, resp, params) {
     utils.defaultRespond.bind(this)({

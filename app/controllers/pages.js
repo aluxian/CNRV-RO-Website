@@ -4,16 +4,9 @@ var async = require('async')
   , security = require('../modules/security');
 
 var Pages = function () {
-  this.before(requireAuth, {
-    except: ['show']
-  });
-
-  this.before(security.userHasAccess, {
-    only: ['edit', 'update'],
-    async: true
-  });
-
-  this.respondsWith = ['html', 'json', 'xml', 'js', 'txt'];
+  this.before(requireAuth, { except: ['show'] });
+  this.before(security.userHasAccess, { only: ['edit', 'update'], async: true });
+  this.respondsWith = ['html', 'json'];
 
   this.add = function (req, resp, params) {
     utils.defaultRespond.bind(this)({
