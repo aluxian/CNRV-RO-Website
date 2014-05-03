@@ -163,7 +163,8 @@ utils.defaultCreate = function(respondWith, invalidMessage, successMessage, req,
  * @param  params         Params to use
  */
 utils.defaultUpdate = function(respondWith, invalidMessage, successMessage, req, resp, params) {
-  var self = this;
+  var self = this
+    , modelName = geddy.string.capitalize(geddy.inflection.singularize(self.name));
 
   geddy.model[modelName].first(params.id, function(err, model) {
     if (err) { throw err; }
