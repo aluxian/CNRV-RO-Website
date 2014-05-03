@@ -7,7 +7,7 @@
     <form action="{{pagePath page.id}}?_method=PUT" method="POST">
       <div class="input-group title-input">
         <span class="input-group-addon">Nume</span>
-        <input type="text" class="form-control" name="title" value="{{page.title}}">
+        <input type="text" class="form-control" name="title" value="{{page.title}}" autofocus required>
       </div>
 
       {{{partial 'app/views/layouts/layout_editor_toolbar'}}}
