@@ -1,0 +1,31 @@
+{{{partial 'app/views/layouts/layout_nav' root=this user=pageData.user nav=pageData.nav}}}
+
+<div class="container">
+  <section class="container add-post add-menu">
+    <h4>Categorii</h4>
+
+    <div class="col-lg-5 add-menu-container">
+      <form method="POST" role="form">
+        <ul class="list-group add-menu-items">
+          {{#each categories}}
+          <li class="list-group-item">
+            <span>{{name}} <span class="badge">{{posts}}</span></span>
+            {{#ifEqual posts 0}}
+            <button type="submit" formaction="{{categoryPath id}}?_method=DELETE" class="close">&times;</button>
+            {{/ifEqual}}
+          </li>
+          {{/each}}
+        </ul>
+      </form>
+
+      <form action="{{categoriesPath}}" method="POST" class="form-inline add-menu-form" role="form">
+        <div class="input-group">
+          <input type="text" class="form-control" name="name" placeholder="Nume categorie..." required>
+          <span class="input-group-btn">
+            <button class="btn btn-inverse add-button" type="submit">Adaugă</button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

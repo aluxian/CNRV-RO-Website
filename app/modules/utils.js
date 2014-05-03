@@ -96,7 +96,7 @@ utils.loadPageData = function(dataToLoad, session, callback) {
  * Fetches page data, does other tasks and responds with it
  * @param  newTasks  New tasks to be done additionally to pageData
  */
-utils.defaultRespond = function(newTasks, options) {
+utils.defaultIndex = function(newTasks, options) {
   var self = this
     , tasks = {
       pageData: async.apply(utils.loadPageData, null, self.session)
@@ -109,6 +109,114 @@ utils.defaultRespond = function(newTasks, options) {
       throw new geddy.errors.BadRequestError();
     } else {
       self.respond(data, options && options.respond);
+    }
+  });
+};
+
+/**
+ * Creates a model using the supplied parameters
+ * @param  invalidMessage Message to be flashed if the params are invalid
+ * @param  successMessage Message to be flashed if the model is created
+ * @param  respondWith    If true the route will respond with the object, otherwise it will redirect
+ * @param  params         Params to use
+ */
+utils.defaultCreate = function(respondWith, invalidMessage, successMessage, req, resp, params) {
+  var self = this
+    , modelName = geddy.string.capitalize(geddy.inflection.singularize(self.name))
+    , model = geddy.model[modelName].create(params);
+
+  if (!model.isValid()) {
+    self.flash.error(invalidMessage);
+
+    if (respondWith) {
+      if (typeof respondWith == 'boolean') {
+        self.respondWith(model);
+      } else {
+        self.redirect(respondWith);
+      }
+    } else {
+      self.redirect({controller: self.name});
+    }
+  } else {
+    model.save(function(err) {
+      if (err) { throw err; }
+      self.flash.success(successMessage);
+
+      if (respondWith) {
+        if (typeof respondWith == 'boolean') {
+          self.respondWith(model);
+        } else {
+          self.redirect(respondWith);
+        }
+      } else {
+        self.redirect({controller: self.name});
+      }
+    });
+  }
+};
+
+/**
+ * Update a model with the supplied parameters
+ * @param  invalidMessage Message to be flashed if the params are invalid
+ * @param  successMessage Message to be flashed if the model is updated
+ * @param  respondWith    If true the route will respond with the object, otherwise it will redirect
+ * @param  params         Params to use
+ */
+utils.defaultUpdate = function(respondWith, invalidMessage, successMessage, req, resp, params) {
+  var self = this;
+
+  geddy.model[modelName].first(params.id, function(err, model) {
+    if (err) { throw err; }
+    model.updateProperties(params);
+
+    if (!model.isValid()) {
+      self.flash.error(invalidMessage);
+
+      if (respondWith) {
+        self.respondWith(model);
+      } else {
+        self.redirect({controller: self.name});
+      }
+    } else {
+      model.save(function(err, data) {
+        if (err) { throw err; }
+        self.flash.success(successMessage);
+
+        if (respondWith) {
+          self.respondWith(model);
+        } else {
+          self.redirect({controller: self.name});
+        }
+      });
+    }
+  });
+};
+
+/**
+ * Remove a model
+ * @param  successMessage Message to be flashed if the removal is successful
+ * @param  respondWith    If true the route will respond with the object, otherwise it will redirect
+ * @param  params         Object containing the ID
+ */
+utils.defaultRemove = function(successMessage, respondWith, req, resp, params) {
+  var self = this
+    , modelName = geddy.string.capitalize(geddy.inflection.singularize(self.name));
+
+  geddy.model[modelName].first(params.id, function(err, model) {
+    if (err) { throw err; }
+    if (!model) {
+      throw new geddy.errors.BadRequestError();
+    } else {
+      geddy.model[modelName].remove(params.id, function(err) {
+        if (err) { throw err; }
+        self.flash.success(successMessage);
+
+        if (respondWith) {
+          self.respondWith(model);
+        } else {
+          self.redirect({controller: self.name});
+        }
+      });
     }
   });
 };

@@ -5,7 +5,7 @@ var async = require('async')
 
 var Posts = function () {
   this.before(requireAuth, { except: ['index', 'show'] });
-  this.before(security.userHasAccess, { only: ['edit', 'update'], async: true });
+  this.before(security.userHasAccess, { only: ['edit', 'update', 'remove'], async: true });
   this.respondsWith = ['html', 'json'];
 
   this.index = function (req, resp, params, q, viewOptions) {
@@ -17,7 +17,7 @@ var Posts = function () {
     }
 
     // Respond with posts
-    utils.defaultRespond.bind(this)({
+    utils.defaultIndex.bind(this)({
       posts: async.apply(async.waterfall, [
         async.apply(geddy.model.Post.all, q, options)
       , utils.fetchAssociations({fetch: ['User', 'Category', 'Comments']})
@@ -31,29 +31,13 @@ var Posts = function () {
   };
 
   this.add = function (req, resp, params) {
-    utils.defaultRespond.bind(this)({
+    utils.defaultIndex.bind(this)({
       categories: async.apply(geddy.model.Category.all, null, {sort: {name: 'asc'}})
     });
   };
 
-  this.create = function (req, resp, params) {
-    var self = this
-      , post = geddy.model.Post.create(params);
-
-    if (!post.isValid()) {
-      self.respondWith(post);
-    } else {
-      post.save(function(err, data) {
-        if (err) {
-          throw err;
-        }
-        self.respondWith(post, {status: err});
-      });
-    }
-  };
-
   this.show = function (req, resp, params) {
-    utils.defaultRespond.bind(this)({
+    utils.defaultIndex.bind(this)({
       post: async.apply(async.waterfall, [
         async.apply(geddy.model.Post.first, params.id)
       , utils.fetchAssociations({fetch: ['User', 'Category', 'Comments', {for: 'comments', fetch: ['User']}]})
@@ -62,7 +46,7 @@ var Posts = function () {
   };
 
   this.edit = function (req, resp, params) {
-    utils.defaultRespond.bind(this)({
+    utils.defaultIndex.bind(this)({
       post: async.apply(async.waterfall, [
         async.apply(geddy.model.Post.first, params.id)
       , utils.fetchAssociations({fetch: ['Category']})
@@ -71,50 +55,9 @@ var Posts = function () {
     }, { requiredRes: ['post'] });
   };
 
-  this.update = function (req, resp, params) {
-    var self = this;
-
-    geddy.model.Post.first(params.id, function(err, post) {
-      if (err) {
-        throw err;
-      }
-      post.updateProperties(params);
-
-      if (!post.isValid()) {
-        self.respondWith(post);
-      } else {
-        post.save(function(err, data) {
-          if (err) {
-            throw err;
-          }
-          self.respondWith(post, {status: err});
-        });
-      }
-    });
-  };
-
-  this.remove = function (req, resp, params) {
-    var self = this;
-
-    geddy.model.Post.first(params.id, function(err, post) {
-      if (err) {
-        throw err;
-      } if (!post) {
-        throw new geddy.errors.BadRequestError();
-      } else {
-        // Remove post and its comments
-        async.parallel([
-          async.apply(geddy.model.Comment.remove, {postId: params.id})
-        , async.apply(geddy.model.Post.remove, params.id)
-        ], function(err) {
-          if (err) {
-            throw err;
-          }
-          self.respondWith(post);
-        });
-      }
-    });
-  };
+  this.create = utils.defaultCreate.bind(this, true, 'Postare invalidă.', 'Postarea a fost adaugată.');
+  this.update = utils.defaultUpdate.bind(this, true, 'Postare invalidă.', 'Postarea a fost salvată.');
+  this.remove = utils.defaultRemove.bind(this, true, 'Postarea a fost ștearsă.');
 
 };
 

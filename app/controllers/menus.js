@@ -9,46 +9,13 @@ var Menus = function () {
   this.respondsWith = ['html', 'json'];
 
   this.index = function (req, resp, params) {
-    utils.defaultRespond.bind(this)({
+    utils.defaultIndex.bind(this)({
       menus: async.apply(geddy.model.Menu.all, null, {sort: {name: 'asc'}})
     });
   };
 
-  this.create = function (req, resp, params) {
-    var self = this
-      , menu = geddy.model.Menu.create(params);
-
-    if (!menu.isValid()) {
-      this.respondWith(menu);
-    } else {
-      menu.save(function(err, data) {
-        if (err) {
-          throw err;
-        }
-        self.redirect({controller: self.name});
-      });
-    }
-  };
-
-  this.remove = function (req, resp, params) {
-    var self = this;
-
-    geddy.model.Menu.first(params.id, function(err, menu) {
-      if (err) {
-        throw err;
-      }
-      if (!menu) {
-        throw new geddy.errors.BadRequestError();
-      } else {
-        geddy.model.Menu.remove(params.id, function(err) {
-          if (err) {
-            throw err;
-          }
-          self.respondWith(menu);
-        });
-      }
-    });
-  };
+  this.create = utils.defaultCreate.bind(this, false, 'Meniu invalid.', 'Meniul a fost creat.');
+  this.remove = utils.defaultRemove.bind(this, false, 'Meniul a fost șters.');
 
 };
 

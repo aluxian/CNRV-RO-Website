@@ -727,13 +727,6 @@ ul.post-info li {
   height: 33px;
 } */
 
-/* Menus edit page */
-.add-menu h4 {
-  text-align: center;
-  margin-bottom: 25px;
-  padding-bottom: 15px;
-}
-
 /* List close button */
 .list-group-item .close {
   margin-top: 5px;
@@ -769,6 +762,16 @@ ul.post-info li {
 
 .add-menu .add-menu-form .btn {
   height: 42px;
+}
+
+.add-menu h4 {
+  text-align: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+}
+
+.add-menu .badge {
+  vertical-align: middle;
 }
 
 /* Submenu styling */

@@ -6,17 +6,9 @@ var async = require('async')
   , requireAuth = passport.requireAuth;
 
 var Users = function () {
-  this.before(requireAuth, { except: ['add', 'create', 'posts'] });
+  this.before(requireAuth, { only: ['edit', 'update'] });
   this.before(security.userHasAccess, { only: ['edit', 'update'], async: true });
   this.respondsWith = ['html', 'json'];
-
-  this.index = function (req, resp, params) {
-    var self = this;
-
-    geddy.model.User.all(function(err, users) {
-      self.respond({params: params, users: users});
-    });
-  };
 
   this.posts = function(res, resp, params) {
     var options = {sort: {createdAt: 'desc'}, limit: 10}
@@ -28,7 +20,7 @@ var Users = function () {
     }
 
     // Respond with posts
-    utils.defaultRespond.bind(this)({
+    utils.defaultIndex.bind(this)({
       posts: async.apply(async.waterfall, [
         async.apply(geddy.model.Post.all, q, options)
       , utils.fetchAssociations({fetch: ['User', 'Category', 'Comments']})
@@ -45,70 +37,10 @@ var Users = function () {
     this.respond({params: params});
   };
 
-  this.show = function (req, resp, params) {
-    var self = this;
+  this.show = function (req, resp, params) {};
+  this.edit = function (req, resp, params) {};
 
-    geddy.model.User.first(params.id, function(err, user) {
-      if (!user) {
-        var err = new Error();
-        err.statusCode = 400;
-        self.error(err);
-      } else {
-        user.password = '';
-        self.respond({params: params, user: user.toObj()});
-      }
-    });
-  };
-
-  this.edit = function (req, resp, params) {
-    var self = this;
-
-    geddy.model.User.first(params.id, function(err, user) {
-      if (!user) {
-        var err = new Error();
-        err.statusCode = 400;
-        self.error(err);
-      } else {
-        self.respond({params: params, user: user});
-      }
-    });
-  };
-
-  this.update = function (req, resp, params) {
-    var self = this;
-
-    geddy.model.User.first(params.id, function(err, user) {
-      // Only update password if it's changed
-      var skip = params.password ? [] : ['password'];
-      user.updateAttributes(params, {skip: skip});
-
-      if (params.password && user.isValid()) {
-        user.password = cryptPass(user.password);
-      }
-
-      user.save(function(err, data) {
-        if (err) {
-          params.errors = err;
-          self.transfer('edit');
-        } else {
-          self.redirect({controller: self.name});
-        }
-      });
-    });
-  };
-
-  this.destroy = function (req, resp, params) {
-    var self = this;
-
-    geddy.model.User.remove(params.id, function(err) {
-      if (err) {
-        params.errors = err;
-        self.transfer('edit');
-      } else {
-        self.redirect({controller: self.name});
-      }
-    });
-  };
+  this.update = utils.defaultUpdate.bind(this, false, 'Informații invalide.', 'Informațiile au fost salvate.');
 
 };
 

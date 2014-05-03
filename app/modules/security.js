@@ -26,7 +26,12 @@ security.userHasAccess = function(next) {
     }
     // Redirect and set flash message
     else {
-      self.flash.error('Nu ai acces la această pagină.');
+      if (data.user) {
+        self.flash.error('Nu ai acces la această pagină.');
+      } else {
+        self.flash.error('Trebuie să fii autentificat.');
+      }
+
       if (resId) {
         self.redirect({controller: self.name, id: resId});
       } else {

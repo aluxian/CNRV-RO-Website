@@ -13,7 +13,7 @@ exports.requireAuth = function () {
     // Record the page the user was trying to get to, will
     // try to return them there after login
     this.session.set('successRedirect', this.request.url);
-    this.redirect('/login');
+    this.redirect('/');
   }
 };
 

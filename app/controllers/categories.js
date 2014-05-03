@@ -1,31 +1,26 @@
 var async = require('async')
   , utils = require('../modules/utils')
-  , requireAuth = require('../helpers/passport').requireAuth;
+  , requireAuth = require('../helpers/passport').requireAuth
+  , security = require('../modules/security');
 
 var Categories = function () {
   this.before(requireAuth, {except: ['show']});
+  this.before(security.userHasAccess, { async: true });
   this.respondsWith = ['html', 'json'];
 
-  this.add = function (req, resp, params) {
-    utils.defaultRespond.bind(this)({
-      menus: async.apply(geddy.model.Category.all, null, {sort: {name: 'asc'}})
-    });
-  };
-
-  this.create = function (req, resp, params) {
-    var self = this
-      , category = geddy.model.Category.create(params);
-
-    if (!category.isValid()) {
-      this.respondWith(category);
-    } else {
-      category.save(function(err, data) {
-        if (err) {
-          throw err;
+  this.index = function (req, resp, params) {
+    utils.defaultIndex.bind(this)({
+      categories: async.apply(async.waterfall, [
+        async.apply(geddy.model.Category.all, null, {sort: {name: 'asc'}})
+      , utils.fetchAssociations({fetch: ['Posts']})
+      , function(categories, callback) {
+        for (var i = 0; i < categories.length; i++) {
+          categories[i].posts = categories[i].posts.length;
         }
-        self.respondWith(category, {status: err});
-      });
-    }
+        callback(null, categories);
+      }
+      ])
+    });
   };
 
   this.show = function(res, resp, params) {
@@ -38,7 +33,7 @@ var Categories = function () {
     }
 
     // Respond with posts
-    utils.defaultRespond.bind(this)({
+    utils.defaultIndex.bind(this)({
       posts: async.apply(async.waterfall, [
         async.apply(geddy.model.Post.all, q, options)
       , utils.fetchAssociations({fetch: ['User', 'Category', 'Comments']})
@@ -51,65 +46,8 @@ var Categories = function () {
     }, { requiredRes: ['posts'] });
   };
 
-  this.edit = function (req, resp, params) {
-    /* To be implemented */
-    var self = this;
-
-    geddy.model.Category.first(params.id, function(err, category) {
-      if (err) {
-        throw err;
-      }
-      if (!category) {
-        throw new geddy.errors.BadRequestError();
-      } else {
-        self.respondWith(category);
-      }
-    });
-  };
-
-  this.update = function (req, resp, params) {
-    /* To be implemented */
-    var self = this;
-
-    geddy.model.Category.first(params.id, function(err, category) {
-      if (err) {
-        throw err;
-      }
-      category.updateProperties(params);
-
-      if (!category.isValid()) {
-        self.respondWith(category);
-      } else {
-        category.save(function(err, data) {
-          if (err) {
-            throw err;
-          }
-          self.respondWith(category, {status: err});
-        });
-      }
-    });
-  };
-
-  this.remove = function (req, resp, params) {
-    /* To be implemented */
-    var self = this;
-
-    geddy.model.Category.first(params.id, function(err, category) {
-      if (err) {
-        throw err;
-      }
-      if (!category) {
-        throw new geddy.errors.BadRequestError();
-      } else {
-        geddy.model.Category.remove(params.id, function(err) {
-          if (err) {
-            throw err;
-          }
-          self.respondWith(category);
-        });
-      }
-    });
-  };
+  this.create = utils.defaultCreate.bind(this, false, 'Categorie invalidă.', 'Categoria a fost creată.');
+  this.remove = utils.defaultRemove.bind(this, false, 'Categoria a fost ștearsă.');
 
 };
 

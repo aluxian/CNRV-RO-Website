@@ -1,6 +1,3 @@
-var async = require('async')
-  , utils = require('../modules/utils');
-
 var Main = function () {
   this.respondsWith = ['html'];
 
