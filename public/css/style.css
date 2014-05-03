@@ -1,3 +1,27 @@
+/* Webfont: LatoLatin-Regular */
+@font-face {
+  font-family: 'Lato';
+  src: url('../fonts/lato/LatoLatin-Regular.eot');
+  src: url('../fonts/lato/LatoLatin-Regular.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/lato/LatoLatin-Regular.woff') format('woff'),
+       url('../fonts/lato/LatoLatin-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+  text-rendering: optimizeLegibility;
+}
+
+/* Webfont: LatoLatinLight-Regular */
+@font-face {
+  font-family: 'Lato';
+  src: url('../fonts/lato/LatoLatinLight-Regular.eot');
+  src: url('../fonts/lato/LatoLatinLight-Regular.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/lato/LatoLatinLight-Regular.woff') format('woff'),
+       url('../fonts/lato/LatoLatinLight-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 300;
+  text-rendering: optimizeLegibility;
+}
+
 /* General styling */
 html, body {
   height: 100%;
