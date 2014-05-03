@@ -303,7 +303,6 @@ footer .nav .container {
 
 footer .nav .col-md-6:last-child {
   text-align: right;
-  padding-right: 0;
 }
 
 @media (max-width: 992px) {
@@ -482,6 +481,13 @@ ul.post-info li {
   margin-bottom: 25px;
 }
 
+.widget .smaller {
+  font-size: 16px;
+  line-height: 20px;
+  padding-bottom: 3px;
+  color: #888;
+}
+
 .widget:last-child {
   border-bottom: none;
 }
@@ -490,7 +496,7 @@ ul.post-info li {
   font-size: 19px;
   margin: 0;
   padding-bottom: 5px;
-  color: rgba(136, 136, 136, 0.46);
+  color: #888;
 }
 
 .widget ul {
@@ -534,6 +540,13 @@ ul.post-info li {
   width: calc(100% - 47px);
 }
 
+.widget .widget-comment .col-xs-8 .smaller {
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 10px;
+  color: #888;
+}
+
 .widget .widget-comment .comment-avatar {
   width: 40px;
   height: 40px;
@@ -542,6 +555,7 @@ ul.post-info li {
 .widget .widget-comment p {
   font-size: 18px;
   line-height: 18px;
+  margin-bottom: 5px;
 }
 
 .widget .widget-comments {
@@ -588,7 +602,7 @@ ul.post-info li {
   text-align: right;
   font-size: 15px;
   line-height: 37px;
-  color: rgba(136, 136, 136, 0.46);
+  color: #888;
 }
 
 .comments .comment .comment-avatar {
@@ -609,30 +623,6 @@ ul.post-info li {
   border-color: #e74c3c;
 }
 
-/* Login page */
-.signin input {
-  margin-bottom: 20px;
-}
-
-.signin .col-lg-5 {
-  float: inherit;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 30px 50px 75px;
-}
-
-.signin .signin-recover {
-  font-size: 17px;
-  line-height: 40px;
-  text-decoration: underline;
-}
-
-.signin .signin-buttons button, .signin .signin-buttons a {
-  margin-left: 10px;
-  margin-top: 10px;
-  float: right;
-}
-
 @media (min-width: 768px) {
   .comment-reply-form .col-sm-2 {
     width: 20%;
@@ -647,23 +637,12 @@ ul.post-info li {
   }
 }
 
-section.signin {
-  padding-left: 0;
-  padding-right: 0;
-}
-
 /* Add post */
 .add-post h4 {
   margin-top: 0;
   padding-bottom: 10px;
   margin-bottom: 20px;
   border-bottom-width: 2px;
-}
-
-.add-menu h4 {
-  text-align: center;
-  margin-bottom: 25px;
-  padding-bottom: 15px;
 }
 
 .add-post .toolbar .btn {
@@ -748,6 +727,18 @@ section.signin {
   height: 33px;
 } */
 
+/* Menus edit page */
+.add-menu h4 {
+  text-align: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+}
+
+/* List close button */
+.list-group-item .close {
+  margin-top: 5px;
+}
+
 /* Text editor */
 #editor {
   max-height: 500px;
@@ -817,6 +808,13 @@ footer.error-page {
 .bootstrap-growl .close {
   margin-left: 8px;
   margin-top: 4px;
+}
+
+.bootstrap-growl .alert {
+  color: #fff;
+  background: #34495E;
+  border: 1px solid #101010;
+  border-radius: 4px;
 }
 
 /* Collapsed navbar */
@@ -897,31 +895,15 @@ footer.error-page {
   margin-top: 15px;
 }
 
-/* List close button */
-.list-group-item .close {
-  margin-top: 5px;
-}
-
-/*
-Make the Facebook Like box responsive (fluid width)
-https://developers.facebook.com/docs/reference/plugins/like-box/
-*/
-
-/*
-This element holds injected scripts inside iframes that in
-some cases may stretch layouts. So, we're just hiding it.
-*/
-
 #fb-root {
-    display: none;
+  display: none;
 }
-
-/* To fill the container and nothing else */
 
 .fb_iframe_widget, .fb_iframe_widget span, .fb_iframe_widget span iframe[style] {
     width: 100% !important;
 }
 
+/* Quick fixes */
 .qf_linkUrl {
   margin-bottom: 5px;
 }
@@ -935,4 +917,3 @@ some cases may stretch layouts. So, we're just hiding it.
 .qf_dateInputW {
   margin-bottom: 5px;
 }
-

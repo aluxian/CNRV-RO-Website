@@ -6,13 +6,14 @@
       <div class="widget-comment">
         <div class="col-xs-4">
           {{#if user}}
-          <img class="comment-avatar" src="{{user.avatar}}" alt="Avatar">
+          <a href="{{userPath user.id}}" title="{{user.givenName}} {{user.familyName}}"><img class="comment-avatar" src="{{user.avatar}}" alt="Avatar"></a>
           {{else}}
           <img class="comment-avatar" src="//www.gravatar.com/avatar/?s=100&d=mm" alt="Avatar">
           {{/if}}
         </div>
         <div class="col-xs-8">
-          <a href="{{postPath postId}}"><p>{{truncate content 130}}</p></a>
+          <a href="{{postPath post.id}}"><p>{{truncate content 130}}</p></a>
+          <div class="smaller">on <a href="{{postPath post.id}}">{{post.title}}</a></div>
         </div>
       </div>
     </li>

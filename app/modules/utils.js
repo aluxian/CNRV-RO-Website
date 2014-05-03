@@ -66,7 +66,7 @@ utils.loadPageData = function(dataToLoad, session, callback) {
       recentPosts: async.apply(geddy.model.Post.all, null, {sort: {createdAt: 'desc'}, limit: 5})
     , recentComments: async.apply(async.waterfall, [
         async.apply(geddy.model.Comment.all, null, {sort: {createdAt: 'desc'}, limit: 5})
-      , utils.fetchAssociations({fetch: ['User']})
+      , utils.fetchAssociations({fetch: ['User', 'Post']})
       ])
     , events: async.apply(geddy.model.Event.all, null, {sort: {dateStart: 'asc'}, limit: 5})
     , links: async.apply(geddy.model.Link.all, null, {sort: {name: 'asc', createdAt: 'asc'}})
