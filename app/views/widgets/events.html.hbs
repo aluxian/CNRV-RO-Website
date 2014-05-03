@@ -1,0 +1,12 @@
+<div class="widget">
+  <h3>Calendar</h3>
+  <ul>
+    {{#each root.widgets.events}}
+    <li>
+      <span>{{name}}</span><br>
+      <small>{{timeToEventFormat dateStart}} - {{timeToEventFormat dateEnd}}</small>
+      {{#if description}}<br><small>{{description}}</small>{{/if}}
+    </li>
+    {{/each}}
+  </ul>
+</div>

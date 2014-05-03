@@ -1,0 +1,21 @@
+<div class="widget">
+  <h3>Comentarii Recente</h3>
+  <ul class="widget-comments">
+    {{#each root.widgets.recentComments}}
+    <li>
+      <div class="widget-comment">
+        <div class="col-xs-4">
+          {{#if user}}
+          <img class="comment-avatar" src="{{user.avatar}}" alt="Avatar">
+          {{else}}
+          <img class="comment-avatar" src="//www.gravatar.com/avatar/?s=100&d=mm" alt="Avatar">
+          {{/if}}
+        </div>
+        <div class="col-xs-8">
+          <a href="{{postPath postId}}"><p>{{truncate content 130}}</p></a>
+        </div>
+      </div>
+    </li>
+    {{/each}}
+  </ul>
+</div>

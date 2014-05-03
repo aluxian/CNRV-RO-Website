@@ -68,6 +68,7 @@ utils.loadPageData = function(dataToLoad, session, callback) {
         async.apply(geddy.model.Comment.all, null, {sort: {createdAt: 'desc'}, limit: 5})
       , utils.fetchAssociations({fetch: ['User']})
       ])
+    , events: async.apply(geddy.model.Event.all, null, {sort: {dateStart: 'asc'}, limit: 5})
     , links: async.apply(geddy.model.Link.all, null, {sort: {name: 'asc', createdAt: 'asc'}})
     })
 
@@ -92,7 +93,7 @@ utils.loadPageData = function(dataToLoad, session, callback) {
 };
 
 /**
- * Fetches page data, does other tasks and respond with it
+ * Fetches page data, does other tasks and responds with it
  * @param  newTasks  New tasks to be done additionally to pageData
  */
 utils.defaultRespond = function(newTasks, options) {

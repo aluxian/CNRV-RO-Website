@@ -16,10 +16,20 @@ $(function() {
   $('.disabled-open').click(function(event) {
     event.preventDefault();
   });
+
+  // Set default in datetime inputs
+  var dt = new Date();
+  dt.setHours(0);
+  dt.setMinutes(-dt.getTimezoneOffset());
+  dt.setSeconds(0);
+  dt.setMilliseconds(0);
+  dt = dt.toISOString();
+  dt = dt.substring(0, 19);
+  $('[type="datetime-local"]').attr('value', dt);
 });
 
 // Google Map initializer
-if (google) {
+if (window.google) {
   google.maps.event.addDomListener(window, 'load', function() {
     var myLatlng = new google.maps.LatLng(46.925460, 26.931390);
     var mapOptions = {

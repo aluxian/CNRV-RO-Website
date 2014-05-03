@@ -1,0 +1,8 @@
+<div class="widget">
+  <h3>Postări Recente</h3>
+  <ul>
+    {{#each root.widgets.recentPosts}}
+    <li><a href="{{postPath id}}">{{title}}</a></li>
+    {{/each}}
+  </ul>
+</div>

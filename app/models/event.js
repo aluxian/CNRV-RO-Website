@@ -1,7 +1,9 @@
 var Event = function () {
   this.defineProperties({
     name: {type: 'string', required: true},
-    name: {type: 'date', required: true}
+    description: {type: 'string'},
+    dateStart: {type: 'datetime', required: true},
+    dateEnd: {type: 'datetime', required: true}
   });
 };
 

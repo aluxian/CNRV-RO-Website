@@ -24,6 +24,16 @@ var Application = function () {
     return moment(time).format('LL');
   });
 
+  /* Format time to be shown on the events edit page */
+  Handlebars.registerHelper('timeToEventFormat', function(time, options) {
+    time = moment(time);
+    if (time.minutes() == 0 && time.hours() == 0) {
+      return time.format('LL');
+    } else {
+      return time.format('lll');
+    }
+  });
+
   /* Format time to be shown in comments */
   Handlebars.registerHelper('timeToCommentFormat', function(time, options) {
     return moment(time).format('lll');

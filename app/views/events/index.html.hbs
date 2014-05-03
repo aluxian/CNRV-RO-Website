@@ -1,0 +1,43 @@
+{{{partial 'app/views/layouts/layout_nav' root=this user=pageData.user nav=pageData.nav}}}
+
+<div class="container">
+  <section class="container add-post add-menu">
+    <h4>Calendar</h4>
+
+    <div class="col-lg-5 add-menu-container">
+      <form method="POST" role="form">
+        <ul class="list-group add-menu-items">
+          {{#each events}}
+          <li class="list-group-item">
+            <button type="submit" formaction="{{eventPath id}}?_method=DELETE" class="close">&times;</button>
+            <span>{{name}}</span><br>
+            <small>{{timeToEventFormat dateStart}} - {{timeToEventFormat dateEnd}}</small><br>
+            <small>{{description}}</small>
+          </li>
+          {{/each}}
+        </ul>
+      </form>
+
+      <form action="{{eventsPath}}" method="POST" class="form-inline add-menu-form" role="form">
+        <textarea class="form-control qf_linkUrl" name="description" rows="2" placeholder="Descriere..." autofocus></textarea>
+
+        <div class="input-group qf_dateInputW">
+          <span class="input-group-addon">De la &nbsp;&nbsp;</span>
+          <input type="datetime-local" class="form-control qf_dateInput" name="dateStart" required>
+        </div>
+
+        <div class="input-group qf_dateInputW">
+          <span class="input-group-addon">Pana la</span>
+          <input type="datetime-local" class="form-control qf_dateInput" name="dateEnd" required>
+        </div>
+
+        <div class="input-group">
+          <input type="text" class="form-control" name="name" placeholder="Nume eveniment..." required>
+          <span class="input-group-btn">
+            <button class="btn btn-inverse add-button" type="submit">Adaugă</button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

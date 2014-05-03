@@ -1,54 +1,9 @@
 <aside class="col-md-4">
   {{{renderResActions root.pageData.user root.params}}}
 
-  <div class="widget">
-    <h3>Postări Recente</h3>
-    <ul>
-      {{#each widgets.recentPosts}}
-      <li><a href="{{postPath id}}">{{title}}</a></li>
-      {{/each}}
-    </ul>
-  </div>
-
-  <div class="widget">
-    <h3>Comentarii Recente</h3>
-    <ul class="widget-comments">
-      {{#each widgets.recentComments}}
-      <li>
-        <div class="widget-comment">
-          <div class="col-xs-4">
-            {{#if user}}
-            <img class="comment-avatar" src="{{user.avatar}}" alt="Avatar">
-            {{else}}
-            <img class="comment-avatar" src="//www.gravatar.com/avatar/?s=100&d=mm" alt="Avatar">
-            {{/if}}
-          </div>
-          <div class="col-xs-8">
-            <a href="{{postPath postId}}"><p>{{truncate content 130}}</p></a>
-          </div>
-        </div>
-      </li>
-      {{/each}}
-    </ul>
-  </div>
-
-  <div class="widget">
-    <h3>Linkuri Utile</h3>
-    <ul>
-      {{#each widgets.links}}
-      <li>
-        {{#ifEqual linkType 'url'}}
-        <a href="{{../url}}" target="_blank">{{../name}}</a>
-        {{else}}
-        <a href="{{../url}}" target="_blank"><img src="{{../src}}"></a>
-        {{/ifEqual}}
-      </li>
-      {{/each}}
-    </ul>
-  </div>
-
-  <div class="widget">
-    <h3>Facebook</h3>
-    <div class="fb-like-box" data-href="https://www.facebook.com/cnromanvoda" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
-  </div>
+  {{{partial 'app/views/widgets/events' root=this}}}
+  {{{partial 'app/views/widgets/recent-posts' root=this}}}
+  {{{partial 'app/views/widgets/recent-comments' root=this}}}
+  {{{partial 'app/views/widgets/links' root=this}}}
+  {{{partial 'app/views/widgets/facebook' root=this}}}
 </aside>

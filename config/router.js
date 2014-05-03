@@ -3,6 +3,7 @@ var router = new geddy.RegExpRouter();
 // Models
 router.resource('users');
 router.resource('posts');
+router.resource('events');
 router.resource('comments');
 router.resource('categories');
 router.resource('pages');

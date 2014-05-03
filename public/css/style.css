@@ -925,3 +925,14 @@ some cases may stretch layouts. So, we're just hiding it.
 .qf_linkUrl {
   margin-bottom: 5px;
 }
+
+.qf_dateInput {
+  line-height: 17px;
+  padding-top: 10px;
+  padding-bottom: 6px;
+}
+
+.qf_dateInputW {
+  margin-bottom: 5px;
+}
+
