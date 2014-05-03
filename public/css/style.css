@@ -406,10 +406,6 @@ section.container {
     text-align: center;
     display: block;
   }
-
-  .pager {
-    margin-top: 35px;
-  }
 }
 
 .articlesWrapper.col-md-8 {
@@ -462,16 +458,24 @@ ul.post-info li {
   transition: all .2s ease-in-out;
 }
 
+/* Pagination */
 .pager {
   margin-bottom: 10px;
   margin-left: auto;
   margin-right: auto;
   display: table;
+  font-weight: 400;
 }
 
 .pager .disabled > a, .pager .disabled > a:hover, .pager .disabled > a:focus, .pager .disabled > span {
   color: #9AA0A7;
   background-color: #E0E0E0;
+}
+
+@media (max-width: 992px) {
+  .pager {
+    margin-top: 35px;
+  }
 }
 
 /* Widgets */
@@ -813,7 +817,7 @@ footer.error-page {
   margin-top: 4px;
 }
 
-.bootstrap-growl .alert {
+.bootstrap-growl.alert {
   color: #fff;
   background: #34495E;
   border: 1px solid #101010;
