@@ -1,3 +1,34 @@
+(function($,sr){
+  // debouncing function from John Hann
+  // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
+  var debounce = function(func, threshold, execAsap) {
+    var timeout;
+
+    return function debounced () {
+      var obj = this, args = arguments;
+      function delayed () {
+        if (!execAsap) {
+          func.apply(obj, args);
+        }
+        timeout = null;
+      };
+
+      if (timeout) {
+        clearTimeout(timeout);
+      } else if (execAsap) {
+        func.apply(obj, args);
+      }
+
+      timeout = setTimeout(delayed, threshold || 100);
+    };
+  };
+
+  // smartresize
+  jQuery.fn[sr] = function(fn) {
+    return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr);
+  };
+})(jQuery, 'smartresize');
+
 $(function() {
   // Run the WYSIWYG editor
   $('#editor').wysiwyg();
@@ -16,6 +47,32 @@ $(function() {
   $('.disabled-open').click(function(event) {
     event.preventDefault();
   });
+
+  // Responsive menu fix
+  var mobileElemsDisable = $('.responsive-disable');
+  var blogElem = mobileElemsDisable.first();
+  var userElem = mobileElemsDisable.last();
+  var userUrl = $('.responsive-disable').last().attr('href');
+
+  var resizeListener = function() {
+    var width = $(window).width();
+    if (width <= 992) {
+      mobileElemsDisable.removeClass('disabled');
+      blogElem.removeAttr('href');
+      if (userElem.text() != 'Log in cu Facebook') {
+        userElem.removeAttr('href');
+      }
+    } else {
+      mobileElemsDisable.addClass('disabled');
+      blogElem.attr('href', '/');
+      if (userElem.text() != 'Log in cu Facebook') {
+        userElem.attr('href', userUrl);
+      }
+    }
+  };
+
+  $(window).smartresize(resizeListener, 1000);
+  resizeListener();
 
   // Set default in datetime inputs
   var dt = new Date();

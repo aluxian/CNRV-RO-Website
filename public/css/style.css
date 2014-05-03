@@ -199,7 +199,11 @@ ul.nav li.dropdown:hover > a.dropdown-toggle[href] {
   cursor: auto;
 }
 
-ul.nav li.dropdown:hover > a.dropdown-toggle, .navbar .nav > li > a:hover, .navbar .nav > li > a:focus {
+ul.nav li.dropdown:hover > a.dropdown-toggle,
+.navbar .nav > li > a:hover,
+.navbar .nav > li > a:focus,
+.navbar .nav > li:hover > a,
+.navbar .nav > li:focus > a {
   color: #2c3e50;
 }
 
