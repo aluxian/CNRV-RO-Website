@@ -8,6 +8,7 @@
 ## How to deploy on localhost
 - Clone the repo
 - Install node dependencies `npm install`
+- Make sure you've set the variables `.env-sample`
 - Run `geddy` in the app's folder
 - Open the app on `localhost:4000/`
 - Log in and create some posts
@@ -15,7 +16,7 @@
 ## Features
 - Authentication system using Facebook (passport)
 - Posts and Pages (anyone can create, can be edited/removed only by owner or admin)
-- Menus, Links (can be created/edited/removed only by admin)
+- Menus, Links, Categories (can be created/edited/removed only by admin)
 - Posts feed with pagination
 - Commenting system
 - Widgets (recent posts, recent comments and links)
