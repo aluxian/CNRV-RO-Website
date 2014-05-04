@@ -2,7 +2,6 @@ var async = require('async')
   , utils = require('../modules/utils')
   , passport = require('../helpers/passport')
   , security = require('../modules/security')
-  , cryptPass = passport.cryptPass
   , requireAuth = passport.requireAuth;
 
 var Users = function () {

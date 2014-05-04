@@ -2,9 +2,7 @@ var passport = require('passport')
   , user = require('./user')
   , config = geddy.config.passport
   , successRedirect = config.successRedirect
-  , failureRedirect = config.failureRedirect
-  , bcrypt = require('bcrypt')
-  , cryptPass;
+  , failureRedirect = config.failureRedirect;
 
 var SUPPORTED_SERVICES = ['facebook'];
 
@@ -95,57 +93,6 @@ var actions = new (function () {
           passport.authenticate(authType, handler)(req, resp, next);
         };
       };
-
-  this.local = function (req, resp, params) {
-    var self = this
-      , username = params.username
-      , password = params.password;
-
-    geddy.model.User.first({username: username}, {nocase: ['username']},
-        function (err, user) {
-      var crypted
-        , redirect
-        , lastVisitUrl;
-      if (err) {
-        self.redirect(failureRedirect);
-      }
-      if (user) {
-        if (!cryptPass) {
-          cryptPass = require('./index').cryptPass;
-        }
-
-        if (bcrypt.compareSync(password, user.password)) {
-          redirect = self.session.get('successRedirect');
-          lastVisitUrl = self.session.get('lastVisitUrl');
-
-          // If there was a session var for an previous attempt
-          // to hit an auth-protected page, redirect there, and
-          // remove the session var so they don't keep going to
-          // that page for infinity
-          if (redirect) {
-            self.session.unset('successRedirect');
-          }
-          // Otherwise use the default redirect
-          else {
-            redirect = successRedirect;
-          }
-
-          self.session.set('userId', user.id);
-          self.session.set('authType', 'local');
-          // No third-party auth tokens
-          self.session.set('authData', {});
-
-          self.redirect(lastVisitUrl || redirect);
-        }
-        else {
-          self.redirect(failureRedirect);
-        }
-      }
-      else {
-        self.redirect(failureRedirect);
-      }
-    });
-  };
 
   SUPPORTED_SERVICES.forEach(function (item) {
     self[item] = _createInit(item);
