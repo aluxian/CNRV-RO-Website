@@ -5,7 +5,7 @@ var async = require('async')
 
 var Pages = function () {
   this.before(requireAuth, { except: ['show'] });
-  this.before(security.userHasAccess, { only: ['edit', 'update', 'remove'], async: true });
+  this.before(security.userHasAccess, { except: ['show'], async: true });
   this.respondsWith = ['html', 'json'];
 
   this.add = function (req, resp, params) {
