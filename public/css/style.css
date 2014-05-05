@@ -279,15 +279,15 @@ ul.nav li.dropdown:hover > a.dropdown-toggle,
 }
 
 #carousel .item.img-2 {
-  background: url(https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-ash3/1462866_612201338843217_919781692_n.jpg) no-repeat center center;
+  background: url(../img/cnrv2.png) no-repeat center center;
 }
 
 #carousel .item.img-3 {
-  background: url(https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-prn2/1398259_608123742584310_611313372_o.jpg) no-repeat center center;
+  background: url(../img/cnrv3.png) no-repeat center center;
 }
 
 #carousel .item.img-4 {
-  background: url(https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-ash3/1378630_601622519901099_1999602987_n.jpg) no-repeat center center;
+  background: url(../img/cnrv4.png) no-repeat center center;
 }
 
 /* Header */
