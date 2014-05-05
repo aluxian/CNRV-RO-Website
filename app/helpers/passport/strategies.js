@@ -3,15 +3,13 @@ module.exports = {
     name: 'Facebook'
   , keyField: 'id'
   , parseProfile: function (profile) {
-      var email = profile.emails[0].value;
-      var avatarHash = require('crypto').createHash('md5').update(email).digest('hex');
       var userData = {
         givenName: profile.name.givenName || profile.username
       , familyName: profile.name.familyName
       , role: 'user'
-      , email: email
+      , email: profile.emails[0].value
       , username: profile.username
-      , avatar: '//www.gravatar.com/avatar/' + avatarHash + '?s=100&d=mm'
+      , avatar: '//graph.facebook.com/' + profile.id + '/picture?height=100&width=100'
       };
       return userData;
     }
