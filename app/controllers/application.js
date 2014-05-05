@@ -63,8 +63,11 @@ var Application = function () {
   });
 
   /* Render resource actions widget */
-  Handlebars.registerHelper('renderResActions', function(user, params, options) {
-    if (!user || params.action != 'show' || !(params.controller == 'Posts' || params.controller == 'Pages')) {
+  Handlebars.registerHelper('renderResActions', function(user, params, root, options) {
+    var userHasAccessToEdit = (root.root.post && root.root.post.userHasAccessToEdit) || (root.root.page && root.root.page.userHasAccessToEdit);
+    var controllerIsOk = params.controller == 'Posts' || params.controller == 'Pages';
+
+    if (!user || params.action != 'show' || !controllerIsOk || !userHasAccessToEdit) {
       return '';
     }
 

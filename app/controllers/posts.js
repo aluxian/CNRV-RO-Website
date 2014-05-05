@@ -37,10 +37,13 @@ var Posts = function () {
   };
 
   this.show = function (req, resp, params) {
+    var self = this;
+
     utils.defaultIndex.bind(this)({
       post: async.apply(async.waterfall, [
         async.apply(geddy.model.Post.first, params.id)
       , utils.fetchAssociations({fetch: ['User', 'Category', 'Comments', {for: 'comments', fetch: ['User']}]})
+      , utils.checkUserHasAccessToEdit.bind(self)
       ])
     }, { requiredRes: ['post'] });
   };

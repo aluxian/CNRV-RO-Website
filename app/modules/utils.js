@@ -222,4 +222,31 @@ utils.defaultRemove = function(successMessage, respondWith, req, resp, params) {
   });
 };
 
+/**
+ * Check if the user is admin or can edit/remove the provided resource
+ * @param  res      Resource to check (post/page)
+ * @param  callback
+ */
+utils.checkUserHasAccessToEdit = function(res, callback) {
+  var self = this
+    , userId = self.session.get('userId')
+    , resName = res.type
+    , resId = res.id;
+
+  async.parallel({
+    res: async.apply(geddy.model[resName].first, {id: resId})
+  , user: async.apply(geddy.model.User.first, {id: userId})
+  }, function(err, data) {
+    if (err) {
+      callback(err);
+    }
+
+    // Check if user is admin or he owns the resource
+    res.userHasAccessToEdit = data.user && data.user.role === 'admin'
+        || data.res && (!data.res.userId && data.user && data.user.role === 'admin' || data.res.userId === userId);
+
+    callback(null, res);
+  });
+};
+
 module.exports = utils;

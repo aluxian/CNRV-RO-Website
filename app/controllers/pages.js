@@ -15,9 +15,12 @@ var Pages = function () {
   };
 
   this.show = function (req, resp, params) {
+    var self = this;
+
     utils.defaultIndex.bind(this)({
       page: async.apply(async.waterfall, [
         async.apply(geddy.model.Page.first, params.id)
+      , utils.checkUserHasAccessToEdit.bind(self)
       ])
     }, { requiredRes: ['page'] });
   };
