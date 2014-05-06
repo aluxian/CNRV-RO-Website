@@ -102,6 +102,13 @@ var Application = function () {
 
     return html + '});}, 500);</script>';
   });
+
+  /* Transform the avatar url to change size */
+  Handlebars.registerHelper('avatarScaleForProfilePage', function(url, options) {
+    url = url.replace(/width=100/g, 'width=360');
+    url = url.replace(/height=100/g, 'height=256');
+    return url;
+  });
 };
 
 exports.Application = Application;

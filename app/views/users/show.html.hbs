@@ -1,60 +1,42 @@
-<div class="hero-unit">
-  <h2>{{ params.id }}</h2>
-  <a href="{{{ editUserPath params.id }}}" class="btn pull-right">Edit this user</a>
-</div>
+{{{partial 'app/views/layouts/layout_nav' root=this user=pageData.user nav=pageData.nav}}}
 
-<h2>User Properties</h2>
+<div class="container">
+  <section class="container">
+    <div class="profile-page row">
+      <div class="col-md-8">
+        <h2><a href="{{userPath posts.0.user.id}}" title="{{posts.0.user.givenName}} {{posts.0.user.familyName}}">{{posts.0.user.givenName}} {{posts.0.user.familyName}}</a></h2>
+        <span>Facebook: <a href="https://www.facebook.com/{{posts.0.user.username}}">facebook.com/{{posts.0.user.username}}</a></span><br>
+        <span>Postări: {{totalPosts}}</span><br>
+        <span>Comentarii: {{totalComments}}</span>
+      </div>
 
-<div class="row list-item">
-  <div class="span8">
-    <h3>id</h3>
-  </div>
-  <div class="span4">
-    <h3><i class="icon-list-alt"></i>{{ params.id}}</h3>
-  </div>
-</div>
+      <div class="col-md-4">
+        <a href="https://www.facebook.com/{{posts.0.user.username}}">
+          <div class="profile-image" style="background-image: url('{{avatarScaleForProfilePage posts.0.user.avatar}}');"></div>
+        </a>
+      </div>
+    </div>
 
-<div class="row list-item">
-  <div class="span8">
-    <h3>username</h3>
-  </div>
-  <div class="span4">
-    <h3><i class="icon-list-alt"></i>{{ user.username}}</h3>
-  </div>
-</div>
+    <div>
+      <div class="articlesWrapper col-md-8">
+        <h3>Postări:</h3>
 
-<div class="row list-item">
-  <div class="span8">
-    <h3>password</h3>
-  </div>
-  <div class="span4">
-    <h3><i class="icon-list-alt"></i>{{ user.password}}</h3>
-  </div>
-</div>
+        <div class="articles">
+          {{#each posts}}
+          {{{partial 'app/views/layouts/layout_post_excerpt' post=this}}}
+          {{/each}}
+        </div>
 
-<div class="row list-item">
-  <div class="span8">
-    <h3>givenName</h3>
-  </div>
-  <div class="span4">
-    <h3><i class="icon-list-alt"></i>{{ user.givenName}}</h3>
-  </div>
-</div>
+        {{#ifEqual posts.length 0}}
+        <p class="no-posts">Nu a fost gasită nici o postare.</p>
+        {{/ifEqual}}
 
-<div class="row list-item">
-  <div class="span8">
-    <h3>familyName</h3>
-  </div>
-  <div class="span4">
-    <h3><i class="icon-list-alt"></i>{{ user.familyName}}</h3>
-  </div>
-</div>
+        <ul class="pager">
+          {{{renderPager params.page totalPosts}}}
+        </ul>
+      </div>
 
-<div class="row list-item">
-  <div class="span8">
-    <h3>email</h3>
-  </div>
-  <div class="span4">
-    <h3><i class="icon-list-alt"></i>{{ user.email}}</h3>
-  </div>
+      {{{partial 'app/views/layouts/layout_widgets' root=this widgets=pageData.widgets}}}
+    </div>
+  </section>
 </div>

@@ -6,10 +6,13 @@ var async = require('async')
 
 var Users = function () {
   this.before(requireAuth, { only: ['edit', 'update'] });
-  this.before(security.userHasAccess, { only: ['edit', 'update'], async: true });
   this.respondsWith = ['html', 'json'];
 
-  this.posts = function(res, resp, params) {
+  this.add = function (req, resp, params) {
+    this.respond({params: params});
+  };
+
+  this.show = function (req, resp, params) {
     var options = {sort: {createdAt: 'desc'}, limit: 10}
       , q = {userId: params.id};
 
@@ -29,17 +32,13 @@ var Users = function () {
           callback(err, posts.length);
         });
       }
+    , totalComments: function(callback) {
+        geddy.model.Comment.all(q, null, function(err, comments) {
+          callback(err, comments.length);
+        });
+      }
     }, { requiredRes: ['posts'] });
   };
-
-  this.add = function (req, resp, params) {
-    this.respond({params: params});
-  };
-
-  this.show = function (req, resp, params) {};
-  this.edit = function (req, resp, params) {};
-
-  this.update = utils.defaultUpdate.bind(this, false, 'Informații invalide.', 'Informațiile au fost salvate.');
 
 };
 
