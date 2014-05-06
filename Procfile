@@ -1,1 +1,1 @@
-web: geddy --environment $NODE_ENV
+web: node app.js
