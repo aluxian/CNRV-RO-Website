@@ -75,6 +75,32 @@ span#comments {
   z-index: 99;
 }
 
+.navbar .profile-picture {
+  width: 35px;
+  height: 35px;
+  border-radius: 20px;
+  border: 2px solid #fff;
+  margin-top: -7px;
+  margin-right: 5px;
+}
+
+.navbar .profile-picture {
+  width: 35px;
+  height: 35px;
+  border-radius: 20px;
+  border: 2px solid #fff;
+  margin-top: -7px;
+  margin-right: 5px;
+}
+
+.navbar .profile-name {
+  display: inline-block;
+}
+
+.navbar .profile-name span {
+  vertical-align: text-bottom;
+}
+
 @media (max-width: 768px) {
   .navbar-inverse .navbar-brand {
     padding-left: 13px;

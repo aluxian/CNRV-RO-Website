@@ -39,7 +39,12 @@
         <li class="placeholder"></li>
         {{#if user.givenName}}
         <li class="dropdown">
-          <a href="{{userPath user.id}}" class="dropdown-toggle disabled responsive-disable" data-toggle="dropdown">{{user.givenName}} {{user.familyName}}</a>
+          <a href="{{userPath user.id}}" class="dropdown-toggle disabled responsive-disable" data-toggle="dropdown">
+            <img class="profile-picture" src="{{user.avatar}}" alt="{{user.givenName}} {{user.familyName}}">
+            <div class="profile-name">
+              <span>{{user.givenName}} {{user.familyName}}</span>
+            </div>
+          </a>
           <ul class="dropdown-menu user-logged-in">
             <li><a href="{{userPath user.id}}">Pagină Profil</a></li>
             <li><a href="{{addPostPath}}">Adaugă Postare</a></li>
