@@ -1,6 +1,7 @@
 <aside class="col-md-4">
   {{{renderResActions root.pageData.user root.params this}}}
 
+  {{{partial 'app/views/widgets/search' root=this}}}
   {{{partial 'app/views/widgets/events' root=this}}}
   {{{partial 'app/views/widgets/recent-posts' root=this}}}
   {{{partial 'app/views/widgets/recent-comments' root=this}}}

@@ -12,7 +12,10 @@
     "async": "0.2.x",
     "underscore": "1.5.x",
     "moment": "2.4.x",
-    "newrelic": "1.5.x"
+    "newrelic": "1.5.x",
+    "url": "0.10.x",
+    "elasticsearchclient": "0.5.x",
+    "request": "~2.34.0"
   },
   "engines": {
     "node": "0.10.x"

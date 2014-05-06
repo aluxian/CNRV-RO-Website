@@ -1,4 +1,5 @@
-var cluster = require('cluster');
+var cluster = require('cluster')
+  , url = require('url');
 
 // If in production mode start the New Relic monitor
 if (cluster.isWorker && process.env.NODE_ENV == 'production') {

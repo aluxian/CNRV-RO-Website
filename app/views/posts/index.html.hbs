@@ -9,6 +9,10 @@
         {{/each}}
       </div>
 
+      {{#ifEqual posts.length 0}}
+      <p class="no-posts">Nu a fost gasită nici o postare.</p>
+      {{/ifEqual}}
+
       <ul class="pager">
         {{{renderPager params.page totalPosts}}}
       </ul>

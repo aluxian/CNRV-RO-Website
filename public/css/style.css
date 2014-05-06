@@ -448,6 +448,10 @@ section.container {
   border-bottom: 2px solid rgba(52, 73, 94, 0.52);
 }
 
+.articlesWrapper .no-posts {
+  text-align: center;
+}
+
 article {
   margin-bottom: 45px;
   padding-bottom: 35px;
@@ -951,4 +955,13 @@ footer.error-page {
 
 .qf_dateInputW {
   margin-bottom: 5px;
+}
+
+/* Search box widget */
+.search_box {
+  margin-top: 10px;
+}
+
+.search_box input {
+  height: 41px;
 }

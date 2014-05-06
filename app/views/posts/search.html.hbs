@@ -3,7 +3,7 @@
 <div class="container">
   <section class="container">
     <div class="articlesWrapper col-md-8">
-      <h3>Postări în categoria {{posts.0.category.name}}</h3>
+      <h3>Postări pentru căutarea '{{searchTerm}}'</h3>
 
       <div class="articles">
         {{#each posts}}
@@ -11,7 +11,7 @@
         {{/each}}
       </div>
 
-      {{#ifEqual posts.length 0}}
+      {{#ifEqual posts null}}
       <p class="no-posts">Nu a fost gasită nici o postare.</p>
       {{/ifEqual}}
 
