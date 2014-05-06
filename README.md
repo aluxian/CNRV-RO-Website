@@ -7,9 +7,9 @@
 
 ## How to deploy on localhost
 - Clone the repo
-- Install node dependencies `npm install`
-- Make sure you've set the variables `.env-sample`
-- Run `geddy` in the app's folder
+- Install node dependencies with `npm install`
+- Make sure you've set the variables in `.env-sample` locally
+- Run `node app.js` in the app's folder
 - Open the app on `localhost:4000/`
 - Log in and create some posts
 

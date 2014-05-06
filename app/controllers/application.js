@@ -7,6 +7,11 @@ var Handlebars = require('handlebars')
 moment.lang('ro');
 
 var Application = function () {
+  /* Name requests so that they do not all get grouped under /* or similar in New Relic */
+  this.before(function() {
+    geddy.newrelic.setControllerName(this.params.controller, this.params.action);
+  });
+
   /* Set the previous visited page for redirect after login */
   this.before(function() {
     if (['Auth', 'Main'].indexOf(this.session.controller.name) == -1) {
