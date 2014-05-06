@@ -61,6 +61,10 @@ var Application = function () {
     page = parseInt(page) || 0;
     max = (parseInt(max) || 0) / 10 - 1;
 
+    if (page >= max && !page) {
+      return '';
+    }
+
     var html = '<li class="previous' + (page >= max ? ' disabled' : '') + '"><a'
       + (page < max ? ' href="?page=' + ((page || 0) + 1) + '"' : '') + '>&larr; Postări anterioare</a></li>'
       + '<li class="next' + (page ? '' : ' disabled') + '"><a' + (page ? (page > 1 ? ' href="?page=' + (page - 1)
