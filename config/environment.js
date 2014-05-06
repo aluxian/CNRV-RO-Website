@@ -1,9 +1,3 @@
-var config = {
-  /*
-  metrics: {
-    port: 4001
-  }
-  */
-};
+var config = {};
 
 module.exports = config;

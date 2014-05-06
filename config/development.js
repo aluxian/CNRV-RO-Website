@@ -1,8 +1,8 @@
 var config = {
   detailedErrors: true
 , debug: true
-, hostname: null
-, port: 4000
+, hostname: process.env.HOSTNAME || '0.0.0.0'
+, port: process.env.PORT || 4000
 , model: {
     defaultAdapter: 'mongo'
   }
@@ -18,7 +18,7 @@ var config = {
   }
 , sessions: {
     store: 'memory'
-  , key: 'sid'
+  , key: 'cnrv_sid'
   , expiry: 14 * 24 * 60 * 60
   }
 };
