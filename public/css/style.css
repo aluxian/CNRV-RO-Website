@@ -303,10 +303,6 @@ ul.nav li.dropdown:hover > a.dropdown-toggle,
   background: url(../img/cnrv3.png) no-repeat center center;
 }
 
-#carousel .item.img-4 {
-  background: url(../img/cnrv4.png) no-repeat center center;
-}
-
 /* Header */
 header {
   padding-top: 50px;
