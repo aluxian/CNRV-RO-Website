@@ -958,6 +958,7 @@ footer.error-page {
 /* Quick fixes */
 .qf_linkUrl {
   margin-bottom: 5px;
+  width: 100% !important;
 }
 
 .qf_dateInput {
