@@ -22,6 +22,15 @@ var config = {
   , key: 'cnrv_did'
   , expiry: 14 * 24 * 60 * 60
   }
+, cacheControl: {
+    expires: {
+      'image/png': 1209600
+    , 'image/jpeg': 1209600
+    , 'text/javascript': 259200
+    , 'text/css': 259200
+    , default: 86400
+    }
+  }
 };
 
 module.exports = config;
