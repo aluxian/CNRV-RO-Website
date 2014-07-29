@@ -65,13 +65,23 @@ var Posts = function() {
 
     async.series({
       posts: async.apply(async.waterfall, [
-        async.apply(request.get, searchUrl)
+        function(callback) {
+          try {
+            request.get(searchUrl, callback);
+          } catch(ex) {
+            callback(null);
+          }
+        }
       , function(resp, body, callback) {
-          var data = JSON.parse(body).hits.hits
-            , queryIds = [];
+          try {
+            var data = JSON.parse(body).hits.hits
+              , queryIds = [];
 
-          for (var i = 0; i < data.length; i++) {
-            queryIds.push({ id: data[i]._id });
+            for (var i = 0; i < data.length; i++) {
+              queryIds.push({ id: data[i]._id });
+            }
+          } catch(ex) {
+            return callback(null, null);
           }
 
           if (queryIds.length) {
