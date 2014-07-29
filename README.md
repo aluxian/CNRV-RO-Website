@@ -8,10 +8,11 @@
 ## How to deploy on localhost
 - Clone the repo
 - Install node dependencies with `npm install`
-- Make sure you've set the variables in `.env-sample` locally
-- Run `node app.js` in the app's folder
-- Open the app on `localhost:4000/`
+- Copy `.env-sample` as `.env` and set the required vars
+- Run with `foreman start`
+- Open the app on `localhost:5000/`
 - Log in and create some posts
+- You can see the online version with content [here](http://cnrv.herokuapp.com)
 
 ## Features
 - Authentication system using Facebook (passport)
@@ -25,3 +26,11 @@
 - Alexandru Rosianu
 - [contact@aluxian.com](mailto:contact@aluxian.com)
 - [http://www.aluxian.com](http://www.aluxian.com)
+
+## Libraries
+
+I don't own:
+
+- The packages defined in package.json
+- All the files in `public/js` except `app.js`
+
