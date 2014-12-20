@@ -11,12 +11,15 @@ router.resource('menus');
 router.resource('links');
 
 // Auth
+router.get('/login').to('Main.login');
 router.get('/logout').to('Main.logout');
+router.post('/auth/local').to('Auth.local');
 router.get('/auth/facebook').to('Auth.facebook');
 router.get('/auth/facebook/callback').to('Auth.facebookCallback');
 
 // Custom routes
 router.get('/').to('Posts.index');
 router.get('/search').to('Posts.search');
+router.get('/register').to('Users.add');
 
 exports.router = router;

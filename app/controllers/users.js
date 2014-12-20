@@ -2,15 +2,52 @@ var async = require('async')
   , utils = require('../modules/utils')
   , passport = require('../helpers/passport')
   , security = require('../modules/security')
+  , cryptPass = passport.cryptPass
   , requireAuth = passport.requireAuth;
 
 var Users = function () {
-  
+
   this.before(requireAuth, { only: ['edit', 'update'] });
   this.respondsWith = ['html', 'json'];
 
   this.add = function (req, resp, params) {
     this.respond({params: params});
+  };
+
+  this.create = function (req, resp, params) {
+    var self = this
+      , user = geddy.model.User.create(params)
+      , sha;
+
+    // Non-blocking uniqueness checks are hard
+    geddy.model.User.first({username: user.username}, function(err, data) {
+      if (err) throw err;
+
+      if (data) {
+        self.flash.error('Acest nume de utilizator este deja folosit.');
+        //self.transfer('add');
+      } else {
+        if (user.isValid()) {
+          user.password = cryptPass(user.password);
+        }
+
+        user.save(function(err, data) {
+          if (err) {
+            if (err.password) {
+              self.flash.error('Parolă invalidă.');
+            } else if (err.username) {
+              self.flash.error('Nume de utilizator invalid.');
+            } else {
+              throw err;
+            }
+          } else {
+            self.flash.success('Contul a fost creat.');
+            self.session.set('lastVisitUrl', self.session.get('successRedirect'));
+            self.redirect('/login');
+          }
+        });
+      }
+    });
   };
 
   this.show = function (req, resp, params) {

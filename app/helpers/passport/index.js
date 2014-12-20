@@ -1,3 +1,6 @@
+var crypto = require('crypto')
+  , bcrypt = require('bcrypt');
+
 exports.actions = require('./actions');
 
 // Redirect to the login page unless the user has an authenticated session.
@@ -12,4 +15,11 @@ exports.requireAuth = function () {
     this.session.set('successRedirect', this.request.url);
     this.redirect('/');
   }
+};
+
+exports.cryptPass = function (cleartextPass) {
+  if (!geddy.config.secret) {
+    throw new Error('Need application secret');
+  }
+  return bcrypt.hashSync(cleartextPass, 10);
 };

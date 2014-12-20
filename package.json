@@ -15,7 +15,8 @@
     "newrelic": "1.5.x",
     "url": "0.10.x",
     "elasticsearchclient": "0.5.x",
-    "request": "2.34.0"
+    "request": "2.34.x",
+    "bcrypt": "0.7.x"
   },
   "engines": {
     "node": "0.10.x"

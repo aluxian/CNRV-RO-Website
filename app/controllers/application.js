@@ -56,6 +56,13 @@ var Application = function () {
     return (p1 == p2) || (parseInt(p1) === parseInt(p2)) ? options.fn() : options.inverse();
   });
 
+  /* Check if first param is equal to one of the other two */
+  Handlebars.registerHelper('ifEqual2', function(p1, p2, p3, options) {
+    var rawMatch = (p1 == p2) || (p1 == p3);
+    var parsedMatch = (parseInt(p1) === parseInt(p2)) || (parseInt(p1) === parseInt(p3));
+    return rawMatch || parsedMatch ? options.fn() : options.inverse();
+  });
+
   /* Render pager for the provided params */
   Handlebars.registerHelper('renderPager', function(page, max, options) {
     page = parseInt(page) || 0;
@@ -105,8 +112,12 @@ var Application = function () {
 
   /* Transform the avatar url to change size */
   Handlebars.registerHelper('avatarScaleForProfilePage', function(url, options) {
-    url = url.replace(/width=100/g, 'width=360');
-    url = url.replace(/height=100/g, 'height=256');
+    if (url) {
+      url = url.replace(/width=100/g, 'width=360');
+      url = url.replace(/height=100/g, 'height=256');
+    } else {
+      url = '//www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&s=360';
+    }
     return url;
   });
 };
