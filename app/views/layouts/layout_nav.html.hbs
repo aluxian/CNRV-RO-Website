@@ -14,72 +14,59 @@
     <div class="collapse navbar-collapse" id="bs-nav">
       <ul class="nav navbar-nav">
         {{#if nav.categories}}
-        <li class="dropdown">
-          <a class="dropdown-toggle disabled responsive-disable" href="/" data-toggle="dropdown">Blog</a>
-          <ul class="dropdown-menu">
-            {{#each nav.categories}}
-            <li><a href="{{categoryPath id}}">{{name}}</a></li>
-            {{/each}}
-          </ul>
-        </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle disabled responsive-disable" href="/" data-toggle="dropdown">Blog</a>
+            <ul class="dropdown-menu">
+              {{#each nav.categories}}
+                <li><a href="{{categoryPath id}}">{{name}}</a></li>
+              {{/each}}
+            </ul>
+          </li>
         {{/if}}
+
         {{#each nav.menus}}
-        <li class="dropdown">
-          <a class="dropdown-toggle disabled responsive-disable" data-toggle="dropdown">{{name}}</a>
-          <ul class="dropdown-menu">
-            {{#each pages}}
-            <li><a href="{{pagePath id}}">{{title}}</a></li>
-            {{/each}}
-          </ul>
-        </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle disabled responsive-disable" data-toggle="dropdown">{{name}}</a>
+            <ul class="dropdown-menu">
+              {{#each pages}}
+                <li><a href="{{pagePath id}}">{{title}}</a></li>
+              {{/each}}
+            </ul>
+          </li>
         {{/each}}
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <li class="placeholder"></li>
-        {{#if user.givenName}}
+        {{#if user}}
           <li class="dropdown">
             <a href="{{userPath user.id}}" class="dropdown-toggle disabled responsive-disable" data-toggle="dropdown">
-              <img class="profile-picture" src="{{user.avatar}}" alt="{{user.givenName}} {{user.familyName}}">
+              {{#if user.avatar}}
+                <img class="profile-picture" src="{{user.avatar}}" alt="{{user.givenName}} {{user.familyName}}">
+              {{/if}}
               <div class="profile-name">
-                <span>{{user.givenName}} {{user.familyName}}</span>
+                {{#if user.givenName}}
+                  <span>{{user.givenName}} {{user.familyName}}</span>
+                {{else}}
+                  <span>{{user.username}}</span>
+                {{/if}}
               </div>
             </a>
-            <ul class="dropdown-menu user-logged-in">
-              <li><a href="{{userPath user.id}}">Pagină Profil</a></li>
-              <li><a href="{{addPostPath}}">Adaugă Postare</a></li>
-              {{#ifEqual2 user.role 'admin' 'author'}}<li><a href="{{addPagePath}}">Adaugă Pagină</a></li>{{/ifEqual2}}
-              {{#ifEqual user.role 'admin'}}<li><a href="{{categoriesPath}}">Editează Categorii</a></li>{{/ifEqual}}
-              {{#ifEqual user.role 'admin'}}<li><a href="{{menusPath}}">Editează Meniuri</a></li>{{/ifEqual}}
-              {{#ifEqual user.role 'admin'}}<li><a href="{{linksPath}}">Editează Linkuri</a></li>{{/ifEqual}}
-              {{#ifEqual user.role 'admin'}}<li><a href="{{eventsPath}}">Editează Calendar</a></li>{{/ifEqual}}
-              <li><a href="{{logoutPath}}">Log out</a></li>
-            </ul>
+  <ul class="dropdown-menu user-logged-in">
+    <li><a href="{{userPath user.id}}">Pagină Profil</a></li>
+    <li><a href="{{addPostPath}}">Adaugă Postare</a></li>
+    {{#hasPermission user.role 'author'}}<li><a href="{{addPagePath}}">Adaugă Pagină</a></li>{{/hasPermission}}
+    {{#hasPermission user.role 'admin'}}<li><a href="{{categoriesPath}}">Editează Categorii</a></li>{{/hasPermission}}
+    {{#hasPermission user.role 'admin'}}<li><a href="{{menusPath}}">Editează Meniuri</a></li>{{/hasPermission}}
+    {{#hasPermission user.role 'admin'}}<li><a href="{{linksPath}}">Editează Linkuri</a></li>{{/hasPermission}}
+    {{#hasPermission user.role 'admin'}}<li><a href="{{eventsPath}}">Editează Calendar</a></li>{{/hasPermission}}
+    <li><a href="{{logoutPath}}">Log out</a></li>
+  </ul>
           </li>
         {{else}}
-          {{#if user.username}}
-            <li class="dropdown">
-              <a href="{{userPath user.id}}" class="dropdown-toggle disabled responsive-disable" data-toggle="dropdown">
-                <div class="profile-name">
-                  <span>{{user.username}}</span>
-                </div>
-              </a>
-              <ul class="dropdown-menu user-logged-in">
-                <li><a href="{{userPath user.id}}">Pagină Profil</a></li>
-                <li><a href="{{addPostPath}}">Adaugă Postare</a></li>
-                {{#ifEqual2 user.role 'admin' 'author'}}<li><a href="{{addPagePath}}">Adaugă Pagină</a></li>{{/ifEqual2}}
-                {{#ifEqual user.role 'admin'}}<li><a href="{{categoriesPath}}">Editează Categorii</a></li>{{/ifEqual}}
-                {{#ifEqual user.role 'admin'}}<li><a href="{{menusPath}}">Editează Meniuri</a></li>{{/ifEqual}}
-                {{#ifEqual user.role 'admin'}}<li><a href="{{linksPath}}">Editează Linkuri</a></li>{{/ifEqual}}
-                {{#ifEqual user.role 'admin'}}<li><a href="{{eventsPath}}">Editează Calendar</a></li>{{/ifEqual}}
-                <li><a href="{{logoutPath}}">Log out</a></li>
-              </ul>
-            </li>
-          {{else}}
-            <li>
-              <a href="/login" class="disabled responsive-disable">Login</a>
-            </li>
-          {{/if}}
+          <li>
+            <a href="/login" class="disabled responsive-disable">Login</a>
+          </li>
         {{/if}}
       </ul>
     </div>
@@ -88,20 +75,20 @@
 
 <header class="container">
   {{#ifEqual root.url '/'}}
-  <div id="carousel" class="carousel slide" data-ride="carousel">
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-      <div class="item img-1 active"></div>
-      <div class="item img-2"></div>
-      <div class="item img-3"></div>
-    </div>
+    <div id="carousel" class="carousel slide" data-ride="carousel">
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner">
+        <div class="item img-1 active"></div>
+        <div class="item img-2"></div>
+        <div class="item img-3"></div>
+      </div>
 
-    <!-- Controls -->
-    <a class="left carousel-control" href="#carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    <a class="right carousel-control" href="#carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-  </div>
+      <!-- Controls -->
+      <a class="left carousel-control" href="#carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a class="right carousel-control" href="#carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div>
   {{else}}
-  <h1>Colegiul Național “Roman-Vodă”</h1>
-  <span>“Un colegiu pentru cine știe ce vrea, și pentru cine vrea să știe!”</span>
+    <h1>Colegiul Național “Roman-Vodă”</h1>
+    <span>“Un colegiu pentru cine știe ce vrea, și pentru cine vrea să știe!”</span>
   {{/ifEqual}}
 </header>

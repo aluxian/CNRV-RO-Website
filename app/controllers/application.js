@@ -56,11 +56,10 @@ var Application = function () {
     return (p1 == p2) || (parseInt(p1) === parseInt(p2)) ? options.fn() : options.inverse();
   });
 
-  /* Check if first param is equal to one of the other two */
-  Handlebars.registerHelper('ifEqual2', function(p1, p2, p3, options) {
-    var rawMatch = (p1 == p2) || (p1 == p3);
-    var parsedMatch = (parseInt(p1) === parseInt(p2)) || (parseInt(p1) === parseInt(p3));
-    return rawMatch || parsedMatch ? options.fn() : options.inverse();
+  /* Check if the user has permission (p1 >= p2) */
+  Handlebars.registerHelper('hasPermission', function(role, requiredRole, options) {
+    var levels = ['user', 'author', 'admin'];
+    return levels.indexOf(role) >= levels.indexOf(requiredRole) ? options.fn() : options.inverse();
   });
 
   /* Render pager for the provided params */
