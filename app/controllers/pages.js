@@ -4,6 +4,7 @@ var async = require('async')
   , security = require('../modules/security');
 
 var Pages = function () {
+
   this.before(requireAuth, { except: ['show'] });
   this.before(security.userHasAccess, { except: ['show'], async: true });
   this.respondsWith = ['html', 'json'];

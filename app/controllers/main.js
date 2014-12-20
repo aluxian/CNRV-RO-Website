@@ -1,4 +1,5 @@
 var Main = function () {
+  
   this.respondsWith = ['html'];
 
   this.logout = function (req, resp, params) {

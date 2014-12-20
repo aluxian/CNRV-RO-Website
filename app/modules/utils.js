@@ -199,7 +199,7 @@ utils.defaultUpdate = function(respondWith, invalidMessage, successMessage, req,
  * @param  respondWith    If true the route will respond with the object, otherwise it will redirect
  * @param  params         Object containing the ID
  */
-utils.defaultRemove = function(successMessage, respondWith, req, resp, params) {
+utils.defaultRemove = function(respondWith, successMessage, req, resp, params) {
   var self = this
     , modelName = geddy.string.capitalize(geddy.inflection.singularize(self.name));
 

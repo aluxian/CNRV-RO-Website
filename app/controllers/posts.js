@@ -5,6 +5,7 @@ var async = require('async')
   , security = require('../modules/security');
 
 var Posts = function() {
+
   this.before(requireAuth, { except: ['index', 'show', 'search'] });
   this.before(security.userHasAccess, { only: ['edit', 'update', 'remove'], async: true });
   this.respondsWith = ['html', 'json'];
@@ -69,7 +70,7 @@ var Posts = function() {
           try {
             request.get(searchUrl, callback);
           } catch(ex) {
-            callback(null);
+            callback(ex);
           }
         }
       , function(resp, body, callback) {
@@ -81,7 +82,7 @@ var Posts = function() {
               queryIds.push({ id: data[i]._id });
             }
           } catch(ex) {
-            return callback(null, null);
+            return callback(ex);
           }
 
           if (queryIds.length) {

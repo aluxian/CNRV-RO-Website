@@ -4,6 +4,7 @@ var async = require('async')
   , security = require('../modules/security');
 
 var Links = function () {
+  
   this.before(requireAuth);
   this.before(security.userHasAccess, { async: true });
   this.respondsWith = ['html', 'json'];

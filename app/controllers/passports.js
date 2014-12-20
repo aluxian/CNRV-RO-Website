@@ -1,4 +1,5 @@
 var Passports = function () {
+  
   this.respondsWith = ['html', 'json'];
 
   this.index = function (req, resp, params) {

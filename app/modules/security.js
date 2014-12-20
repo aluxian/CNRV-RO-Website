@@ -41,4 +41,31 @@ security.userHasAccess = function(next) {
   });
 };
 
+/**
+* Check if the logged in user is admin
+* @param  next  Callback
+*/
+security.userIsAdmin = function(next) {
+  var self = this
+    , userId = self.session.get('userId');
+
+  async.parallel({
+    user: async.apply(geddy.model.User.first, {id: userId})
+  }, function(err, data) {
+    if (err) {
+      throw err;
+    }
+
+    // User is admin
+    if (data.user && data.user.role === 'admin') {
+      next();
+    }
+    // Redirect and set flash message
+    else {
+      self.flash.error('Nu ai acces la această pagină.');
+      self.redirect('/');
+    }
+  });
+};
+
 module.exports = security;

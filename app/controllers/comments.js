@@ -4,7 +4,7 @@ var utils = require('../modules/utils')
 
 var Comments = function () {
   this.before(requireAuth, {only: ['remove']});
-  this.before(security.userHasAccess, { only: ['remove'], async: true });
+  this.before(security.userIsAdmin, { only: ['remove'], async: true });
   this.respondsWith = ['html', 'json'];
 
   this.create = function(req, resp, params) {
@@ -24,7 +24,23 @@ var Comments = function () {
     }
   };
 
-  this.remove = utils.defaultRemove.bind(this, true, 'Comentariul a fost șters.');
+  this.remove = function(req, resp, params) {
+    var self = this
+      , modelName = geddy.string.capitalize(geddy.inflection.singularize(self.name));
+
+    geddy.model[modelName].first(params.id, function(err, model) {
+      if (err) { throw err; }
+      if (!model) {
+        throw new geddy.errors.BadRequestError();
+      } else {
+        geddy.model[modelName].remove(params.id, function(err) {
+          if (err) { throw err; }
+          self.flash.success('Comentariul a fost șters.');
+          self.redirect({controller: 'posts', id: model.postId});
+        });
+      }
+    });
+  };
 
 };
 

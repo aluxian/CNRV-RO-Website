@@ -5,6 +5,7 @@ var async = require('async')
   , requireAuth = passport.requireAuth;
 
 var Users = function () {
+  
   this.before(requireAuth, { only: ['edit', 'update'] });
   this.respondsWith = ['html', 'json'];
 

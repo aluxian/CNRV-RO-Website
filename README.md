@@ -24,13 +24,5 @@
 
 ## Author
 - Alexandru Rosianu
-- [contact@aluxian.com](mailto:contact@aluxian.com)
+- [me@aluxian.com](mailto:me@aluxian.com)
 - [http://www.aluxian.com](http://www.aluxian.com)
-
-## Libraries
-
-I don't own:
-
-- The packages defined in package.json
-- All the files in `public/js` except `app.js`
-
