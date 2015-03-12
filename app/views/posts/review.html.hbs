@@ -1,0 +1,20 @@
+{{{partial 'app/views/layouts/layout_nav' root=this user=pageData.user nav=pageData.nav}}}
+
+<div class="container">
+  <section class="container add-post add-menu">
+    <h4>Postări Noi</h4>
+
+    <div class="col-lg-5 add-menu-container">
+      <form method="POST" role="form">
+        <ul class="list-group add-menu-items">
+          {{#each posts}}
+            <li class="list-group-item">
+              <span>{{name}}</span>
+              <button type="submit" formaction="{{postPath id}}?_method=DELETE" class="close">&times;</button>
+            </li>
+          {{/each}}
+        </ul>
+      </form>
+    </div>
+  </section>
+</div>

@@ -101,9 +101,7 @@ var actions = new (function () {
       , password = params.password;
 
     geddy.model.User.first({username: username}, {nocase: ['username']}, function (err, user) {
-      var crypted
-        , redirect
-        , lastVisitUrl;
+      var lastVisitUrl = self.session.get('lastVisitUrl');
 
       if (err) {
         self.redirect(failureRedirect);
@@ -115,8 +113,7 @@ var actions = new (function () {
         }
 
         if (bcrypt.compareSync(password, user.password)) {
-          redirect = self.session.get('successRedirect');
-          lastVisitUrl = self.session.get('lastVisitUrl');
+          var redirect = self.session.get('successRedirect');
 
           // If there was a session var for an previous attempt
           // to hit an auth-protected page, redirect there, and
@@ -137,10 +134,12 @@ var actions = new (function () {
 
           self.redirect(lastVisitUrl || redirect);
         } else {
-          self.redirect(failureRedirect);
+          self.session.flash.error('Parolă incorectă.');
+          self.redirect('/login');
         }
       } else {
-        self.redirect(failureRedirect);
+        self.session.flash.error('Utilizator inexistent.');
+        self.redirect('/login');
       }
     });
   };

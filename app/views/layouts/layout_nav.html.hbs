@@ -53,13 +53,17 @@
               </div>
             </a>
   <ul class="dropdown-menu user-logged-in">
-    <li><a href="{{userPath user.id}}">Pagină Profil</a></li>
+    <!-- <li><a href="{{userPath user.id}}">Pagină Profil</a></li> -->
     <li><a href="{{addPostPath}}">Adaugă Postare</a></li>
-    {{#hasPermission user.role 'author'}}<li><a href="{{addPagePath}}">Adaugă Pagină</a></li>{{/hasPermission}}
-    {{#hasPermission user.role 'admin'}}<li><a href="{{categoriesPath}}">Editează Categorii</a></li>{{/hasPermission}}
-    {{#hasPermission user.role 'admin'}}<li><a href="{{menusPath}}">Editează Meniuri</a></li>{{/hasPermission}}
-    {{#hasPermission user.role 'admin'}}<li><a href="{{linksPath}}">Editează Linkuri</a></li>{{/hasPermission}}
-    {{#hasPermission user.role 'admin'}}<li><a href="{{eventsPath}}">Editează Calendar</a></li>{{/hasPermission}}
+    {{#hasPermission user.role 'author'}}<li><a href="/pages/add">Adaugă Pagină</a></li>{{/hasPermission}}
+    {{#hasPermission user.role 'admin'}}<li><a href="/categories">Editează Categorii</a></li>{{/hasPermission}}
+    {{#hasPermission user.role 'admin'}}<li><a href="/menus">Editează Meniuri</a></li>{{/hasPermission}}
+    {{#hasPermission user.role 'admin'}}<li><a href="/links">Editează Linkuri</a></li>{{/hasPermission}}
+    {{#hasPermission user.role 'admin'}}<li><a href="/events">Editează Calendar</a></li>{{/hasPermission}}
+    <!-- {{#hasPermission user.role 'admin'}}<li><a href="/posts/review">Moderează Postări</a></li>{{/hasPermission}} -->
+    {{#hasPermission user.role 'admin'}}<li>
+      <a href="https://developers.facebook.com/tools/comments?id=675605892472294&view=queue">Moderează Comentarii</a>
+    </li>{{/hasPermission}}
     <li><a href="{{logoutPath}}">Log out</a></li>
   </ul>
           </li>

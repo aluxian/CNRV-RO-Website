@@ -4,7 +4,7 @@ var router = new geddy.RegExpRouter();
 router.resource('users');
 router.resource('posts');
 router.resource('events');
-router.resource('comments');
+//router.resource('comments');
 router.resource('categories');
 router.resource('pages');
 router.resource('menus');
@@ -21,5 +21,6 @@ router.get('/auth/facebook/callback').to('Auth.facebookCallback');
 router.get('/').to('Posts.index');
 router.get('/search').to('Posts.search');
 router.get('/register').to('Users.add');
+router.get('/posts/review').to('Posts.review');
 
 exports.router = router;

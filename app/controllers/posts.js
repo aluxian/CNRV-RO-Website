@@ -108,7 +108,13 @@ var Posts = function() {
       data.searchTerm = params.q;
       self.respond(data);
     });
-  }
+  };
+
+  this.review = function(req, resp, params) {
+    utils.defaultIndex.bind(this)({
+      posts: async.apply(geddy.model.Post.all, {reviewed: false})
+    }, { respond: {template: 'app/views/posts/review'} });
+  };
 
   this.create = utils.defaultCreate.bind(this, true, 'Postare invalidă.', 'Postarea a fost adaugată.');
   this.update = utils.defaultUpdate.bind(this, true, 'Postare invalidă.', 'Postarea a fost salvată.');

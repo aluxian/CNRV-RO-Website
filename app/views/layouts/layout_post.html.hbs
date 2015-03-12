@@ -8,14 +8,12 @@
     <li><a href="{{categoryPath category.id}}">{{category.name}}</a></li>
     <li>&bull;</li>
     <li>{{timeToPostFormat createdAt}}</li>
-    <li>&bull;</li>
-    <li><a href="#comments">{{comments.length}}&nbsp;{{singOrPlural comments.length 'Comentariu' 'Comentarii'}}</a></li>
   </ul>
 
   <div class="post-body">
     {{{content}}}
   </div>
 
-  <div class="fb-like" data-href="http://{{../root.request.headers.host}}{{../root.url}}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+  <div class="fb-like" data-href="{{../root.request.headers.host}}{{../root.url}}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 </article>
 {{/with}}
