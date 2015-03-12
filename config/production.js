@@ -1,4 +1,4 @@
-var MONGO_PARSED = require('./parse_uri')(process.env.MONGOHQ_URL);
+var MONGO_PARSED = require('./parse_uri')(process.env.MONGOLAB_URI);
 
 var config = {
   detailedErrors: false
