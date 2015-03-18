@@ -20,7 +20,7 @@ var config = {
 , sessions: {
     store: 'cookie'
   , key: 'cnrv_did'
-  , expiry: 14 * 24 * 60 * 60
+  , expiry: 14 * 24 * 60 * 60 // 14 days
   }
 , cacheControl: {
     expires: {

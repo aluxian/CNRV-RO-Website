@@ -14,8 +14,8 @@ router.resource('links');
 router.get('/login').to('Main.login');
 router.get('/logout').to('Main.logout');
 router.post('/auth/local').to('Auth.local');
-router.get('/auth/facebook').to('Auth.facebook');
-router.get('/auth/facebook/callback').to('Auth.facebookCallback');
+// router.get('/auth/facebook').to('Auth.facebook');
+// router.get('/auth/facebook/callback').to('Auth.facebookCallback');
 
 // Custom routes
 router.get('/').to('Posts.index');
