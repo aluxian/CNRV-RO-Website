@@ -74,15 +74,14 @@ var Posts = function() {
           }
         }
       , function(resp, body, callback) {
-          try {
-            var data = JSON.parse(body).hits.hits
-              , queryIds = [];
+          var parsed = JSON.parse(body);
+          var queryIds = [];
 
+          if (parsed && parsed.hits && parsed.hits.hits) {
+            var data = parsed.hits.hits
             for (var i = 0; i < data.length; i++) {
               queryIds.push({ id: data[i]._id });
             }
-          } catch(ex) {
-            return callback(ex);
           }
 
           if (queryIds.length) {
@@ -118,7 +117,7 @@ var Posts = function() {
 
   this.create = utils.defaultCreate.bind(this, true, 'Postare invalidă.', 'Postarea a fost adaugată.');
   this.update = utils.defaultUpdate.bind(this, true, 'Postare invalidă.', 'Postarea a fost salvată.');
-  this.remove = utils.defaultRemove.bind(this, true, 'Postarea a fost ștearsă.');
+  this.remove = utils.defaultRemove.bind(this, true, 'Postarea a fost ştearsă.');
 
 };
 
