@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "author": "Alexandru Rosianu",
   "description": "http://www.cnrv.ro",
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
     "async": "0.2.x",
     "bcrypt": "0.8.x",
